@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local environment variables / secrets
+.env
+
+# Power BI temporary/local files
+*.pbix.autosave
