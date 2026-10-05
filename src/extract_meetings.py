@@ -1,19 +1,28 @@
 from pathlib import Path
 
 import pandas as pd
-import requests
 
+from openf1_client import fetch_openf1_json
+
+
+YEAR = 2025
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-PROCESSED_DATA_PATH = PROJECT_ROOT / "data" / "processed" / "meetings_2025.csv"
+PROCESSED_DATA_PATH = (
+    PROJECT_ROOT / "data" / "processed" / f"meetings_{YEAR}.csv"
+)
 
-OPENF1_URL = "https://api.openf1.org/v1/meetings?year=2025"
+OPENF1_URL = "https://api.openf1.org/v1/meetings"
 
 
-# Pobranie danych o weekendach wyścigowych z OpenF1
-response = requests.get(OPENF1_URL)
-response.raise_for_status()
-meetings = response.json()
+# Pobranie danych o weekendach Grand Prix
+url = f"{OPENF1_URL}?year={YEAR}"
+
+meetings = fetch_openf1_json(
+    url=url,
+    key_name="year",
+    key_value=YEAR,
+)
 
 
 # Wybór potrzebnych pól i pominięcie testów przedsezonowych
@@ -41,12 +50,42 @@ for meeting in meetings:
         meetings_clean.append(clean_meeting)
 
 
-# Utworzenie DataFrame i konwersja dat
+# Utworzenie DataFrame
 meetings_df = pd.DataFrame(meetings_clean)
 
-meetings_df["date_start"] = pd.to_datetime(meetings_df["date_start"], utc=True)
-meetings_df["date_end"] = pd.to_datetime(meetings_df["date_end"], utc=True)
+if meetings_df.empty:
+    raise RuntimeError("Nie pobrano żadnych weekendów Grand Prix.")
 
 
-# Zapis przygotowanych danych do CSV
+# Konwersja typów danych
+meetings_df["date_start"] = pd.to_datetime(
+    meetings_df["date_start"],
+    format="ISO8601",
+    utc=True,
+)
+
+meetings_df["date_end"] = pd.to_datetime(
+    meetings_df["date_end"],
+    format="ISO8601",
+    utc=True,
+)
+
+
+# Kontrola jakości danych
+duplicate_count = meetings_df.duplicated(
+    subset=["meeting_key"]
+).sum()
+
+if duplicate_count > 0:
+    raise ValueError(
+        f"Wykryto {duplicate_count} duplikatów meeting_key."
+    )
+
+
+# Zapis danych
 meetings_df.to_csv(PROCESSED_DATA_PATH, index=False)
+
+print(
+    f"Zapisano {len(meetings_df)} rekordów do "
+    f"{PROCESSED_DATA_PATH.name}."
+)

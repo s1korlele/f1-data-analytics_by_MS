@@ -1,36 +1,39 @@
 from pathlib import Path
-import time
 
 import pandas as pd
-import requests
 
+from openf1_client import fetch_openf1_json
+
+
+YEAR = 2025
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-SESSIONS_PATH = PROJECT_ROOT / "data" / "processed" / "sessions_2025.csv"
-PROCESSED_DATA_PATH = PROJECT_ROOT / "data" / "processed" / "drivers_2025.csv"
+SESSIONS_PATH = (
+    PROJECT_ROOT / "data" / "processed" / f"sessions_{YEAR}.csv"
+)
+PROCESSED_DATA_PATH = (
+    PROJECT_ROOT / "data" / "processed" / f"drivers_{YEAR}.csv"
+)
 
 OPENF1_URL = "https://api.openf1.org/v1/drivers"
 
 
-# Wczytanie sesji i wybór głównych wyścigów
+# Wczytanie wszystkich sesji
 sessions_df = pd.read_csv(SESSIONS_PATH)
-
-race_sessions_df = sessions_df[
-    sessions_df["session_name"] == "Race"
-].copy()
-
-race_session_keys = race_sessions_df["session_key"].tolist()
+session_keys = sessions_df["session_key"].tolist()
 
 
-# Pobranie kierowców dla każdego głównego wyścigu
-# Jednosekundowa przerwa ogranicza ryzyko przekroczenia limitu API.
+# Pobranie kierowców dla każdej sesji
 drivers_clean = []
 
-for session_key in race_session_keys:
+for session_key in session_keys:
     url = f"{OPENF1_URL}?session_key={session_key}"
-    response = requests.get(url)
-    response.raise_for_status()
-    drivers = response.json()
+
+    drivers = fetch_openf1_json(
+        url=url,
+        key_name="session_key",
+        key_value=session_key,
+    )
 
     for driver in drivers:
         clean_driver = {
@@ -48,9 +51,41 @@ for session_key in race_session_keys:
 
         drivers_clean.append(clean_driver)
 
-    time.sleep(1)
 
-
-# Utworzenie DataFrame i zapis danych do CSV
+# Utworzenie DataFrame
 drivers_df = pd.DataFrame(drivers_clean)
+
+if drivers_df.empty:
+    raise RuntimeError("Nie pobrano żadnych danych o kierowcach.")
+
+
+# Kontrola jakości danych
+duplicate_count = drivers_df.duplicated(
+    subset=["session_key", "driver_number"]
+).sum()
+
+if duplicate_count > 0:
+    raise ValueError(
+        f"Wykryto {duplicate_count} duplikatów kierowców "
+        "w obrębie sesji."
+    )
+
+missing_session_keys = (
+    set(sessions_df["session_key"])
+    - set(drivers_df["session_key"])
+)
+
+if missing_session_keys:
+    print(
+        "Ostrzeżenie: brak danych drivers dla session_key: "
+        f"{sorted(missing_session_keys)}"
+    )
+
+
+# Zapis danych
 drivers_df.to_csv(PROCESSED_DATA_PATH, index=False)
+
+print(
+    f"Zapisano {len(drivers_df)} rekordów do "
+    f"{PROCESSED_DATA_PATH.name}."
+)
