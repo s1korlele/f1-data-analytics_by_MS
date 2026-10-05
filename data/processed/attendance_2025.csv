@@ -1,25 +1,25 @@
-meeting_key,meeting_name,country_name,circuit_short_name,weekend_attendance,race_day_attendance,source_url,source_date,notes
-1254,Australian Grand Prix,Australia,Melbourne,,,,,
-1255,Chinese Grand Prix,China,Shanghai,,,,,
-1256,Japanese Grand Prix,Japan,Suzuka,,,,,
-1257,Bahrain Grand Prix,Bahrain,Sakhir,,,,,
-1258,Saudi Arabian Grand Prix,Saudi Arabia,Jeddah,,,,,
-1259,Miami Grand Prix,United States,Miami,,,,,
-1260,Emilia Romagna Grand Prix,Italy,Imola,,,,,
-1261,Monaco Grand Prix,Monaco,Monte Carlo,,,,,
-1262,Spanish Grand Prix,Spain,Catalunya,,,,,
-1263,Canadian Grand Prix,Canada,Montreal,,,,,
-1264,Austrian Grand Prix,Austria,Spielberg,,,,,
-1277,British Grand Prix,United Kingdom,Silverstone,,,,,
-1265,Belgian Grand Prix,Belgium,Spa-Francorchamps,,,,,
-1266,Hungarian Grand Prix,Hungary,Hungaroring,,,,,
-1267,Dutch Grand Prix,Netherlands,Zandvoort,,,,,
-1268,Italian Grand Prix,Italy,Monza,,,,,
-1269,Azerbaijan Grand Prix,Azerbaijan,Baku,,,,,
-1270,Singapore Grand Prix,Singapore,Singapore,,,,,
-1271,United States Grand Prix,United States,Austin,,,,,
-1272,Mexico City Grand Prix,Mexico,Mexico City,,,,,
-1273,São Paulo Grand Prix,Brazil,Interlagos,,,,,
-1274,Las Vegas Grand Prix,United States,Las Vegas,,,,,
-1275,Qatar Grand Prix,Qatar,Lusail,,,,,
-1276,Abu Dhabi Grand Prix,United Arab Emirates,Yas Marina Circuit,,,,,
+﻿meeting_key,meeting_name,country_name,circuit_short_name,weekend_attendance,race_day_attendance,source_url,source_date,notes
+1254,Australian Grand Prix,Australia,Melbourne,465498,,https://www.grandprix.com.au/fan-zone/news/australia-confirmed-as-2026-f1-season-opener,2025-06-10,Official AGPC figure; estimated weekend attendance.
+1255,Chinese Grand Prix,China,Shanghai,220000,,https://www.formula1.com/en/latest/article/records-growth-and-unforgettable-moments-the-2025-formula-1-season-so-far.1usXKBpUsYIndrYz22GQTq,2025-08-28,"Formula 1 reported a sold-out weekend with 220,000 fans."
+1256,Japanese Grand Prix,Japan,Suzuka,266000,115000,https://www.suzukacircuit.jp/eng/f1/access/info/index.html,,"Suzuka Circuit reports 266,000 over three days and 115,000 on Sunday."
+1257,Bahrain Grand Prix,Bahrain,Sakhir,105000,37700,https://www.bahraingp.com/blog/news/record-crowds-witness-debut-win-in-bahrain-for-oscar-piastri-and-mclaren-f1-team/,2025-04-13,Official Bahrain International Circuit figures.
+1258,Saudi Arabian Grand Prix,Saudi Arabia,Jeddah,,,https://gpdestinations.com/resources/f1-attendance-figures/,,No official 2025 weekend attendance figure was publicly announced; left null intentionally.
+1259,Miami Grand Prix,United States,Miami,275000,,https://gpdestinations.com/275000-attend-2025-miami-grand-prix/,2025-05-04,Three-day attendance; secondary source summarising organiser figure.
+1260,Emilia Romagna Grand Prix,Italy,Imola,242000,,https://www.autodromoimola.it/en/notizie/record-breaking-edition-of-the-formula-1-aws-made-in-italy-and-emilia-romagna-grand-prix-242000-attendees-over-the-weekend/,2025-05-18,Official Autodromo Imola weekend figure.
+1261,Monaco Grand Prix,Monaco,Monte Carlo,250000,,https://www.monaco-life.com/en/news/monaco-grand-prix-2025,2025-05-26,Reported as people present in the Principality over four days; broader than circuit-gate attendance.
+1262,Spanish Grand Prix,Spain,Catalunya,300286,125902,https://www.circuitcat.com/en/news/formula-1/piastri-puts-an-end-to-verstappen-and-hamiltons-reign-at-the-spanish-f1-grand-prix/,2025-06-01,Official Circuit de Barcelona-Catalunya figures; four-day total.
+1263,Canadian Grand Prix,Canada,Montreal,352000,,https://www.newswire.ca/news-releases/bell-canada-and-octane-racing-group-deliver-standout-2025-formula-1-grand-prix-du-canada-experience-for-fans-876628882.html,2025-06-17,"Bell Canada / Octane Racing Group reported 352,000 spectators."
+1264,Austrian Grand Prix,Austria,Spielberg,300000,,https://www.ots.at/presseaussendung/OTS_20250630_OTS0057/bis-zu-862000-sahen-den-gp-von-oesterreich-live-in-orf-1,2025-06-30,"Reported as 300,000 fans at the track over the weekend; rounded figure."
+1277,British Grand Prix,United Kingdom,Silverstone,500000,,https://www.silverstone.co.uk/news/2025-british-grand-prix-numbers,2025-07-09,Official Silverstone weekend attendance.
+1265,Belgian Grand Prix,Belgium,Spa-Francorchamps,389000,,https://corp.formula1.com/formula-1-2025-season-review/,2025-12-19,Formula 1 season review figure; rounded to nearest thousand.
+1266,Hungarian Grand Prix,Hungary,Hungaroring,300000,,https://hungaroring.hu/site/en/about-us/mission,,"Hungaroring states more than 300,000 visitors over race week; 300,000 stored as a conservative lower-bound/rounded value."
+1267,Dutch Grand Prix,Netherlands,Zandvoort,305000,,https://dutchgp.com/en/this-is-dutch-gp/,,Official Dutch Grand Prix recap figure.
+1268,Italian Grand Prix,Italy,Monza,369041,,https://aci.gov.it/comunicati-stampa/aci-formula-1-pirelli-gran-premio-2025-record-di-presenze-con-369-041-spettatori/,2025-09-08,Official ACI figure for the event days.
+1269,Azerbaijan Grand Prix,Azerbaijan,Baku,90000,,https://www.bakucitycircuit.com/news/new-grandstand-installed-for-the-10th-anniversary-of-the-formula-1-azerbaijan-grand-prix,,"Baku City Circuit reports more than 90,000 spectators; 90,000 stored as a conservative lower bound."
+1270,Singapore Grand Prix,Singapore,Singapore,300641,,https://singaporegp.sg/en/news/2025/singapore-fans-embrace-the-action/,2025-10-05,Official Singapore Grand Prix weekend attendance.
+1271,United States Grand Prix,United States,Austin,,,https://gpdestinations.com/resources/f1-attendance-figures/,,No reliable exact 2025 weekend attendance figure found; left null intentionally.
+1272,Mexico City Grand Prix,Mexico,Mexico City,401326,153867,https://www.mexicogp.mx/noticia/el-mexico-gp-2025-dejo-una-derrama-economica-superior-a-los-19-mil-millones-de-pesos-en-el-pais/,2026-04-28,Official Mexico GP figures; three-day total plus Sunday attendance.
+1273,São Paulo Grand Prix,Brazil,Interlagos,304000,,https://gpdestinations.com/304000-attend-2025-sao-paulo-grand-prix/,2025-11-11,"Secondary source reports 304,000; São Paulo city source independently reports more than 303,000."
+1274,Las Vegas Grand Prix,United States,Las Vegas,300000,,https://corp.formula1.com/formula-1-2025-season-review/,2025-12-19,"Formula 1 reports over 300,000; 300,000 stored as a conservative lower bound because no exact figure was released."
+1275,Qatar Grand Prix,Qatar,Lusail,162972,,https://www.lcsc.qa/news/lusail-international-circuit-draws-full-house-max-verstappen-wins-2025-formula-1r-qatar,2025-11-30,Official Lusail International Circuit weekend attendance.
+1276,Abu Dhabi Grand Prix,United Arab Emirates,Yas Marina Circuit,203000,,https://www.ethara.com/en/w/adgp-2025-attendance,2025-12-09,"Official Ethara figure for attendance at Yas Marina Circuit. Separate race-week total including entertainment events was 339,000."
