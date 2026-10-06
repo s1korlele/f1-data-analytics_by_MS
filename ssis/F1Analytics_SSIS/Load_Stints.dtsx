@@ -1,0 +1,882 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/6/2026 11:07:35 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MARCIN"
+  DTS:CreatorName="MARCIN\sikor"
+  DTS:DelayValidation="True"
+  DTS:DTSID="{978E7D7B-FB4F-4A49-823C-B72CA48CEEDA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1045"
+  DTS:ObjectName="Load_Stints"
+  DTS:PackageType="5"
+  DTS:VersionBuild="45"
+  DTS:VersionGUID="{2E8F6CB4-ACEE-4992-9784-8F645540FF56}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Stints_CSV]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{791A22B6-E340-421B-B3CA-E11E29B41607}"
+      DTS:ObjectName="Stints_CSV">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::CurrentFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="meeting_key"
+              DTS:DTSID="{271B9F61-917B-4970-BBAE-C22BF2637048}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="session_key"
+              DTS:DTSID="{632DEDD1-C8AD-4598-BEBE-343649198F63}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="driver_number"
+              DTS:DTSID="{FBE69183-014D-4310-936B-5DCC41878001}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="stint_number"
+              DTS:DTSID="{207673CC-E915-40C5-9FE9-9BDB765802B2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="compound"
+              DTS:DTSID="{23CAF6B4-CA4C-4E62-81D8-7BA2796DD184}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lap_start"
+              DTS:DTSID="{573F3D47-BE05-40E9-AC28-CACCF13574E2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lap_end"
+              DTS:DTSID="{DF9BB9C9-85C3-445C-8AAF-A41A7CB1E964}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tyre_age_at_start"
+              DTS:DTSID="{7DE18FAD-CABB-4014-9AFB-A8679AA45B70}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{97C54FC7-A8B9-4FA6-948C-56C262BBF3ED}"
+      DTS:ObjectName="FilePattern">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">stints_*.csv</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{FDDA42B2-229D-4499-B339-94E5FB2EB47B}"
+      DTS:ObjectName="SourceFolder">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">data\processed</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{56943F9E-6120-46CB-9BC1-B20CD3E5A07D}"
+      DTS:ObjectName="TargetSchema">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">stg</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{250EFF62-6F10-4DCB-87B5-A122C43FB431}"
+      DTS:ObjectName="TargetTable">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Stints</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="20"
+      DTS:DTSID="{77A109C6-0D3B-432B-A4A3-C240426D17E8}"
+      DTS:ObjectName="TaskRunKey">
+      <DTS:Property
+        DTS:DataType="20"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="11"
+      DTS:DTSID="{CFCD6492-4E84-4538-B394-072621702789}"
+      DTS:ObjectName="TruncateBeforeLoad">
+      <DTS:Property
+        DTS:DataType="11"
+        DTS:Name="ParameterValue">-1</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{579B52F6-3833-4801-AB19-EC972E4EDCC3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8BB43C22-6E0F-40D1-B9AB-1804ED22E9A6}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::ProjectRoot] + &quot;\\&quot; + @[$Package::SourceFolder]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\sikor\source\repos\f1-data-analytics_by_MS\data\processed</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AA1AE77E-9F31-4F06-86FE-652709B279A3}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;TRUNCATE TABLE [&quot; + @[$Package::TargetSchema] + &quot;].[&quot; + @[$Package::TargetTable] + &quot;]&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="TruncateSql">
+      <DTS:VariableValue
+        DTS:DataType="8">TRUNCATE TABLE [stg].[Stints]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{4A9DBD0B-3A05-468A-84FB-B7FC4D6E6766}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{0557971B-4F6D-4F29-9867-2B7747CAD067}"
+        DTS:ObjectName="{0557971B-4F6D-4F29-9867-2B7747CAD067}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::SourceDirectory]</DTS:PropertyExpression>
+        <DTS:PropertyExpression
+          DTS:Name="FileSpec">@[$Package::FilePattern]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\Users\sikor\source\repos\f1-data-analytics_by_MS\data\processed" />
+            <FEFEProperty
+              FileSpec="stints_*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Load_Stints CSV"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{1E6E5059-3D15-466C-B9B4-247D77B9C2D6}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load_Stints CSV"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Stints_CSV]"
+                      connectionManagerRefId="Package.ConnectionManagers[Stints_CSV]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[meeting_key]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meeting_key]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[meeting_key]"
+                          name="meeting_key"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_key]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_key]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_key]"
+                          name="session_key"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[driver_number]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[driver_number]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[driver_number]"
+                          name="driver_number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[stint_number]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stint_number]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[stint_number]"
+                          name="stint_number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[compound]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[compound]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[compound]"
+                          name="compound"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[lap_start]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lap_start]"
+                          length="20"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[lap_start]"
+                          name="lap_start"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[lap_end]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lap_end]"
+                          length="20"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[lap_end]"
+                          name="lap_end"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[tyre_age_at_start]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[tyre_age_at_start]"
+                          length="20"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[tyre_age_at_start]"
+                          name="tyre_age_at_start"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meeting_key]"
+                          dataType="i4"
+                          name="meeting_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_key]"
+                          dataType="i4"
+                          name="session_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[driver_number]"
+                          dataType="i4"
+                          name="driver_number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stint_number]"
+                          dataType="i4"
+                          name="stint_number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[compound]"
+                          dataType="wstr"
+                          length="50"
+                          name="compound" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lap_start]"
+                          dataType="wstr"
+                          length="20"
+                          name="lap_start" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lap_end]"
+                          dataType="wstr"
+                          length="20"
+                          name="lap_end" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[tyre_age_at_start]"
+                          dataType="wstr"
+                          length="20"
+                          name="tyre_age_at_start" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1250"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[stg].[Stints]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1250</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{93B3489E-C53F-499F-8DD9-DCE8351CDBC8}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[localhost.F1Analytics]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[meeting_key]"
+                          cachedDataType="i4"
+                          cachedName="meeting_key"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meeting_key]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[meeting_key]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[session_key]"
+                          cachedDataType="i4"
+                          cachedName="session_key"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_key]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_key]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[driver_number]"
+                          cachedDataType="i4"
+                          cachedName="driver_number"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[driver_number]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[driver_number]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[stint_number]"
+                          cachedDataType="i4"
+                          cachedName="stint_number"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[stint_number]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[stint_number]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[compound]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="compound"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[compound]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[compound]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[lap_start]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="lap_start"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lap_start]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[lap_start]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[lap_end]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="lap_end"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lap_end]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[lap_end]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tyre_age_at_start]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="tyre_age_at_start"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tyre_age_at_start]"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output].Columns[tyre_age_at_start]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meeting_key]"
+                          dataType="i4"
+                          name="meeting_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_key]"
+                          dataType="i4"
+                          name="session_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[driver_number]"
+                          dataType="i4"
+                          name="driver_number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[stint_number]"
+                          dataType="i4"
+                          name="stint_number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[compound]"
+                          dataType="wstr"
+                          length="50"
+                          name="compound" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lap_start]"
+                          dataType="wstr"
+                          length="20"
+                          name="lap_start" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lap_end]"
+                          dataType="wstr"
+                          length="20"
+                          name="lap_end" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tyre_age_at_start]"
+                          dataType="wstr"
+                          length="20"
+                          name="tyre_age_at_start" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Load_Stints CSV.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source.Outputs[Flat File Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{A96783E5-466D-43A5-A78F-C8F709134AC8}"
+          DTS:ObjectName="{A96783E5-466D-43A5-A78F-C8F709134AC8}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::CurrentFilePath" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Target"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6D9347E2-ED24-465F-9EF3-948B509062E0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Target"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{93B3489E-C53F-499F-8DD9-DCE8351CDBC8}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::TruncateSql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F72BE771-0F96-4F43-9766-460DAD3CF8DD}"
+      DTS:From="Package\Truncate Target"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Foreach Loop Container" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="208,42"
+          Id="Package\Foreach Loop Container\Load_Stints CSV"
+          TopLeft="49,25" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="315,160"
+          Size="315,203"
+          Id="Package\Foreach Loop Container"
+          TopLeft="396,299" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Truncate Target"
+          TopLeft="355,156" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="433.5,198">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="120,101"
+              Start="0,0"
+              End="120,93.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,46.5"
+                    Point2="0,50.5"
+                    Point3="4,50.5" />
+                  <mssgle:LineSegment
+                    End="116,50.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="116,50.5"
+                    Point2="120,50.5"
+                    Point3="120,54.5" />
+                  <mssgle:LineSegment
+                    End="120,93.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Load_Stints CSV">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Foreach Loop Container\Load_Stints CSV\Flat File Source"
+          TopLeft="323,143" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination"
+          TopLeft="343,295" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Load_Stints CSV.Paths[Flat File Source Output]"
+          TopLeft="401,185">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30.5,110"
+              Start="0,0"
+              End="30.5,102.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,51"
+                    Point2="0,55"
+                    Point3="4,55" />
+                  <mssgle:LineSegment
+                    End="26.5,55" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.5,55"
+                    Point2="30.5,55"
+                    Point3="30.5,59" />
+                  <mssgle:LineSegment
+                    End="30.5,102.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Load_Stints CSV\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
