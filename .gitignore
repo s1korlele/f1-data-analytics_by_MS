@@ -13,3 +13,7 @@ __pycache__/
 
 # Power BI temporary/local files
 *.pbix.autosave
+
+# Visual Studio build output
+**/bin/
+**/obj/
