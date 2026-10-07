@@ -18,9 +18,16 @@ GO
     - DimFlag
     - DimRaceControlCategory
 
+    Konwencja czasu DW:
+    - staging zachowuje timestampy źródłowe,
+    - w warstwie dw wszystkie timestampy są przechowywane jako DATETIME2(6),
+    - wartości są przeliczane na lokalny czas Polski (CET/CEST),
+      z użyciem strefy SQL Server 'Central European Standard Time',
+    - nazwy kolumn nie zawierają suffixów UTC/Poland.
+
     Ważne:
-    - Nie tworzymy żadnej tabeli mapującej Team/Livery do sesji.
-      Dokładne połączenie Session + Driver + Team + TeamLivery
+    - Nie tworzymy żadnej tabeli mapującej Team/Colour do sesji.
+      Dokładne połączenie Session + Driver + Team + TeamColour
       zostanie wykonane dopiero przy budowie factów.
     - TeamColour nie jest SCD2. Jeśli kolor wraca po specjalnym malowaniu,
       używamy ponownie tego samego TeamColourKey.
@@ -140,8 +147,8 @@ CREATE TABLE dw.DimRaceWeekend (
     CircuitKey          INT NOT NULL,
     RoundNumber         TINYINT NOT NULL,
     RaceWeekendName     NVARCHAR(150) NOT NULL,
-    DateStart           DATETIMEOFFSET(6) NULL,
-    DateEnd             DATETIMEOFFSET(6) NULL,
+    DateStart           DATETIME2(6) NULL,
+    DateEnd             DATETIME2(6) NULL,
     IsCancelled         BIT NOT NULL,
 
     CONSTRAINT PK_DimRaceWeekend
@@ -194,8 +201,8 @@ CREATE TABLE dw.DimSession (
     RaceWeekendKey      INT NOT NULL,
     SessionTypeKey      INT NOT NULL,
     SessionName         NVARCHAR(100) NOT NULL,
-    DateStart           DATETIMEOFFSET(6) NULL,
-    DateEnd             DATETIMEOFFSET(6) NULL,
+    DateStart           DATETIME2(6) NULL,
+    DateEnd             DATETIME2(6) NULL,
     IsCancelled         BIT NOT NULL,
 
     CONSTRAINT PK_DimSession
@@ -236,8 +243,8 @@ CREATE TABLE dw.DimDriver (
     NameAcronym         VARCHAR(10) NULL,
     HeadshotUrl         NVARCHAR(500) NULL,
 
-    ValidFrom           DATETIMEOFFSET(6) NOT NULL,
-    ValidTo             DATETIMEOFFSET(6) NULL,
+    ValidFrom           DATETIME2(6) NOT NULL,
+    ValidTo             DATETIME2(6) NULL,
     IsCurrent           BIT NOT NULL,
 
     CONSTRAINT PK_DimDriver

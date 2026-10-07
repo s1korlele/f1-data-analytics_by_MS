@@ -13,6 +13,13 @@ GO
     - zachowuj¹ surrogate keys,
     - s¹ idempotentne dla tego samego pe³nego zestawu danych stagingowych.
 
+    Konwencja czasu DW:
+    - staging zachowuje timestampy Ÿród³owe,
+    - w warstwie dw wszystkie timestampy s¹ przechowywane jako DATETIME2(6),
+    - wartoœci s¹ przeliczane na lokalny czas Polski (CET/CEST),
+      z u¿yciem strefy SQL Server 'Central European Standard Time',
+    - nazwy kolumn nie zawieraj¹ suffixów UTC/Poland.
+
     Wa¿ne:
     staging w docelowym modelu jest warstw¹ full-refresh zawieraj¹c¹
     wszystkie dostêpne sezony. Ma to znaczenie szczególnie dla SCD2
@@ -245,13 +252,19 @@ BEGIN
                 COALESCE(gr.RoundNumber, ms.SequenceNumber)
             ) AS RoundNumber,
             LEFT(LTRIM(RTRIM(m.meeting_name)), 150) AS RaceWeekendName,
-            TRY_CONVERT(
-                DATETIMEOFFSET(6),
-                NULLIF(LTRIM(RTRIM(m.date_start)), N'')
+            CONVERT(
+                DATETIME2(6),
+                TRY_CONVERT(
+                    DATETIMEOFFSET(6),
+                    NULLIF(LTRIM(RTRIM(m.date_start)), N'')
+                ) AT TIME ZONE 'Central European Standard Time'
             ) AS DateStart,
-            TRY_CONVERT(
-                DATETIMEOFFSET(6),
-                NULLIF(LTRIM(RTRIM(m.date_end)), N'')
+            CONVERT(
+                DATETIME2(6),
+                TRY_CONVERT(
+                    DATETIMEOFFSET(6),
+                    NULLIF(LTRIM(RTRIM(m.date_end)), N'')
+                ) AT TIME ZONE 'Central European Standard Time'
             ) AS DateEnd,
             COALESCE(m.is_cancelled, 0) AS IsCancelled
         INTO #RaceWeekendSource
@@ -380,13 +393,19 @@ BEGIN
             s.meeting_key AS SourceMeetingKey,
             LEFT(LTRIM(RTRIM(s.session_type)), 50) AS SessionTypeName,
             LEFT(LTRIM(RTRIM(s.session_name)), 100) AS SessionName,
-            TRY_CONVERT(
-                DATETIMEOFFSET(6),
-                NULLIF(LTRIM(RTRIM(s.date_start)), N'')
+            CONVERT(
+                DATETIME2(6),
+                TRY_CONVERT(
+                    DATETIMEOFFSET(6),
+                    NULLIF(LTRIM(RTRIM(s.date_start)), N'')
+                ) AT TIME ZONE 'Central European Standard Time'
             ) AS DateStart,
-            TRY_CONVERT(
-                DATETIMEOFFSET(6),
-                NULLIF(LTRIM(RTRIM(s.date_end)), N'')
+            CONVERT(
+                DATETIME2(6),
+                TRY_CONVERT(
+                    DATETIMEOFFSET(6),
+                    NULLIF(LTRIM(RTRIM(s.date_end)), N'')
+                ) AT TIME ZONE 'Central European Standard Time'
             ) AS DateEnd,
             COALESCE(s.is_cancelled, 0) AS IsCancelled
         INTO #SessionSource
@@ -477,9 +496,12 @@ BEGIN
                 LEFT(LTRIM(RTRIM(dr.full_name)), 100) AS DriverBusinessKey,
                 dr.session_key AS SourceSessionKey,
                 TRY_CONVERT(SMALLINT, s.[year]) AS SeasonYear,
-                TRY_CONVERT(
-                    DATETIMEOFFSET(6),
-                    NULLIF(LTRIM(RTRIM(s.date_start)), N'')
+                CONVERT(
+                    DATETIME2(6),
+                    TRY_CONVERT(
+                        DATETIMEOFFSET(6),
+                        NULLIF(LTRIM(RTRIM(s.date_start)), N'')
+                    ) AT TIME ZONE 'Central European Standard Time'
                 ) AS SessionStart,
 
                 MAX(dr.driver_number) AS DriverNumber,
@@ -509,9 +531,12 @@ BEGIN
                 LEFT(LTRIM(RTRIM(dr.full_name)), 100),
                 dr.session_key,
                 TRY_CONVERT(SMALLINT, s.[year]),
-                TRY_CONVERT(
-                    DATETIMEOFFSET(6),
-                    NULLIF(LTRIM(RTRIM(s.date_start)), N'')
+                CONVERT(
+                    DATETIME2(6),
+                    TRY_CONVERT(
+                        DATETIMEOFFSET(6),
+                        NULLIF(LTRIM(RTRIM(s.date_start)), N'')
+                    ) AT TIME ZONE 'Central European Standard Time'
                 )
         ),
         DriverPrevious AS (
