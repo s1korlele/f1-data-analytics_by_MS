@@ -9,7 +9,7 @@ import pyodbc
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "processed"
 
-SERVER = "localhost"
+SERVER = r"localhost\F1DEV"
 DATABASE = "F1Analytics"
 DRIVER = "ODBC Driver 18 for SQL Server"
 

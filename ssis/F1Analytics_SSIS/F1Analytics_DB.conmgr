@@ -7,6 +7,6 @@
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
       DTS:ConnectRetryInterval="5"
-      DTS:ConnectionString="Data Source=localhost;Initial Catalog=F1Analytics;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Trust Server Certificate=True;Application Name=SSIS-F1Analytics_SSIS-{93B3489E-C53F-499F-8DD9-DCE8351CDBC8}localhost.F1Analytics;Auto Translate=False;" />
+      DTS:ConnectionString="Data Source=localhost\F1DEV;Initial Catalog=F1Analytics;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-F1Analytics_SSIS-{93B3489E-C53F-499F-8DD9-DCE8351CDBC8}localhost.F1Analytics;Trust Server Certificate=True;" />
   </DTS:ObjectData>
 </DTS:ConnectionManager>
