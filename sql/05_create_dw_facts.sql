@@ -5,6 +5,7 @@ GO
     F1 Analytics - DW facts
 
     Aktualne facty:
+    - FactSessionResult
     - FactRaceResult
     - FactQualifyingResult
     - FactLap
@@ -574,6 +575,88 @@ CREATE INDEX IX_FactAttendance_RaceWeekend
     ON dw.FactAttendance (RaceWeekendKey);
 GO
 
+
+-- =========================================================
+-- FactSessionResult
+-- One official classification record per driver and session.
+-- Source: OpenF1 session_result via stg.SessionResults.
+-- Existing FactRaceResult / FactQualifyingResult are retained.
+-- =========================================================
+
+CREATE TABLE dw.FactSessionResult (
+    SessionResultKey              BIGINT IDENTITY(1,1) NOT NULL,
+
+    RaceWeekendKey                INT NOT NULL,
+    SessionKey                    INT NOT NULL,
+    DriverKey                     INT NOT NULL,
+    TeamKey                       INT NOT NULL,
+    TeamColourKey                 INT NULL,
+
+    GridPosition                  SMALLINT NULL,
+    Position                      SMALLINT NULL,
+    NumberOfLaps                  SMALLINT NULL,
+    Points                        DECIMAL(8,2) NULL,
+
+    DNF                           BIT NULL,
+    DNS                           BIT NULL,
+    DSQ                           BIT NULL,
+
+    -- Practice: best lap; Race/Sprint: race duration.
+    -- Qualifying: duration is split into phase columns.
+    DurationSeconds               DECIMAL(12,3) NULL,
+    GapToLeaderSeconds            DECIMAL(12,3) NULL,
+    GapToLeaderText               NVARCHAR(100) NULL,
+
+    Phase1DurationSeconds         DECIMAL(12,3) NULL,
+    Phase2DurationSeconds         DECIMAL(12,3) NULL,
+    Phase3DurationSeconds         DECIMAL(12,3) NULL,
+
+    Phase1GapToLeaderSeconds      DECIMAL(12,3) NULL,
+    Phase1GapToLeaderText         NVARCHAR(100) NULL,
+    Phase2GapToLeaderSeconds      DECIMAL(12,3) NULL,
+    Phase2GapToLeaderText         NVARCHAR(100) NULL,
+    Phase3GapToLeaderSeconds      DECIMAL(12,3) NULL,
+    Phase3GapToLeaderText         NVARCHAR(100) NULL,
+
+    CONSTRAINT PK_FactSessionResult
+        PRIMARY KEY (SessionResultKey),
+
+    CONSTRAINT UQ_FactSessionResult_Session_Driver
+        UNIQUE (SessionKey, DriverKey),
+
+    CONSTRAINT FK_FactSessionResult_DimRaceWeekend
+        FOREIGN KEY (RaceWeekendKey)
+        REFERENCES dw.DimRaceWeekend(RaceWeekendKey),
+
+    CONSTRAINT FK_FactSessionResult_DimSession
+        FOREIGN KEY (SessionKey)
+        REFERENCES dw.DimSession(SessionKey),
+
+    CONSTRAINT FK_FactSessionResult_DimDriver
+        FOREIGN KEY (DriverKey)
+        REFERENCES dw.DimDriver(DriverKey),
+
+    CONSTRAINT FK_FactSessionResult_DimTeam
+        FOREIGN KEY (TeamKey)
+        REFERENCES dw.DimTeam(TeamKey),
+
+    CONSTRAINT FK_FactSessionResult_DimTeamColour
+        FOREIGN KEY (TeamColourKey)
+        REFERENCES dw.DimTeamColour(TeamColourKey)
+);
+GO
+
+CREATE INDEX IX_FactSessionResult_RaceWeekend_Driver
+    ON dw.FactSessionResult (RaceWeekendKey, DriverKey);
+GO
+
+CREATE INDEX IX_FactSessionResult_Session
+    ON dw.FactSessionResult (SessionKey);
+GO
+
+CREATE INDEX IX_FactSessionResult_Team
+    ON dw.FactSessionResult (TeamKey);
+GO
 
 -- =========================================================
 -- Kontrola

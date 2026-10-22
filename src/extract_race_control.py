@@ -18,20 +18,15 @@ PROCESSED_DATA_PATH = (
 OPENF1_URL = "https://api.openf1.org/v1/race_control"
 
 
-# Wczytanie sesji i wybór głównych wyścigów
+# Race Control występuje także poza głównym Race.
+# Pobieramy wszystkie sesje i pozostawiamy filtrowanie modelowi.
 sessions_df = pd.read_csv(SESSIONS_PATH)
-
-race_sessions_df = sessions_df[
-    sessions_df["session_name"] == "Race"
-].copy()
-
-race_session_keys = race_sessions_df["session_key"].tolist()
+session_keys = sessions_df["session_key"].tolist()
 
 
-# Pobranie komunikatów Race Control
 events_clean = []
 
-for session_key in race_session_keys:
+for session_key in session_keys:
     url = f"{OPENF1_URL}?session_key={session_key}"
 
     race_control = fetch_openf1_json(
@@ -42,22 +37,21 @@ for session_key in race_session_keys:
 
     for event in race_control:
         clean_event = {
-            "meeting_key": event["meeting_key"],
-            "session_key": event["session_key"],
-            "date": event["date"],
-            "driver_number": event["driver_number"],
-            "lap_number": event["lap_number"],
-            "category": event["category"],
-            "flag": event["flag"],
-            "scope": event["scope"],
-            "sector": event["sector"],
-            "message": event["message"],
+            "meeting_key": event.get("meeting_key"),
+            "session_key": event.get("session_key"),
+            "date": event.get("date"),
+            "driver_number": event.get("driver_number"),
+            "lap_number": event.get("lap_number"),
+            "category": event.get("category"),
+            "flag": event.get("flag"),
+            "scope": event.get("scope"),
+            "sector": event.get("sector"),
+            "message": event.get("message"),
         }
 
         events_clean.append(clean_event)
 
 
-# Utworzenie DataFrame
 race_control_df = pd.DataFrame(events_clean)
 
 if race_control_df.empty:
@@ -66,20 +60,23 @@ if race_control_df.empty:
     )
 
 
-# Konwersja typów danych
 race_control_df["date"] = pd.to_datetime(
     race_control_df["date"],
     format="ISO8601",
     utc=True,
 )
 
-race_control_df["driver_number"] = (
-    race_control_df["driver_number"].astype("Int64")
-)
-
-race_control_df["sector"] = (
-    race_control_df["sector"].astype("Int64")
-)
+for column in [
+    "meeting_key",
+    "session_key",
+    "driver_number",
+    "lap_number",
+    "sector",
+]:
+    race_control_df[column] = pd.to_numeric(
+        race_control_df[column],
+        errors="coerce",
+    ).astype("Int64")
 
 
 # Kontrola jakości danych
@@ -91,22 +88,22 @@ if duplicate_count > 0:
         "Race Control."
     )
 
-missing_session_keys = (
-    set(race_session_keys)
-    - set(race_control_df["session_key"])
-)
 
-if missing_session_keys:
-    print(
-        "Ostrzeżenie: brak danych race_control dla session_key: "
-        f"{sorted(missing_session_keys)}"
-    )
+race_control_df = race_control_df.sort_values(
+    by=["session_key", "date"],
+    na_position="last",
+).reset_index(drop=True)
 
-
-# Zapis danych
 race_control_df.to_csv(PROCESSED_DATA_PATH, index=False)
 
 print(
     f"Zapisano {len(race_control_df)} rekordów do "
     f"{PROCESSED_DATA_PATH.name}."
+)
+
+sessions_with_events = race_control_df["session_key"].nunique()
+
+print(
+    f"Race Control występuje w {sessions_with_events} z "
+    f"{len(session_keys)} sesji."
 )

@@ -18,17 +18,19 @@ PROCESSED_DATA_PATH = (
 OPENF1_URL = "https://api.openf1.org/v1/session_result"
 
 
-# Wczytanie sesji i wybór głównych wyścigów
+# Wczytanie sesji i wybór wszystkich sesji typu Race.
+# OpenF1 używa session_type='Race' zarówno dla głównego Race,
+# jak i dla Sprintu. Nie filtrujemy po session_name.
 sessions_df = pd.read_csv(SESSIONS_PATH)
 
 race_sessions_df = sessions_df[
-    sessions_df["session_name"] == "Race"
+    sessions_df["session_type"] == "Race"
 ].copy()
 
 race_session_keys = race_sessions_df["session_key"].tolist()
 
 
-# Pobranie wyników wyścigów
+# Pobranie oficjalnych wyników Race i Sprint.
 results_clean = []
 
 for session_key in race_session_keys:
@@ -42,37 +44,41 @@ for session_key in race_session_keys:
 
     for result in race_results:
         clean_result = {
-            "meeting_key": result["meeting_key"],
-            "session_key": result["session_key"],
-            "driver_number": result["driver_number"],
-            "position": result["position"],
-            "number_of_laps": result["number_of_laps"],
-            "points": result["points"],
-            "dnf": result["dnf"],
-            "dns": result["dns"],
-            "dsq": result["dsq"],
-            "duration": result["duration"],
-            "gap_to_leader": result["gap_to_leader"],
+            "meeting_key": result.get("meeting_key"),
+            "session_key": result.get("session_key"),
+            "driver_number": result.get("driver_number"),
+            "position": result.get("position"),
+            "number_of_laps": result.get("number_of_laps"),
+            "points": result.get("points"),
+            "dnf": result.get("dnf"),
+            "dns": result.get("dns"),
+            "dsq": result.get("dsq"),
+            "duration": result.get("duration"),
+            "gap_to_leader": result.get("gap_to_leader"),
         }
 
         results_clean.append(clean_result)
 
 
-# Utworzenie DataFrame
 race_results_df = pd.DataFrame(results_clean)
 
 if race_results_df.empty:
-    raise RuntimeError("Nie pobrano żadnych wyników wyścigów.")
+    raise RuntimeError(
+        "Nie pobrano żadnych wyników sesji typu Race."
+    )
 
 
-# Konwersja typów danych
-race_results_df["position"] = (
-    race_results_df["position"].astype("Int64")
-)
-
-race_results_df["number_of_laps"] = (
-    race_results_df["number_of_laps"].astype("Int64")
-)
+for column in [
+    "meeting_key",
+    "session_key",
+    "driver_number",
+    "position",
+    "number_of_laps",
+]:
+    race_results_df[column] = pd.to_numeric(
+        race_results_df[column],
+        errors="coerce",
+    ).astype("Int64")
 
 
 # Kontrola jakości danych
@@ -82,23 +88,39 @@ duplicate_count = race_results_df.duplicated(
 
 if duplicate_count > 0:
     raise ValueError(
-        f"Wykryto {duplicate_count} duplikatów wyników wyścigów."
+        f"Wykryto {duplicate_count} duplikatów wyników "
+        "Race/Sprint."
     )
 
 missing_session_keys = (
     set(race_session_keys)
-    - set(race_results_df["session_key"])
+    - set(race_results_df["session_key"].dropna().astype(int))
 )
 
 if missing_session_keys:
+    missing_sessions = race_sessions_df[
+        race_sessions_df["session_key"].isin(missing_session_keys)
+    ][
+        ["session_key", "session_name", "is_cancelled"]
+    ]
+
     print(
-        "Ostrzeżenie: brak wyników dla session_key: "
-        f"{sorted(missing_session_keys)}"
+        "Ostrzeżenie: brak session_result dla części "
+        "sesji typu Race:"
     )
+
+    for row in missing_sessions.itertuples(index=False):
+        print(
+            f"- session_key={row.session_key}, "
+            f"session_name='{row.session_name}', "
+            f"cancelled={row.is_cancelled}"
+        )
 
 invalid_missing_positions = race_results_df[
     race_results_df["position"].isna()
-    & ~race_results_df[["dnf", "dns", "dsq"]].any(axis=1)
+    & ~race_results_df[["dnf", "dns", "dsq"]]
+        .fillna(False)
+        .any(axis=1)
 ]
 
 if not invalid_missing_positions.empty:
@@ -107,10 +129,25 @@ if not invalid_missing_positions.empty:
     )
 
 
-# Zapis danych
+race_results_df = race_results_df.sort_values(
+    by=["session_key", "position", "driver_number"],
+    na_position="last",
+).reset_index(drop=True)
+
 race_results_df.to_csv(PROCESSED_DATA_PATH, index=False)
 
 print(
     f"Zapisano {len(race_results_df)} rekordów do "
     f"{PROCESSED_DATA_PATH.name}."
+)
+
+print(
+    "Pobrane sesje typu Race: "
+    + ", ".join(
+        sorted(
+            race_sessions_df["session_name"]
+            .dropna()
+            .unique()
+        )
+    )
 )

@@ -28,7 +28,9 @@ sessions = fetch_openf1_json(
 )
 
 
-# Wybór potrzebnych pól
+# Wybór pól źródłowych potrzebnych w dalszym ETL.
+# Nie tworzymy tutaj własnych kategorii biznesowych - zachowujemy
+# dokładnie session_type i session_name zwracane przez OpenF1.
 sessions_clean = []
 
 for session in sessions:
@@ -88,6 +90,12 @@ if duplicate_count > 0:
     )
 
 
+# Stabilna kolejność w pliku wynikowym
+sessions_df = sessions_df.sort_values(
+    by=["date_start", "session_key"]
+).reset_index(drop=True)
+
+
 # Zapis danych
 sessions_df.to_csv(PROCESSED_DATA_PATH, index=False)
 
@@ -95,3 +103,21 @@ print(
     f"Zapisano {len(sessions_df)} rekordów do "
     f"{PROCESSED_DATA_PATH.name}."
 )
+
+print("Typy i nazwy sesji znalezione w OpenF1:")
+
+session_summary = (
+    sessions_df[
+        ["session_type", "session_name"]
+    ]
+    .drop_duplicates()
+    .sort_values(
+        ["session_type", "session_name"]
+    )
+)
+
+for row in session_summary.itertuples(index=False):
+    print(
+        f"- session_type='{row.session_type}', "
+        f"session_name='{row.session_name}'"
+    )

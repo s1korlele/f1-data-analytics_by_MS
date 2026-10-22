@@ -167,6 +167,39 @@ CREATE TABLE stg.QualifyingResults (
 GO
 
 
+-- Session Results
+-- Canonical OpenF1 session_result staging table for all session types.
+-- Grain: one driver per session.
+CREATE TABLE stg.SessionResults (
+    meeting_key                    INT,
+    session_key                    INT,
+    session_type                   NVARCHAR(50),
+    session_name                   NVARCHAR(100),
+    driver_number                  INT,
+    position                       INT NULL,
+    number_of_laps                 INT NULL,
+    points                         DECIMAL(8, 2) NULL,
+    dnf                            BIT,
+    dns                            BIT,
+    dsq                            BIT,
+    duration_seconds               DECIMAL(12, 3) NULL,
+    gap_to_leader_seconds          DECIMAL(12, 3) NULL,
+    gap_to_leader_text             NVARCHAR(100) NULL,
+    phase_1_duration_seconds       DECIMAL(10, 3) NULL,
+    phase_2_duration_seconds       DECIMAL(10, 3) NULL,
+    phase_3_duration_seconds       DECIMAL(10, 3) NULL,
+    phase_1_gap_to_leader_seconds  DECIMAL(10, 3) NULL,
+    phase_1_gap_to_leader_text     NVARCHAR(100) NULL,
+    phase_2_gap_to_leader_seconds  DECIMAL(10, 3) NULL,
+    phase_2_gap_to_leader_text     NVARCHAR(100) NULL,
+    phase_3_gap_to_leader_seconds  DECIMAL(10, 3) NULL,
+    phase_3_gap_to_leader_text     NVARCHAR(100) NULL,
+    duration_raw                   NVARCHAR(500) NULL,
+    gap_to_leader_raw              NVARCHAR(500) NULL
+);
+GO
+
+
 -- Starting Grid
 CREATE TABLE stg.StartingGrid (
     meeting_key     INT,

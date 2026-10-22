@@ -18,6 +18,7 @@ BATCH_SIZE = 5000
 TABLES = {
     "meetings_2025.csv": "stg.Meetings",
     "sessions_2025.csv": "stg.Sessions",
+    "session_results_2025.csv": "stg.SessionResults",
     "drivers_2025.csv": "stg.Drivers",
     "race_control_2025.csv": "stg.RaceControl",
     "race_results_2025.csv": "stg.RaceResults",

@@ -5,6 +5,7 @@ GO
     F1 Analytics - load stg -> dw facts
 
     Aktualne procedury:
+    - dw.usp_LoadFactSessionResult
     - dw.usp_LoadFactRaceResult
     - dw.usp_LoadFactQualifyingResult
     - dw.usp_LoadFactLap
@@ -2040,6 +2041,266 @@ BEGIN
 END;
 GO
 
+
+-- =========================================================
+-- FactSessionResult
+-- Grain: 1 driver x 1 session (all OpenF1 session types).
+-- Loading: validated full reload, single transaction.
+-- =========================================================
+
+CREATE OR ALTER PROCEDURE dw.usp_LoadFactSessionResult
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DECLARE @SourceRows INT;
+        DECLARE @MappedRows INT;
+        DECLARE @BadMappings INT;
+        DECLARE @ErrorMessage NVARCHAR(2048);
+
+        SELECT @SourceRows = COUNT(*)
+        FROM stg.SessionResults;
+
+        IF @SourceRows = 0
+            THROW 51800, N'FactSessionResult: stg.SessionResults is empty; refusing to clear DW fact.', 1;
+
+        IF EXISTS (
+            SELECT 1
+            FROM stg.SessionResults
+            GROUP BY session_key, driver_number
+            HAVING COUNT(*) > 1
+        )
+            THROW 51801, N'FactSessionResult: duplicate session_key + driver_number in staging.', 1;
+
+        IF EXISTS (
+            SELECT 1
+            FROM stg.SessionResults AS sr
+            LEFT JOIN stg.Sessions AS s
+                ON s.session_key = sr.session_key
+               AND s.meeting_key = sr.meeting_key
+               AND s.session_type = sr.session_type
+               AND s.session_name = sr.session_name
+            WHERE s.session_key IS NULL
+        )
+            THROW 51802, N'FactSessionResult: meeting/session/type/name mismatch with stg.Sessions.', 1;
+
+        IF EXISTS (
+            SELECT 1
+            FROM stg.SessionResults AS sr
+            INNER JOIN stg.Drivers AS d
+                ON d.meeting_key = sr.meeting_key
+               AND d.session_key = sr.session_key
+               AND d.driver_number = sr.driver_number
+            GROUP BY sr.session_key, sr.driver_number
+            HAVING COUNT(*) > 1
+        )
+            THROW 51803, N'FactSessionResult: duplicate staging driver mapping by meeting/session/driver.', 1;
+
+        -- Starting grid is optional; a missing grid must not eliminate a result.
+        IF EXISTS (
+            SELECT 1
+            FROM stg.SessionResults AS sr
+            INNER JOIN stg.StartingGrid AS sg
+                ON sg.session_key = sr.session_key
+               AND sg.driver_number = sr.driver_number
+            GROUP BY sr.session_key, sr.driver_number
+            HAVING COUNT(*) > 1
+        )
+            THROW 51804, N'FactSessionResult: duplicate starting grid by session_key + driver_number.', 1;
+
+        DROP TABLE IF EXISTS #SessionResultSource;
+
+        SELECT
+            sr.meeting_key AS SourceMeetingKey,
+            sr.session_key AS SourceSessionKey,
+            sr.driver_number AS SourceDriverNumber,
+
+            rw.RaceWeekendKey,
+            ds.SessionKey,
+            dd.DriverKey,
+            dt.TeamKey,
+            tc.TeamColourKey,
+
+            TRY_CONVERT(SMALLINT, sg.grid_position) AS GridPosition,
+            TRY_CONVERT(SMALLINT, sr.position) AS Position,
+            TRY_CONVERT(SMALLINT, sr.number_of_laps) AS NumberOfLaps,
+            TRY_CONVERT(DECIMAL(8,2), sr.points) AS Points,
+
+            sr.dnf AS DNF,
+            sr.dns AS DNS,
+            sr.dsq AS DSQ,
+
+            TRY_CONVERT(DECIMAL(12,3), sr.duration_seconds) AS DurationSeconds,
+            TRY_CONVERT(DECIMAL(12,3), sr.gap_to_leader_seconds) AS GapToLeaderSeconds,
+            sr.gap_to_leader_text AS GapToLeaderText,
+
+            TRY_CONVERT(DECIMAL(12,3), sr.phase_1_duration_seconds) AS Phase1DurationSeconds,
+            TRY_CONVERT(DECIMAL(12,3), sr.phase_2_duration_seconds) AS Phase2DurationSeconds,
+            TRY_CONVERT(DECIMAL(12,3), sr.phase_3_duration_seconds) AS Phase3DurationSeconds,
+
+            TRY_CONVERT(DECIMAL(12,3), sr.phase_1_gap_to_leader_seconds) AS Phase1GapToLeaderSeconds,
+            sr.phase_1_gap_to_leader_text AS Phase1GapToLeaderText,
+            TRY_CONVERT(DECIMAL(12,3), sr.phase_2_gap_to_leader_seconds) AS Phase2GapToLeaderSeconds,
+            sr.phase_2_gap_to_leader_text AS Phase2GapToLeaderText,
+            TRY_CONVERT(DECIMAL(12,3), sr.phase_3_gap_to_leader_seconds) AS Phase3GapToLeaderSeconds,
+            sr.phase_3_gap_to_leader_text AS Phase3GapToLeaderText
+
+        INTO #SessionResultSource
+        FROM stg.SessionResults AS sr
+
+        LEFT JOIN dw.DimSession AS ds
+            ON ds.SourceSessionKey = sr.session_key
+
+        LEFT JOIN dw.DimRaceWeekend AS rw
+            ON rw.RaceWeekendKey = ds.RaceWeekendKey
+           AND rw.SourceMeetingKey = sr.meeting_key
+
+        LEFT JOIN stg.Drivers AS d
+            ON d.meeting_key = sr.meeting_key
+           AND d.session_key = sr.session_key
+           AND d.driver_number = sr.driver_number
+
+        LEFT JOIN dw.DimDriver AS dd
+            ON dd.DriverBusinessKey = LEFT(LTRIM(RTRIM(d.full_name)), 100)
+           AND ds.DateStart >= dd.ValidFrom
+           AND (dd.ValidTo IS NULL OR ds.DateStart < dd.ValidTo)
+
+        LEFT JOIN dw.DimTeam AS dt
+            ON dt.TeamName = LEFT(LTRIM(RTRIM(d.team_name)), 100)
+
+        LEFT JOIN dw.DimTeamColour AS tc
+            ON tc.TeamKey = dt.TeamKey
+           AND tc.TeamColour = UPPER(
+                CONVERT(VARCHAR(20), LEFT(LTRIM(RTRIM(d.team_colour)), 20))
+           )
+
+        LEFT JOIN stg.StartingGrid AS sg
+            ON sg.session_key = sr.session_key
+           AND sg.driver_number = sr.driver_number;
+
+        SELECT @MappedRows = COUNT(*)
+        FROM #SessionResultSource;
+
+        IF @MappedRows <> @SourceRows
+        BEGIN
+            SET @ErrorMessage = N'FactSessionResult: mapping row count mismatch. Source='
+                + CONVERT(NVARCHAR(20), @SourceRows)
+                + N'; joined='
+                + CONVERT(NVARCHAR(20), @MappedRows)
+                + N'. Check SCD2 drivers, staging sessions and team mapping.';
+            THROW 51805, @ErrorMessage, 1;
+        END;
+
+        SELECT @BadMappings = COUNT(*)
+        FROM #SessionResultSource
+        WHERE RaceWeekendKey IS NULL
+           OR SessionKey IS NULL
+           OR DriverKey IS NULL
+           OR TeamKey IS NULL;
+
+        IF @BadMappings > 0
+        BEGIN
+            SELECT TOP (25)
+                SourceMeetingKey,
+                SourceSessionKey,
+                SourceDriverNumber,
+                RaceWeekendKey,
+                SessionKey,
+                DriverKey,
+                TeamKey
+            FROM #SessionResultSource
+            WHERE RaceWeekendKey IS NULL
+               OR SessionKey IS NULL
+               OR DriverKey IS NULL
+               OR TeamKey IS NULL
+            ORDER BY SourceSessionKey, SourceDriverNumber;
+
+            SET @ErrorMessage = N'FactSessionResult: missing dimension mapping in '
+                + CONVERT(NVARCHAR(20), @BadMappings)
+                + N' source records (sample returned as result set).';
+            THROW 51806, @ErrorMessage, 1;
+        END;
+
+        IF EXISTS (
+            SELECT 1
+            FROM #SessionResultSource
+            GROUP BY SessionKey, DriverKey
+            HAVING COUNT(*) > 1
+        )
+            THROW 51807, N'FactSessionResult: duplicate SessionKey + DriverKey after DW mapping.', 1;
+
+        -- Atomic full reload; rollback leaves previous fact intact on failure.
+        TRUNCATE TABLE dw.FactSessionResult;
+
+        INSERT INTO dw.FactSessionResult (
+            RaceWeekendKey,
+            SessionKey,
+            DriverKey,
+            TeamKey,
+            TeamColourKey,
+            GridPosition,
+            Position,
+            NumberOfLaps,
+            Points,
+            DNF,
+            DNS,
+            DSQ,
+            DurationSeconds,
+            GapToLeaderSeconds,
+            GapToLeaderText,
+            Phase1DurationSeconds,
+            Phase2DurationSeconds,
+            Phase3DurationSeconds,
+            Phase1GapToLeaderSeconds,
+            Phase1GapToLeaderText,
+            Phase2GapToLeaderSeconds,
+            Phase2GapToLeaderText,
+            Phase3GapToLeaderSeconds,
+            Phase3GapToLeaderText
+        )
+        SELECT
+            RaceWeekendKey,
+            SessionKey,
+            DriverKey,
+            TeamKey,
+            TeamColourKey,
+            GridPosition,
+            Position,
+            NumberOfLaps,
+            Points,
+            DNF,
+            DNS,
+            DSQ,
+            DurationSeconds,
+            GapToLeaderSeconds,
+            GapToLeaderText,
+            Phase1DurationSeconds,
+            Phase2DurationSeconds,
+            Phase3DurationSeconds,
+            Phase1GapToLeaderSeconds,
+            Phase1GapToLeaderText,
+            Phase2GapToLeaderSeconds,
+            Phase2GapToLeaderText,
+            Phase3GapToLeaderSeconds,
+            Phase3GapToLeaderText
+        FROM #SessionResultSource;
+
+        IF @@ROWCOUNT <> @SourceRows
+            THROW 51808, N'FactSessionResult: unexpected insert row count.', 1;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END;
+GO
 
 -- =========================================================
 -- Wrapper wszystkich factów
