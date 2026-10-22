@@ -393,6 +393,21 @@ BEGIN
             s.meeting_key AS SourceMeetingKey,
             LEFT(LTRIM(RTRIM(s.session_type)), 50) AS SessionTypeName,
             LEFT(LTRIM(RTRIM(s.session_name)), 100) AS SessionName,
+            CASE
+                WHEN LEFT(LTRIM(RTRIM(s.session_name)), 100) = N'Practice 1' THEN 1
+                WHEN LEFT(LTRIM(RTRIM(s.session_name)), 100) IN (
+                    N'Practice 2',
+                    N'Sprint Qualifying',
+                    N'Sprint Shootout'
+                ) THEN 2
+                WHEN LEFT(LTRIM(RTRIM(s.session_name)), 100) IN (
+                    N'Practice 3',
+                    N'Sprint'
+                ) THEN 3
+                WHEN LEFT(LTRIM(RTRIM(s.session_name)), 100) = N'Qualifying' THEN 4
+                WHEN LEFT(LTRIM(RTRIM(s.session_name)), 100) = N'Race' THEN 5
+                ELSE 99
+            END AS SessionSortOrder,
             CONVERT(
                 DATETIME2(6),
                 TRY_CONVERT(
@@ -420,6 +435,7 @@ BEGIN
             d.RaceWeekendKey = rw.RaceWeekendKey,
             d.SessionTypeKey = st.SessionTypeKey,
             d.SessionName = s.SessionName,
+            d.SessionSortOrder = s.SessionSortOrder,
             d.DateStart = s.DateStart,
             d.DateEnd = s.DateEnd,
             d.IsCancelled = s.IsCancelled
@@ -436,6 +452,7 @@ BEGIN
             RaceWeekendKey,
             SessionTypeKey,
             SessionName,
+            SessionSortOrder,
             DateStart,
             DateEnd,
             IsCancelled
@@ -445,6 +462,7 @@ BEGIN
             rw.RaceWeekendKey,
             st.SessionTypeKey,
             s.SessionName,
+            s.SessionSortOrder,
             s.DateStart,
             s.DateEnd,
             s.IsCancelled

@@ -722,6 +722,13 @@ GO
 -- Jeżeli w przyszłości rekord bez mapowania do Drivers będzie
 -- miał odpowiadające dane Laps lub QualifyingResults, procedura
 -- przerwie ładowanie zamiast go automatycznie odrzucić.
+--
+-- StintLaps:
+-- liczba okrążeń przejechanych w stincie:
+-- LapEnd - LapStart + 1.
+--
+-- Jeżeli LapStart lub LapEnd jest NULL albo LapEnd < LapStart,
+-- StintLaps pozostaje NULL.
 -- =========================================================
 
 CREATE OR ALTER PROCEDURE dw.usp_LoadFactStint
@@ -738,11 +745,15 @@ BEGIN
         DECLARE @EligibleRows INT;
         DECLARE @MappedRows INT;
 
-        SELECT @SourceRows = COUNT(*)
+
+        SELECT
+            @SourceRows = COUNT(*)
         FROM stg.Stints;
 
 
+        -- =====================================================
         -- Source grain musi być unikalny.
+        -- =====================================================
         IF EXISTS (
             SELECT 1
             FROM stg.Stints
@@ -759,7 +770,9 @@ BEGIN
         END;
 
 
+        -- =====================================================
         -- Liczymy rekordy bez dokładnego mapowania do Drivers.
+        -- =====================================================
         SELECT
             @RejectedRows = COUNT(*)
         FROM stg.Stints AS st
@@ -770,10 +783,13 @@ BEGIN
         WHERE d.driver_number IS NULL;
 
 
+        -- =====================================================
         -- Brak Drivers jest akceptowany tylko wtedy, gdy nie ma
-        -- żadnego dowodu faktycznej aktywności kierowcy w tej sesji.
+        -- żadnego dowodu faktycznej aktywności kierowcy w sesji.
+        --
         -- Jeśli są Laps lub QualifyingResults, traktujemy to jako
         -- problem jakości danych i przerywamy ETL.
+        -- =====================================================
         IF EXISTS (
             SELECT 1
             FROM stg.Stints AS st
@@ -809,7 +825,11 @@ BEGIN
         SET @EligibleRows = @SourceRows - @RejectedRows;
 
 
+        -- =====================================================
+        -- Budowa źródła FactStint.
+        -- =====================================================
         DROP TABLE IF EXISTS #StintSource;
+
 
         SELECT
             rw.RaceWeekendKey,
@@ -828,24 +848,51 @@ BEGIN
                 N''
             ) AS Compound,
 
-            TRY_CONVERT(
-                SMALLINT,
-                NULLIF(LTRIM(RTRIM(st.lap_start)), N'')
-            ) AS LapStart,
+            lap.LapStart,
 
-            TRY_CONVERT(
-                SMALLINT,
-                NULLIF(LTRIM(RTRIM(st.lap_end)), N'')
-            ) AS LapEnd,
+            lap.LapEnd,
+
+            CASE
+                WHEN lap.LapStart IS NULL
+                  OR lap.LapEnd IS NULL
+                  OR lap.LapEnd < lap.LapStart
+                    THEN NULL
+                ELSE
+                    CONVERT(INT, lap.LapEnd)
+                    - CONVERT(INT, lap.LapStart)
+                    + 1
+            END AS StintLaps,
 
             TRY_CONVERT(
                 DECIMAL(6,2),
-                NULLIF(LTRIM(RTRIM(st.tyre_age_at_start)), N'')
+                NULLIF(
+                    LTRIM(RTRIM(st.tyre_age_at_start)),
+                    N''
+                )
             ) AS TyreAgeAtStart
 
         INTO #StintSource
 
         FROM stg.Stints AS st
+
+        CROSS APPLY (
+            SELECT
+                TRY_CONVERT(
+                    SMALLINT,
+                    NULLIF(
+                        LTRIM(RTRIM(st.lap_start)),
+                        N''
+                    )
+                ) AS LapStart,
+
+                TRY_CONVERT(
+                    SMALLINT,
+                    NULLIF(
+                        LTRIM(RTRIM(st.lap_end)),
+                        N''
+                    )
+                ) AS LapEnd
+        ) AS lap
 
         JOIN dw.DimSession AS ds
             ON ds.SourceSessionKey = st.session_key
@@ -860,7 +907,11 @@ BEGIN
            AND d.driver_number = st.driver_number
 
         JOIN dw.DimDriver AS dd
-            ON dd.DriverBusinessKey = LEFT(LTRIM(RTRIM(d.full_name)), 100)
+            ON dd.DriverBusinessKey =
+                LEFT(
+                    LTRIM(RTRIM(d.full_name)),
+                    100
+                )
            AND ds.DateStart >= dd.ValidFrom
            AND (
                 dd.ValidTo IS NULL
@@ -868,19 +919,31 @@ BEGIN
            )
 
         JOIN dw.DimTeam AS dt
-            ON dt.TeamName = LEFT(LTRIM(RTRIM(d.team_name)), 100)
+            ON dt.TeamName =
+                LEFT(
+                    LTRIM(RTRIM(d.team_name)),
+                    100
+                )
 
         LEFT JOIN dw.DimTeamColour AS tc
             ON tc.TeamKey = dt.TeamKey
-           AND tc.TeamColour = UPPER(
-                CONVERT(
-                    VARCHAR(20),
-                    LEFT(LTRIM(RTRIM(d.team_colour)), 20)
-                )
-           );
+           AND tc.TeamColour =
+                UPPER(
+                    CONVERT(
+                        VARCHAR(20),
+                        LEFT(
+                            LTRIM(RTRIM(d.team_colour)),
+                            20
+                        )
+                    )
+                );
 
 
-        SELECT @MappedRows = COUNT(*)
+        -- =====================================================
+        -- Kontrola liczby rekordów po mapowaniu.
+        -- =====================================================
+        SELECT
+            @MappedRows = COUNT(*)
         FROM #StintSource;
 
 
@@ -903,7 +966,9 @@ BEGIN
         END;
 
 
+        -- =====================================================
         -- Grain po mapowaniu nadal musi być unikalny.
+        -- =====================================================
         IF EXISTS (
             SELECT 1
             FROM #StintSource
@@ -920,6 +985,9 @@ BEGIN
         END;
 
 
+        -- =====================================================
+        -- Pełne przeładowanie FactStint.
+        -- =====================================================
         TRUNCATE TABLE dw.FactStint;
 
 
@@ -933,6 +1001,7 @@ BEGIN
             Compound,
             LapStart,
             LapEnd,
+            StintLaps,
             TyreAgeAtStart
         )
         SELECT
@@ -945,6 +1014,7 @@ BEGIN
             Compound,
             LapStart,
             LapEnd,
+            StintLaps,
             TyreAgeAtStart
         FROM #StintSource;
 

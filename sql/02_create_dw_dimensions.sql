@@ -201,6 +201,7 @@ CREATE TABLE dw.DimSession (
     RaceWeekendKey      INT NOT NULL,
     SessionTypeKey      INT NOT NULL,
     SessionName         NVARCHAR(100) NOT NULL,
+    SessionSortOrder    INT NOT NULL,
     DateStart           DATETIME2(6) NULL,
     DateEnd             DATETIME2(6) NULL,
     IsCancelled         BIT NOT NULL,

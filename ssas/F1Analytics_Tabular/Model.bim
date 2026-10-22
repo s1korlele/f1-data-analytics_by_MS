@@ -383,7 +383,8 @@
           {
             "name": "SessionName",
             "dataType": "string",
-            "sourceColumn": "SessionName"
+            "sourceColumn": "SessionName",
+            "sortByColumn": "SessionSortOrder"
           },
           {
             "name": "DateStart",
@@ -399,6 +400,11 @@
             "name": "IsCancelled",
             "dataType": "boolean",
             "sourceColumn": "IsCancelled"
+          },
+          {
+            "name": "SessionSortOrder",
+            "dataType": "int64",
+            "sourceColumn": "SessionSortOrder"
           }
         ],
         "partitions": [
@@ -1094,6 +1100,11 @@
             "name": "TyreAgeAtStart",
             "dataType": "double",
             "sourceColumn": "TyreAgeAtStart"
+          },
+          {
+            "name": "StintLaps",
+            "dataType": "int64",
+            "sourceColumn": "StintLaps"
           }
         ],
         "partitions": [

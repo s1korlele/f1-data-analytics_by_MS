@@ -272,6 +272,7 @@ CREATE TABLE dw.FactStint (
     Compound            NVARCHAR(50) NULL,
     LapStart            SMALLINT NULL,
     LapEnd              SMALLINT NULL,
+    StintLaps           INT NULL,
     TyreAgeAtStart      DECIMAL(6,2) NULL,
 
     CONSTRAINT PK_FactStint
