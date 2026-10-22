@@ -1444,6 +1444,676 @@
             ],
             "formatString": "0.000",
             "displayFolder": "Laps\\Consistency"
+          },
+          {
+            "name": "Official Session Result",
+            "expression": [
+              "",
+              "VAR _HasResult =",
+              "    COUNTROWS('dw FactSessionResult') = 1",
+              "",
+              "VAR _Position =",
+              "    SELECTEDVALUE('dw FactSessionResult'[Position])",
+              "",
+              "VAR _DNF =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DNF])",
+              "",
+              "VAR _DNS =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DNS])",
+              "",
+              "VAR _DSQ =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DSQ])",
+              "",
+              "VAR _Result =",
+              "    SWITCH(",
+              "        TRUE(),",
+              "        _DSQ = TRUE(), \"DSQ\",",
+              "        _DNS = TRUE(), \"DNS\",",
+              "        _DNF = TRUE(), \"DNF\",",
+              "        NOT ISBLANK(_Position), FORMAT(_Position, \"0\"),",
+              "        BLANK()",
+              "    )",
+              "",
+              "VAR _SortOrder =",
+              "    SWITCH(",
+              "        TRUE(),",
+              "        _DSQ = TRUE(), 98,",
+              "        _DNS = TRUE(), 99,",
+              "        _DNF = TRUE(), 97,",
+              "        _Position",
+              "    )",
+              "",
+              "RETURN",
+              "IF(",
+              "    _HasResult && NOT ISBLANK(_Result),",
+              "    REPT(UNICHAR(8203), _SortOrder) & _Result",
+              ")"
+            ]
+          },
+          {
+            "name": "Official Session Performance Result",
+            "expression": [
+              "",
+              "VAR _ResultRows =",
+              "    COUNTROWS('dw FactSessionResult')",
+              "",
+              "VAR _SessionTypeKey =",
+              "    SELECTEDVALUE('dw DimSession'[SessionTypeKey])",
+              "",
+              "VAR _SessionType =",
+              "    LOOKUPVALUE(",
+              "        'dw DimSessionType'[SessionTypeName],",
+              "        'dw DimSessionType'[SessionTypeKey],",
+              "        _SessionTypeKey",
+              "    )",
+              "",
+              "VAR _Position =",
+              "    SELECTEDVALUE('dw FactSessionResult'[Position])",
+              "",
+              "VAR _DNF =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DNF])",
+              "",
+              "VAR _DNS =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DNS])",
+              "",
+              "VAR _DSQ =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DSQ])",
+              "",
+              "VAR _Duration =",
+              "    SELECTEDVALUE('dw FactSessionResult'[DurationSeconds])",
+              "",
+              "VAR _Q1 =",
+              "    SELECTEDVALUE('dw FactSessionResult'[Phase1DurationSeconds])",
+              "",
+              "VAR _Q2 =",
+              "    SELECTEDVALUE('dw FactSessionResult'[Phase2DurationSeconds])",
+              "",
+              "VAR _Q3 =",
+              "    SELECTEDVALUE('dw FactSessionResult'[Phase3DurationSeconds])",
+              "",
+              "VAR _GapSeconds =",
+              "    SELECTEDVALUE('dw FactSessionResult'[GapToLeaderSeconds])",
+              "",
+              "VAR _GapText =",
+              "    SELECTEDVALUE('dw FactSessionResult'[GapToLeaderText])",
+              "",
+              "VAR _TimeSeconds =",
+              "    SWITCH(",
+              "        _SessionType,",
+              "        \"Practice\", _Duration,",
+              "        \"Qualifying\", COALESCE(_Q3, _Q2, _Q1),",
+              "        BLANK()",
+              "    )",
+              "",
+              "VAR _TimeLabel =",
+              "    IF(",
+              "        NOT ISBLANK(_TimeSeconds),",
+              "        FORMAT(INT(_TimeSeconds / 60), \"0\")",
+              "            & \":\"",
+              "            & FORMAT(MOD(_TimeSeconds, 60), \"00.000\")",
+              "    )",
+              "",
+              "RETURN",
+              "IF(",
+              "    _ResultRows <> 1,",
+              "    BLANK(),",
+              "    SWITCH(",
+              "        TRUE(),",
+              "",
+              "        _DSQ = TRUE(), \"DSQ\",",
+              "        _DNS = TRUE(), \"DNS\",",
+              "        _DNF = TRUE(), \"DNF\",",
+              "",
+              "        _SessionType = \"Race\" && _Position = 1,",
+              "            \"Winner\",",
+              "",
+              "        _SessionType = \"Race\" && NOT ISBLANK(_GapSeconds),",
+              "            \"+\" & FORMAT(_GapSeconds, \"0.000\") & \" s\",",
+              "",
+              "        _SessionType = \"Race\" && NOT ISBLANK(_GapText),",
+              "            _GapText,",
+              "",
+              "        NOT ISBLANK(_TimeLabel),",
+              "            _TimeLabel,",
+              "",
+              "        _SessionType = \"Race\",",
+              "            \"No gap data\",",
+              "",
+              "        \"No time\"",
+              "    )",
+              ")"
+            ]
+          },
+          {
+            "name": "Official Session Leader",
+            "expression": [
+              "",
+              "VAR _LeaderDriverKey =",
+              "    CALCULATE(",
+              "        SELECTEDVALUE(",
+              "            'dw FactSessionResult'[DriverKey]",
+              "        ),",
+              "        REMOVEFILTERS('dw DimDriver'),",
+              "        REMOVEFILTERS('dw DimTeam'),",
+              "        REMOVEFILTERS('dw DimTeamColour'),",
+              "        'dw FactSessionResult'[Position] = 1",
+              "    )",
+              "",
+              "VAR _LeaderName =",
+              "    LOOKUPVALUE(",
+              "        'dw DimDriver'[FullName],",
+              "        'dw DimDriver'[DriverKey],",
+              "        _LeaderDriverKey",
+              "    )",
+              "",
+              "RETURN",
+              "    IF(",
+              "        HASONEVALUE('dw DimSession'[SessionKey]),",
+              "        COALESCE(",
+              "            _LeaderName,",
+              "            \"No official result\"",
+              "        ),",
+              "        BLANK()",
+              "    )"
+            ]
+          },
+          {
+            "name": "Fastest Lap Label",
+            "expression": [
+              "",
+              "VAR _Seconds = [Fastest Lap Time]",
+              "RETURN",
+              "IF(",
+              "    NOT ISBLANK(_Seconds),",
+              "    FORMAT(INT(_Seconds / 60), \"0\")",
+              "        & \":\"",
+              "        & FORMAT(MOD(_Seconds, 60), \"00.000\")",
+              ")"
+            ]
+          },
+          {
+            "name": "Fastest Lap Driver",
+            "expression": [
+              "",
+              "VAR _FastestLap =",
+              "    [Fastest Lap Time]",
+              "",
+              "VAR _DriverKey =",
+              "    MAXX(",
+              "        TOPN(",
+              "            1,",
+              "            FILTER(",
+              "                'dw FactLap',",
+              "                NOT ISBLANK('dw FactLap'[LapDurationSeconds])",
+              "                    && 'dw FactLap'[LapDurationSeconds] = _FastestLap",
+              "            ),",
+              "            'dw FactLap'[LapKey], ASC",
+              "        ),",
+              "        'dw FactLap'[DriverKey]",
+              "    )",
+              "",
+              "RETURN",
+              "IF(",
+              "    NOT ISBLANK(_FastestLap)",
+              "        && NOT ISBLANK(_DriverKey),",
+              "    LOOKUPVALUE(",
+              "        'dw DimDriver'[FullName],",
+              "        'dw DimDriver'[DriverKey],",
+              "        _DriverKey",
+              "    )",
+              ")"
+            ]
+          },
+          {
+            "name": "Session Start",
+            "expression": [
+              "",
+              "SELECTEDVALUE('dw DimSession'[DateStart])"
+            ]
+          },
+          {
+            "name": "Session Rainfall Status",
+            "expression": [
+              "",
+              "VAR _WeatherSamples =",
+              "    COUNTROWS('dw FactWeather')",
+              "",
+              "VAR _RainSamples =",
+              "    CALCULATE(",
+              "        COUNTROWS('dw FactWeather'),",
+              "        'dw FactWeather'[Rainfall] = TRUE()",
+              "    )",
+              "",
+              "RETURN",
+              "    SWITCH(",
+              "        TRUE(),",
+              "        ISBLANK(_WeatherSamples), \"No data\",",
+              "        _RainSamples > 0, \"Yes\",",
+              "        \"No\"",
+              "    )"
+            ]
+          },
+          {
+            "name": "Average Lap Time Excl Pit Out Label",
+            "expression": [
+              "",
+              "VAR _Seconds = [Average Lap Time Excl Pit Out]",
+              "RETURN",
+              "    IF(",
+              "        NOT ISBLANK(_Seconds),",
+              "        FORMAT(INT(_Seconds / 60), \"0\")",
+              "            & \":\"",
+              "            & FORMAT(MOD(_Seconds, 60), \"00.000\")",
+              "    )"
+            ]
+          },
+          {
+            "name": "Latest Weekend Attendance",
+            "expression": [
+              "",
+              "VAR _LatestDate =",
+              "    MAXX(",
+              "        FILTER(",
+              "            CALCULATETABLE(",
+              "                'dw DimRaceWeekend',",
+              "                REMOVEFILTERS(",
+              "                    'dw DimRaceWeekend'[RaceWeekendKey],",
+              "                    'dw DimRaceWeekend'[RaceWeekendName],",
+              "                    'dw DimRaceWeekend'[RoundNumber],",
+              "                    'dw DimRaceWeekend'[DateStart],",
+              "                    'dw DimRaceWeekend'[DateEnd]",
+              "                )",
+              "            ),",
+              "            NOT ISBLANK(",
+              "                CALCULATE(",
+              "                    MAX('dw FactAttendance'[WeekendAttendance])",
+              "                )",
+              "            )",
+              "        ),",
+              "        'dw DimRaceWeekend'[DateEnd]",
+              "    )",
+              "",
+              "RETURN",
+              "    IF(",
+              "        NOT ISBLANK(_LatestDate),",
+              "        CALCULATE(",
+              "            MAX('dw FactAttendance'[WeekendAttendance]),",
+              "            REMOVEFILTERS(",
+              "                'dw DimRaceWeekend'[RaceWeekendKey],",
+              "                'dw DimRaceWeekend'[RaceWeekendName],",
+              "                'dw DimRaceWeekend'[RoundNumber],",
+              "                'dw DimRaceWeekend'[DateStart],",
+              "                'dw DimRaceWeekend'[DateEnd]",
+              "            ),",
+              "            'dw DimRaceWeekend'[DateEnd] = _LatestDate",
+              "        )",
+              "    )"
+            ]
+          },
+          {
+            "name": "Latest Weekend Attendance Label",
+            "expression": [
+              "",
+              "VAR _Attendance =",
+              "    [Latest Weekend Attendance]",
+              "",
+              "RETURN",
+              "    IF(",
+              "        NOT ISBLANK(_Attendance),",
+              "        FORMAT(_Attendance, \"#,##0\"),",
+              "        \"No data\"",
+              "    )"
+            ]
+          },
+          {
+            "name": "Pit Stop Count",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    COUNTROWS('dw FactPitStop'),",
+              "    NOT ISBLANK('dw FactPitStop'[StopDurationSeconds])",
+              ")"
+            ]
+          },
+          {
+            "name": "Fastest Pit Stop Time",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN('dw FactPitStop'[StopDurationSeconds]),",
+              "    NOT ISBLANK('dw FactPitStop'[StopDurationSeconds])",
+              ")"
+            ]
+          },
+          {
+            "name": "Latest Race Winner",
+            "expression": [
+              "",
+              "VAR _WinnerRow =",
+              "    TOPN(",
+              "        1,",
+              "        CALCULATETABLE(",
+              "            'dw FactSessionResult',",
+              "",
+              "            REMOVEFILTERS('dw DimDriver'),",
+              "            REMOVEFILTERS('dw DimTeam'),",
+              "            REMOVEFILTERS('dw DimTeamColour'),",
+              "",
+              "            REMOVEFILTERS(",
+              "                'dw DimSession'[SessionName],",
+              "                'dw DimSession'[SessionKey]",
+              "            ),",
+              "",
+              "            'dw DimSession'[SessionName] = \"Race\",",
+              "            'dw FactSessionResult'[Position] = 1",
+              "        ),",
+              "",
+              "        RELATED('dw DimSession'[DateStart]), DESC,",
+              "        'dw FactSessionResult'[SessionKey], DESC",
+              "    )",
+              "",
+              "RETURN",
+              "    MAXX(",
+              "        _WinnerRow,",
+              "        RELATED('dw DimDriver'[FullName])",
+              "    )"
+            ]
+          },
+          {
+            "name": "Circuit Latest Race Fastest Lap",
+            "expression": [
+              "",
+              "VAR _FastestLapRow =",
+              "    CALCULATETABLE(",
+              "        TOPN(",
+              "            1,",
+              "            FILTER(",
+              "                'dw FactLap',",
+              "                NOT ISBLANK(",
+              "                    'dw FactLap'[LapDurationSeconds]",
+              "                )",
+              "            ),",
+              "            RELATED('dw DimSession'[DateStart]), DESC,",
+              "            'dw FactLap'[LapDurationSeconds], ASC,",
+              "            'dw FactLap'[LapKey], ASC",
+              "        ),",
+              "",
+              "        REMOVEFILTERS(",
+              "            'dw DimRaceWeekend'[RaceWeekendKey],",
+              "            'dw DimRaceWeekend'[RaceWeekendName],",
+              "            'dw DimRaceWeekend'[RoundNumber],",
+              "            'dw DimRaceWeekend'[DateStart],",
+              "            'dw DimRaceWeekend'[DateEnd]",
+              "        ),",
+              "",
+              "        REMOVEFILTERS(",
+              "            'dw DimSession'[SessionKey],",
+              "            'dw DimSession'[SessionName]",
+              "        ),",
+              "",
+              "        'dw DimSession'[SessionName] = \"Race\",",
+              "",
+              "        REMOVEFILTERS('dw DimDriver'),",
+              "        REMOVEFILTERS('dw DimTeam'),",
+              "        REMOVEFILTERS('dw DimTeamColour')",
+              "    )",
+              "",
+              "RETURN",
+              "    MINX(",
+              "        _FastestLapRow,",
+              "        'dw FactLap'[LapDurationSeconds]",
+              "    )"
+            ]
+          },
+          {
+            "name": "Circuit Latest Race Fastest Lap Driver",
+            "expression": [
+              "",
+              "VAR _FastestLapRow =",
+              "    CALCULATETABLE(",
+              "        TOPN(",
+              "            1,",
+              "            FILTER(",
+              "                'dw FactLap',",
+              "                NOT ISBLANK(",
+              "                    'dw FactLap'[LapDurationSeconds]",
+              "                )",
+              "            ),",
+              "            RELATED('dw DimSession'[DateStart]), DESC,",
+              "            'dw FactLap'[LapDurationSeconds], ASC,",
+              "            'dw FactLap'[LapKey], ASC",
+              "        ),",
+              "",
+              "        REMOVEFILTERS(",
+              "            'dw DimRaceWeekend'[RaceWeekendKey],",
+              "            'dw DimRaceWeekend'[RaceWeekendName],",
+              "            'dw DimRaceWeekend'[RoundNumber],",
+              "            'dw DimRaceWeekend'[DateStart],",
+              "            'dw DimRaceWeekend'[DateEnd]",
+              "        ),",
+              "",
+              "        REMOVEFILTERS(",
+              "            'dw DimSession'[SessionKey],",
+              "            'dw DimSession'[SessionName]",
+              "        ),",
+              "",
+              "        'dw DimSession'[SessionName] = \"Race\",",
+              "",
+              "        REMOVEFILTERS('dw DimDriver'),",
+              "        REMOVEFILTERS('dw DimTeam'),",
+              "        REMOVEFILTERS('dw DimTeamColour')",
+              "    )",
+              "",
+              "VAR _DriverKey =",
+              "    MAXX(",
+              "        _FastestLapRow,",
+              "        'dw FactLap'[DriverKey]",
+              "    )",
+              "",
+              "RETURN",
+              "    IF(",
+              "        NOT ISBLANK(_DriverKey),",
+              "        LOOKUPVALUE(",
+              "            'dw DimDriver'[FullName],",
+              "            'dw DimDriver'[DriverKey],",
+              "            _DriverKey",
+              "        )",
+              "    )"
+            ]
+          },
+          {
+            "name": "Circuit Latest Race Fastest Lap Label",
+            "expression": [
+              "",
+              "VAR _Seconds =",
+              "    [Circuit Latest Race Fastest Lap]",
+              "",
+              "RETURN",
+              "    IF(",
+              "        NOT ISBLANK(_Seconds),",
+              "        FORMAT(INT(_Seconds / 60), \"0\")",
+              "            & \":\"",
+              "            & FORMAT(",
+              "                MOD(_Seconds, 60),",
+              "                \"00.000\",",
+              "                \"en-US\"",
+              "            ),",
+              "        \"No data\"",
+              "    )"
+            ]
+          },
+          {
+            "name": "Circuit Calendar Sort Order",
+            "expression": [
+              "",
+              "VAR _LatestSeason =",
+              "    CALCULATE(",
+              "        MAX('dw DimRaceWeekend'[SeasonKey]),",
+              "        REMOVEFILTERS('dw DimCircuit')",
+              "    )",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('dw DimRaceWeekend'[RoundNumber]),",
+              "        'dw DimRaceWeekend'[SeasonKey] = _LatestSeason",
+              "    )"
+            ]
+          },
+          {
+            "name": "Circuit Has Weekend",
+            "expression": [
+              "",
+              "IF(",
+              "    COUNTROWS('dw DimRaceWeekend') > 0,",
+              "    1,",
+              "    0",
+              ")"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "dw FactSessionResult",
+        "columns": [
+          {
+            "name": "SessionResultKey",
+            "dataType": "int64",
+            "sourceColumn": "SessionResultKey"
+          },
+          {
+            "name": "RaceWeekendKey",
+            "dataType": "int64",
+            "sourceColumn": "RaceWeekendKey"
+          },
+          {
+            "name": "SessionKey",
+            "dataType": "int64",
+            "sourceColumn": "SessionKey"
+          },
+          {
+            "name": "DriverKey",
+            "dataType": "int64",
+            "sourceColumn": "DriverKey"
+          },
+          {
+            "name": "TeamKey",
+            "dataType": "int64",
+            "sourceColumn": "TeamKey"
+          },
+          {
+            "name": "TeamColourKey",
+            "dataType": "int64",
+            "sourceColumn": "TeamColourKey"
+          },
+          {
+            "name": "GridPosition",
+            "dataType": "int64",
+            "sourceColumn": "GridPosition"
+          },
+          {
+            "name": "Position",
+            "dataType": "int64",
+            "sourceColumn": "Position"
+          },
+          {
+            "name": "NumberOfLaps",
+            "dataType": "int64",
+            "sourceColumn": "NumberOfLaps"
+          },
+          {
+            "name": "Points",
+            "dataType": "double",
+            "sourceColumn": "Points"
+          },
+          {
+            "name": "DNF",
+            "dataType": "boolean",
+            "sourceColumn": "DNF"
+          },
+          {
+            "name": "DNS",
+            "dataType": "boolean",
+            "sourceColumn": "DNS"
+          },
+          {
+            "name": "DSQ",
+            "dataType": "boolean",
+            "sourceColumn": "DSQ"
+          },
+          {
+            "name": "DurationSeconds",
+            "dataType": "double",
+            "sourceColumn": "DurationSeconds"
+          },
+          {
+            "name": "GapToLeaderSeconds",
+            "dataType": "double",
+            "sourceColumn": "GapToLeaderSeconds"
+          },
+          {
+            "name": "GapToLeaderText",
+            "dataType": "string",
+            "sourceColumn": "GapToLeaderText"
+          },
+          {
+            "name": "Phase1DurationSeconds",
+            "dataType": "double",
+            "sourceColumn": "Phase1DurationSeconds"
+          },
+          {
+            "name": "Phase2DurationSeconds",
+            "dataType": "double",
+            "sourceColumn": "Phase2DurationSeconds"
+          },
+          {
+            "name": "Phase3DurationSeconds",
+            "dataType": "double",
+            "sourceColumn": "Phase3DurationSeconds"
+          },
+          {
+            "name": "Phase1GapToLeaderSeconds",
+            "dataType": "double",
+            "sourceColumn": "Phase1GapToLeaderSeconds"
+          },
+          {
+            "name": "Phase1GapToLeaderText",
+            "dataType": "string",
+            "sourceColumn": "Phase1GapToLeaderText"
+          },
+          {
+            "name": "Phase2GapToLeaderSeconds",
+            "dataType": "double",
+            "sourceColumn": "Phase2GapToLeaderSeconds"
+          },
+          {
+            "name": "Phase2GapToLeaderText",
+            "dataType": "string",
+            "sourceColumn": "Phase2GapToLeaderText"
+          },
+          {
+            "name": "Phase3GapToLeaderSeconds",
+            "dataType": "double",
+            "sourceColumn": "Phase3GapToLeaderSeconds"
+          },
+          {
+            "name": "Phase3GapToLeaderText",
+            "dataType": "string",
+            "sourceColumn": "Phase3GapToLeaderText"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MARCIN\\F1DEV;F1Analytics\",",
+                "    dw_FactSessionResult = Source{[Schema=\"dw\",Item=\"FactSessionResult\"]}[Data]",
+                "in",
+                "    dw_FactSessionResult"
+              ]
+            }
           }
         ]
       }
@@ -1483,41 +2153,6 @@
         "fromColumn": "DriverKey",
         "toTable": "dw DimDriver",
         "toColumn": "DriverKey"
-      },
-      {
-        "name": "c651e3b9-f58a-4847-ba73-8beeff04d6ca",
-        "fromTable": "dw FactLap",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
-      },
-      {
-        "name": "ff1e467c-1ddf-4001-8a08-9405bdf37720",
-        "fromTable": "dw FactQualifyingResult",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
-      },
-      {
-        "name": "21e5ad3d-e493-47e8-8487-cc4df643035d",
-        "fromTable": "dw FactRaceControl",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
-      },
-      {
-        "name": "c947cada-36f2-4cbc-8934-9e1076b5e852",
-        "fromTable": "dw FactRaceResult",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
-      },
-      {
-        "name": "cb84c953-132b-47c8-9c6f-68244ebd04dc",
-        "fromTable": "dw FactStint",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
       },
       {
         "name": "b1a2fa75-07e4-4223-b16e-b54caeb7720b",
@@ -1599,20 +2234,6 @@
       {
         "name": "86ddc827-840e-4686-8660-324b1b908831",
         "fromTable": "dw FactAttendance",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
-      },
-      {
-        "name": "1518cec1-029e-4580-8cf5-a1abf0b3052f",
-        "fromTable": "dw FactPitStop",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey"
-      },
-      {
-        "name": "c13c8943-2626-48f2-99b5-ae5274b5cb48",
-        "fromTable": "dw FactWeather",
         "fromColumn": "RaceWeekendKey",
         "toTable": "dw DimRaceWeekend",
         "toColumn": "RaceWeekendKey"
@@ -1721,6 +2342,105 @@
         "fromColumn": "SessionKey",
         "toTable": "dw DimSession",
         "toColumn": "SessionKey"
+      },
+      {
+        "name": "4f6b871f-2b22-47e1-8488-45a1d4e3257e",
+        "fromTable": "dw FactSessionResult",
+        "fromColumn": "SessionKey",
+        "toTable": "dw DimSession",
+        "toColumn": "SessionKey"
+      },
+      {
+        "name": "b607bfc1-cc2f-49af-abf8-dd5079fde71b",
+        "fromTable": "dw FactSessionResult",
+        "fromColumn": "DriverKey",
+        "toTable": "dw DimDriver",
+        "toColumn": "DriverKey"
+      },
+      {
+        "name": "cc977101-775a-4cfa-84d3-a29cfba7529e",
+        "fromTable": "dw FactSessionResult",
+        "fromColumn": "TeamKey",
+        "toTable": "dw DimTeam",
+        "toColumn": "TeamKey"
+      },
+      {
+        "name": "da920d29-0567-461b-b551-8c5d9acc0f84",
+        "fromTable": "dw FactSessionResult",
+        "fromColumn": "TeamColourKey",
+        "toTable": "dw DimTeamColour",
+        "toColumn": "TeamColourKey"
+      },
+      {
+        "name": "3bccb336-f2b6-47ac-9a92-364c61333a2d",
+        "fromTable": "dw FactSessionResult",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "7848d913-54e2-4ca9-b62d-6bb7e5583db9",
+        "fromTable": "dw FactRaceResult",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "07327bca-bcf9-4eb3-b676-739b95df487d",
+        "fromTable": "dw FactQualifyingResult",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "cb48d323-9095-4321-8075-b9ac4435b3f0",
+        "fromTable": "dw FactLap",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "06792a12-94ba-462c-b2bb-44ed7ae92601",
+        "fromTable": "dw FactStint",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "ebca9c5c-8001-455b-8efd-d216f81a83ae",
+        "fromTable": "dw FactPitStop",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "f07e8a45-98e9-40d7-9009-e7dfd951cc2e",
+        "fromTable": "dw FactWeather",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "506abe35-2c33-48d9-b3ac-37f64f1fbe5b",
+        "fromTable": "dw FactRaceControl",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey",
+        "isActive": false
+      },
+      {
+        "name": "1555e8c9-0b18-4377-a048-a1a9b989f804",
+        "fromTable": "dw DimSession",
+        "fromColumn": "RaceWeekendKey",
+        "toTable": "dw DimRaceWeekend",
+        "toColumn": "RaceWeekendKey"
       }
     ],
     "annotations": [
