@@ -751,213 +751,6 @@
         ]
       },
       {
-        "name": "dw FactQualifyingResult",
-        "columns": [
-          {
-            "name": "QualifyingResultKey",
-            "dataType": "int64",
-            "sourceColumn": "QualifyingResultKey"
-          },
-          {
-            "name": "RaceWeekendKey",
-            "dataType": "int64",
-            "sourceColumn": "RaceWeekendKey"
-          },
-          {
-            "name": "SessionKey",
-            "dataType": "int64",
-            "sourceColumn": "SessionKey"
-          },
-          {
-            "name": "DriverKey",
-            "dataType": "int64",
-            "sourceColumn": "DriverKey"
-          },
-          {
-            "name": "TeamKey",
-            "dataType": "int64",
-            "sourceColumn": "TeamKey"
-          },
-          {
-            "name": "TeamColourKey",
-            "dataType": "int64",
-            "sourceColumn": "TeamColourKey"
-          },
-          {
-            "name": "Position",
-            "dataType": "int64",
-            "sourceColumn": "Position"
-          },
-          {
-            "name": "NumberOfLaps",
-            "dataType": "int64",
-            "sourceColumn": "NumberOfLaps"
-          },
-          {
-            "name": "Phase1DurationSeconds",
-            "dataType": "double",
-            "sourceColumn": "Phase1DurationSeconds"
-          },
-          {
-            "name": "Phase2DurationSeconds",
-            "dataType": "double",
-            "sourceColumn": "Phase2DurationSeconds"
-          },
-          {
-            "name": "Phase3DurationSeconds",
-            "dataType": "double",
-            "sourceColumn": "Phase3DurationSeconds"
-          },
-          {
-            "name": "Phase1GapToLeaderSeconds",
-            "dataType": "double",
-            "sourceColumn": "Phase1GapToLeaderSeconds"
-          },
-          {
-            "name": "Phase2GapToLeaderSeconds",
-            "dataType": "double",
-            "sourceColumn": "Phase2GapToLeaderSeconds"
-          },
-          {
-            "name": "Phase3GapToLeaderSeconds",
-            "dataType": "double",
-            "sourceColumn": "Phase3GapToLeaderSeconds"
-          },
-          {
-            "name": "DNF",
-            "dataType": "boolean",
-            "sourceColumn": "DNF"
-          },
-          {
-            "name": "DNS",
-            "dataType": "boolean",
-            "sourceColumn": "DNS"
-          },
-          {
-            "name": "DSQ",
-            "dataType": "boolean",
-            "sourceColumn": "DSQ"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Partition",
-            "dataView": "full",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source = #\"SQL/MARCIN\\F1DEV;F1Analytics\",",
-                "    dw_FactQualifyingResult = Source{[Schema=\"dw\",Item=\"FactQualifyingResult\"]}[Data]",
-                "in",
-                "    dw_FactQualifyingResult"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "dw FactRaceResult",
-        "columns": [
-          {
-            "name": "RaceResultKey",
-            "dataType": "int64",
-            "sourceColumn": "RaceResultKey"
-          },
-          {
-            "name": "RaceWeekendKey",
-            "dataType": "int64",
-            "sourceColumn": "RaceWeekendKey"
-          },
-          {
-            "name": "SessionKey",
-            "dataType": "int64",
-            "sourceColumn": "SessionKey"
-          },
-          {
-            "name": "DriverKey",
-            "dataType": "int64",
-            "sourceColumn": "DriverKey"
-          },
-          {
-            "name": "TeamKey",
-            "dataType": "int64",
-            "sourceColumn": "TeamKey"
-          },
-          {
-            "name": "TeamColourKey",
-            "dataType": "int64",
-            "sourceColumn": "TeamColourKey"
-          },
-          {
-            "name": "GridPosition",
-            "dataType": "int64",
-            "sourceColumn": "GridPosition"
-          },
-          {
-            "name": "FinishPosition",
-            "dataType": "int64",
-            "sourceColumn": "FinishPosition"
-          },
-          {
-            "name": "NumberOfLaps",
-            "dataType": "int64",
-            "sourceColumn": "NumberOfLaps"
-          },
-          {
-            "name": "Points",
-            "dataType": "double",
-            "sourceColumn": "Points"
-          },
-          {
-            "name": "DNF",
-            "dataType": "boolean",
-            "sourceColumn": "DNF"
-          },
-          {
-            "name": "DNS",
-            "dataType": "boolean",
-            "sourceColumn": "DNS"
-          },
-          {
-            "name": "DSQ",
-            "dataType": "boolean",
-            "sourceColumn": "DSQ"
-          },
-          {
-            "name": "DurationSeconds",
-            "dataType": "double",
-            "sourceColumn": "DurationSeconds"
-          },
-          {
-            "name": "GapToLeaderSeconds",
-            "dataType": "double",
-            "sourceColumn": "GapToLeaderSeconds"
-          },
-          {
-            "name": "GapToLeaderText",
-            "dataType": "string",
-            "sourceColumn": "GapToLeaderText"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Partition",
-            "dataView": "full",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source = #\"SQL/MARCIN\\F1DEV;F1Analytics\",",
-                "    dw_FactRaceResult = Source{[Schema=\"dw\",Item=\"FactRaceResult\"]}[Data]",
-                "in",
-                "    dw_FactRaceResult"
-              ]
-            }
-          }
-        ]
-      },
-      {
         "name": "dw FactRaceControl",
         "columns": [
           {
@@ -2127,22 +1920,8 @@
         "toColumn": "DriverKey"
       },
       {
-        "name": "f2b8b0df-255a-4b81-af42-02aa187ad39f",
-        "fromTable": "dw FactQualifyingResult",
-        "fromColumn": "DriverKey",
-        "toTable": "dw DimDriver",
-        "toColumn": "DriverKey"
-      },
-      {
         "name": "75a34803-5fb6-4a90-bf5c-3756e012f433",
         "fromTable": "dw FactRaceControl",
-        "fromColumn": "DriverKey",
-        "toTable": "dw DimDriver",
-        "toColumn": "DriverKey"
-      },
-      {
-        "name": "2171d975-14b9-407b-9055-1c2c7f58e8c5",
-        "fromTable": "dw FactRaceResult",
         "fromColumn": "DriverKey",
         "toTable": "dw DimDriver",
         "toColumn": "DriverKey"
@@ -2171,13 +1950,6 @@
       {
         "name": "37df4a25-8930-4845-8730-62321ab2aa23",
         "fromTable": "dw FactRaceControl",
-        "fromColumn": "TeamKey",
-        "toTable": "dw DimTeam",
-        "toColumn": "TeamKey"
-      },
-      {
-        "name": "e60ed079-57ad-4559-ad27-a0f06d915475",
-        "fromTable": "dw FactRaceResult",
         "fromColumn": "TeamKey",
         "toTable": "dw DimTeam",
         "toColumn": "TeamKey"
@@ -2246,29 +2018,8 @@
         "toColumn": "SessionTypeKey"
       },
       {
-        "name": "01395c35-55d5-4b4e-8d7d-cbf539bfe8e5",
-        "fromTable": "dw FactQualifyingResult",
-        "fromColumn": "TeamKey",
-        "toTable": "dw DimTeam",
-        "toColumn": "TeamKey"
-      },
-      {
         "name": "215da3e3-5c70-43f7-9b79-9c7fd45f92be",
         "fromTable": "dw FactRaceControl",
-        "fromColumn": "TeamColourKey",
-        "toTable": "dw DimTeamColour",
-        "toColumn": "TeamColourKey"
-      },
-      {
-        "name": "71f00bed-264e-4fb4-aed3-b7522e6759f6",
-        "fromTable": "dw FactRaceResult",
-        "fromColumn": "TeamColourKey",
-        "toTable": "dw DimTeamColour",
-        "toColumn": "TeamColourKey"
-      },
-      {
-        "name": "dea2ec4a-b2ab-48be-b816-1ffe208784fe",
-        "fromTable": "dw FactQualifyingResult",
         "fromColumn": "TeamColourKey",
         "toTable": "dw DimTeamColour",
         "toColumn": "TeamColourKey"
@@ -2311,20 +2062,6 @@
       {
         "name": "43d8dc9a-ecb7-46b2-9832-17417e09dedb",
         "fromTable": "dw FactPitStop",
-        "fromColumn": "SessionKey",
-        "toTable": "dw DimSession",
-        "toColumn": "SessionKey"
-      },
-      {
-        "name": "5abfefae-4ae2-4261-aa8d-6b5864c2f1b4",
-        "fromTable": "dw FactQualifyingResult",
-        "fromColumn": "SessionKey",
-        "toTable": "dw DimSession",
-        "toColumn": "SessionKey"
-      },
-      {
-        "name": "ea11fb59-e2bd-4239-94f4-f40a5966b7f9",
-        "fromTable": "dw FactRaceResult",
         "fromColumn": "SessionKey",
         "toTable": "dw DimSession",
         "toColumn": "SessionKey"
@@ -2374,22 +2111,6 @@
       {
         "name": "3bccb336-f2b6-47ac-9a92-364c61333a2d",
         "fromTable": "dw FactSessionResult",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey",
-        "isActive": false
-      },
-      {
-        "name": "7848d913-54e2-4ca9-b62d-6bb7e5583db9",
-        "fromTable": "dw FactRaceResult",
-        "fromColumn": "RaceWeekendKey",
-        "toTable": "dw DimRaceWeekend",
-        "toColumn": "RaceWeekendKey",
-        "isActive": false
-      },
-      {
-        "name": "07327bca-bcf9-4eb3-b676-739b95df487d",
-        "fromTable": "dw FactQualifyingResult",
         "fromColumn": "RaceWeekendKey",
         "toTable": "dw DimRaceWeekend",
         "toColumn": "RaceWeekendKey",

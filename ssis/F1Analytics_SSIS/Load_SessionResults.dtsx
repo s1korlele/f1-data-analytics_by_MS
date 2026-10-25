@@ -1,0 +1,1754 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/6/2026 11:07:35 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MARCIN"
+  DTS:CreatorName="MARCIN\sikor"
+  DTS:DelayValidation="True"
+  DTS:DTSID="{2A67CDD0-8E5B-4B70-870B-3973602BA176}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1045"
+  DTS:ObjectName="Load_SessionResults"
+  DTS:PackageType="5"
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{958938E1-4FCC-4E46-BEC5-FD0EFD3BE373}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SessionResults_CSV]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{51B12BF9-E196-49DB-8F65-6D6EDE09C4FD}"
+      DTS:ObjectName="SessionResults_CSV">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::CurrentFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="65001">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="meeting_key"
+              DTS:DTSID="{74B69E37-1F39-4D0D-87E1-E524D01DA4FC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="session_key"
+              DTS:DTSID="{11EE3EA7-02DF-4387-83D4-503A5E75052D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="session_type"
+              DTS:DTSID="{675D397D-9442-45C2-98F9-479440783916}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="session_name"
+              DTS:DTSID="{6BDD9234-FFE8-4B14-8CCD-21E706532923}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="driver_number"
+              DTS:DTSID="{AE042318-EC30-423B-9DE0-CC6DA2C75D97}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="position"
+              DTS:DTSID="{0F2AA0D6-C837-4609-93AA-6FF9874AB96A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="number_of_laps"
+              DTS:DTSID="{1FE90D71-1A33-4BAC-BA5D-70FFB5DA37EA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="points"
+              DTS:DTSID="{49321D0A-BD6C-4177-BFED-000E03B5A46A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="11"
+              DTS:TextQualified="True"
+              DTS:ObjectName="dnf"
+              DTS:DTSID="{A671BA01-33CB-4030-8AD9-A276CDA7FD5B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="11"
+              DTS:TextQualified="True"
+              DTS:ObjectName="dns"
+              DTS:DTSID="{1273BB06-9CCC-4CF5-A104-131DE99431C7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="11"
+              DTS:TextQualified="True"
+              DTS:ObjectName="dsq"
+              DTS:DTSID="{A3C35859-1325-499D-BC5C-E166EB4F1775}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="duration_seconds"
+              DTS:DTSID="{4B9E89CF-4774-42F5-AAD9-CB3472F460B2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="gap_to_leader_seconds"
+              DTS:DTSID="{E36C2066-6B4B-45F8-98EF-1923D4F7D14F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="gap_to_leader_text"
+              DTS:DTSID="{D8836F8C-8FA0-4FCB-8D86-15ED841E7FCA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_1_duration_seconds"
+              DTS:DTSID="{EC5D4205-C0C6-45A4-B3FE-09E6ECF5E9DB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_2_duration_seconds"
+              DTS:DTSID="{4E3BAD6D-106F-40F4-948D-1947BD02B63A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_3_duration_seconds"
+              DTS:DTSID="{1100E839-188A-4349-8F4F-2EFBDF887200}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_1_gap_to_leader_seconds"
+              DTS:DTSID="{A1D776EA-6520-4741-86E3-84774EDDE751}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_1_gap_to_leader_text"
+              DTS:DTSID="{A23A3C96-696C-4C23-A9B9-2DA70BBDC297}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_2_gap_to_leader_seconds"
+              DTS:DTSID="{0A2AE961-C941-4FD2-A7E1-47A80C6E1A2A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_2_gap_to_leader_text"
+              DTS:DTSID="{99A6DB70-D9FF-4745-8ACA-C9FADED5B20A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="5"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_3_gap_to_leader_seconds"
+              DTS:DTSID="{9ABBD86F-5309-4A1C-B0F0-9D08F54422AA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phase_3_gap_to_leader_text"
+              DTS:DTSID="{97BFB070-8CE0-4307-B473-0B10CEBC2BCC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="500"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="duration_raw"
+              DTS:DTSID="{B6826B06-494E-4160-A048-A66D56A48F9E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="500"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="gap_to_leader_raw"
+              DTS:DTSID="{BFC9506F-82F8-44D7-92A3-A8FD1B761D54}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{4CAAF9E4-9F65-4507-8923-381116E6FED5}"
+      DTS:ObjectName="FilePattern">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">session_results_*.csv</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{28C36D52-3477-4864-80A3-1A50B9819E65}"
+      DTS:ObjectName="SourceFolder">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">data\processed</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{0DED46DC-03DE-48CB-ACD1-6EEC487CD9F8}"
+      DTS:ObjectName="TargetSchema">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">stg</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{C505C300-81C7-40AB-A954-21035142AD0A}"
+      DTS:ObjectName="TargetTable">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">SessionResults</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="20"
+      DTS:DTSID="{2EAE07DA-BC2D-49EF-A75B-01167BDBEAFE}"
+      DTS:ObjectName="TaskRunKey">
+      <DTS:Property
+        DTS:DataType="20"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="11"
+      DTS:DTSID="{330FAF6B-30A2-475B-B8D8-FC66F356D78B}"
+      DTS:ObjectName="TruncateBeforeLoad">
+      <DTS:Property
+        DTS:DataType="11"
+        DTS:Name="ParameterValue">-1</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3BAFA17B-D27A-4124-996C-534B7655335C}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AF9B124D-ACE5-4B48-A611-2E37011D1513}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::ProjectRoot] + &quot;\\&quot; + @[$Package::SourceFolder]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\sikor\source\repos\f1-data-analytics_by_MS\data\processed</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{61522229-2F5E-4C78-85A0-6E3629934932}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;TRUNCATE TABLE [&quot; + @[$Package::TargetSchema] + &quot;].[&quot; + @[$Package::TargetTable] + &quot;]&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="TruncateSql">
+      <DTS:VariableValue
+        DTS:DataType="8">TRUNCATE TABLE [stg].[SessionResults]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{E236E4DE-2C3F-4AAB-A0F2-84727140B6EF}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{BF980606-DD30-42B4-8FB7-57E254544C18}"
+        DTS:ObjectName="{113CF21F-55A4-49C3-8DBE-0CF6E0FC2A61}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::SourceDirectory]</DTS:PropertyExpression>
+        <DTS:PropertyExpression
+          DTS:Name="FileSpec">@[$Package::FilePattern]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\Users\sikor\source\repos\f1-data-analytics_by_MS\data\processed" />
+            <FEFEProperty
+              FileSpec="session_results_*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Load_SessionResults CSV"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{F39BB945-72EF-4971-808C-3755C41DA279}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load_SessionResults CSV"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[SessionResults_CSV]"
+                      connectionManagerRefId="Package.ConnectionManagers[SessionResults_CSV]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[meeting_key]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meeting_key]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[meeting_key]"
+                          name="meeting_key"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_key]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_key]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_key]"
+                          name="session_key"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_type]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_type]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_type]"
+                          name="session_type"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_name]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_name]"
+                          name="session_name"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[driver_number]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[driver_number]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[driver_number]"
+                          name="driver_number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[position]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[position]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[position]"
+                          name="position"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[number_of_laps]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[number_of_laps]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[number_of_laps]"
+                          name="number_of_laps"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[points]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[points]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[points]"
+                          name="points"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dnf]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[dnf]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dnf]"
+                          name="dnf"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dns]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[dns]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dns]"
+                          name="dns"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dsq]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[dsq]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dsq]"
+                          name="dsq"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[duration_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[duration_seconds]"
+                          name="duration_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_seconds]"
+                          name="gap_to_leader_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_text]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[gap_to_leader_text]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_text]"
+                          name="gap_to_leader_text"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_duration_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_1_duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_duration_seconds]"
+                          name="phase_1_duration_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_duration_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_2_duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_duration_seconds]"
+                          name="phase_2_duration_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_duration_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_3_duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_duration_seconds]"
+                          name="phase_3_duration_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_gap_to_leader_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_1_gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_gap_to_leader_seconds]"
+                          name="phase_1_gap_to_leader_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_gap_to_leader_text]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_1_gap_to_leader_text]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_gap_to_leader_text]"
+                          name="phase_1_gap_to_leader_text"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_gap_to_leader_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_2_gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_gap_to_leader_seconds]"
+                          name="phase_2_gap_to_leader_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_gap_to_leader_text]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_2_gap_to_leader_text]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_gap_to_leader_text]"
+                          name="phase_2_gap_to_leader_text"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_gap_to_leader_seconds]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_3_gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_gap_to_leader_seconds]"
+                          name="phase_3_gap_to_leader_seconds"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_gap_to_leader_text]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_3_gap_to_leader_text]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_gap_to_leader_text]"
+                          name="phase_3_gap_to_leader_text"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[duration_raw]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[duration_raw]"
+                          length="500"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[duration_raw]"
+                          name="duration_raw"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_raw]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[gap_to_leader_raw]"
+                          length="500"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_raw]"
+                          name="gap_to_leader_raw"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns>
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meeting_key]"
+                          dataType="i4"
+                          name="meeting_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_key]"
+                          dataType="i4"
+                          name="session_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_type]"
+                          dataType="wstr"
+                          length="50"
+                          name="session_type" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[session_name]"
+                          dataType="wstr"
+                          length="100"
+                          name="session_name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[driver_number]"
+                          dataType="i4"
+                          name="driver_number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[position]"
+                          dataType="i4"
+                          name="position" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[number_of_laps]"
+                          dataType="i4"
+                          name="number_of_laps" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[points]"
+                          dataType="r8"
+                          name="points" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[dnf]"
+                          dataType="bool"
+                          name="dnf" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[dns]"
+                          dataType="bool"
+                          name="dns" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[dsq]"
+                          dataType="bool"
+                          name="dsq" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[duration_seconds]"
+                          dataType="r8"
+                          name="duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_1_duration_seconds]"
+                          dataType="r8"
+                          name="phase_1_duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_2_duration_seconds]"
+                          dataType="r8"
+                          name="phase_2_duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_3_duration_seconds]"
+                          dataType="r8"
+                          name="phase_3_duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_1_gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="phase_1_gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_1_gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="phase_1_gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_2_gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="phase_2_gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_2_gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="phase_2_gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_3_gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="phase_3_gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phase_3_gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="phase_3_gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[duration_raw]"
+                          dataType="wstr"
+                          length="500"
+                          name="duration_raw" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[gap_to_leader_raw]"
+                          dataType="wstr"
+                          length="500"
+                          name="gap_to_leader_raw" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1250"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[stg].[SessionResults]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1250</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{93B3489E-C53F-499F-8DD9-DCE8351CDBC8}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[localhost.F1Analytics]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[meeting_key]"
+                          cachedDataType="i4"
+                          cachedName="meeting_key"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meeting_key]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[meeting_key]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[session_key]"
+                          cachedDataType="i4"
+                          cachedName="session_key"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_key]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_key]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[session_type]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="session_type"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_type]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_type]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[session_name]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="session_name"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_name]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[session_name]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[driver_number]"
+                          cachedDataType="i4"
+                          cachedName="driver_number"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[driver_number]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[driver_number]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[position]"
+                          cachedDataType="i4"
+                          cachedName="position"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[position]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[position]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[number_of_laps]"
+                          cachedDataType="i4"
+                          cachedName="number_of_laps"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[number_of_laps]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[number_of_laps]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[points]"
+                          cachedDataType="r8"
+                          cachedName="points"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[points]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[points]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[dnf]"
+                          cachedDataType="bool"
+                          cachedName="dnf"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dnf]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dnf]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[dns]"
+                          cachedDataType="bool"
+                          cachedName="dns"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dns]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dns]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[dsq]"
+                          cachedDataType="bool"
+                          cachedName="dsq"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dsq]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[dsq]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[duration_seconds]"
+                          cachedDataType="r8"
+                          cachedName="duration_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[duration_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[gap_to_leader_seconds]"
+                          cachedDataType="r8"
+                          cachedName="gap_to_leader_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[gap_to_leader_text]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="gap_to_leader_text"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[gap_to_leader_text]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_text]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_1_duration_seconds]"
+                          cachedDataType="r8"
+                          cachedName="phase_1_duration_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_1_duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_duration_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_2_duration_seconds]"
+                          cachedDataType="r8"
+                          cachedName="phase_2_duration_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_2_duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_duration_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_3_duration_seconds]"
+                          cachedDataType="r8"
+                          cachedName="phase_3_duration_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_3_duration_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_duration_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_1_gap_to_leader_seconds]"
+                          cachedDataType="r8"
+                          cachedName="phase_1_gap_to_leader_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_1_gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_gap_to_leader_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_1_gap_to_leader_text]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="phase_1_gap_to_leader_text"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_1_gap_to_leader_text]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_1_gap_to_leader_text]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_2_gap_to_leader_seconds]"
+                          cachedDataType="r8"
+                          cachedName="phase_2_gap_to_leader_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_2_gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_gap_to_leader_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_2_gap_to_leader_text]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="phase_2_gap_to_leader_text"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_2_gap_to_leader_text]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_2_gap_to_leader_text]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_3_gap_to_leader_seconds]"
+                          cachedDataType="r8"
+                          cachedName="phase_3_gap_to_leader_seconds"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_3_gap_to_leader_seconds]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_gap_to_leader_seconds]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phase_3_gap_to_leader_text]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="phase_3_gap_to_leader_text"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_3_gap_to_leader_text]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[phase_3_gap_to_leader_text]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[duration_raw]"
+                          cachedDataType="wstr"
+                          cachedLength="500"
+                          cachedName="duration_raw"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[duration_raw]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[duration_raw]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[gap_to_leader_raw]"
+                          cachedDataType="wstr"
+                          cachedLength="500"
+                          cachedName="gap_to_leader_raw"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[gap_to_leader_raw]"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output].Columns[gap_to_leader_raw]" />
+                      </inputColumns>
+                      <externalMetadataColumns>
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meeting_key]"
+                          dataType="i4"
+                          name="meeting_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_key]"
+                          dataType="i4"
+                          name="session_key" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_type]"
+                          dataType="wstr"
+                          length="50"
+                          name="session_type" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[session_name]"
+                          dataType="wstr"
+                          length="100"
+                          name="session_name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[driver_number]"
+                          dataType="i4"
+                          name="driver_number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[position]"
+                          dataType="i4"
+                          name="position" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[number_of_laps]"
+                          dataType="i4"
+                          name="number_of_laps" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[points]"
+                          dataType="r8"
+                          name="points" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dnf]"
+                          dataType="bool"
+                          name="dnf" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dns]"
+                          dataType="bool"
+                          name="dns" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[dsq]"
+                          dataType="bool"
+                          name="dsq" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[duration_seconds]"
+                          dataType="r8"
+                          name="duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_1_duration_seconds]"
+                          dataType="r8"
+                          name="phase_1_duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_2_duration_seconds]"
+                          dataType="r8"
+                          name="phase_2_duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_3_duration_seconds]"
+                          dataType="r8"
+                          name="phase_3_duration_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_1_gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="phase_1_gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_1_gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="phase_1_gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_2_gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="phase_2_gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_2_gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="phase_2_gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_3_gap_to_leader_seconds]"
+                          dataType="r8"
+                          name="phase_3_gap_to_leader_seconds" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phase_3_gap_to_leader_text]"
+                          dataType="wstr"
+                          length="100"
+                          name="phase_3_gap_to_leader_text" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[duration_raw]"
+                          dataType="wstr"
+                          length="500"
+                          name="duration_raw" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[gap_to_leader_raw]"
+                          dataType="wstr"
+                          length="500"
+                          name="gap_to_leader_raw" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Load_SessionResults CSV.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Load_SessionResults CSV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Load_SessionResults CSV\Flat File Source.Outputs[Flat File Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{C8CBB791-E2CF-49EE-8341-88623D6DCF25}"
+          DTS:ObjectName="{86B79CB4-8EE4-4663-A034-939D81818904}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::CurrentFilePath" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Target"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BA5C7074-D448-4898-A73D-B69C0FB3CBB7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Target"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{93B3489E-C53F-499F-8DD9-DCE8351CDBC8}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::TruncateSql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Validate Source Files"
+      DTS:CreationName="Microsoft.ScriptTask"
+      DTS:Description="Script Task"
+      DTS:DTSID="{7B22E317-AB21-4502-9998-FB05FC05867A}"
+      DTS:ExecutableType="Microsoft.ScriptTask"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Validate Source Files"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_cd363b8b2ac445e680c440c558e3ede9"
+          VSTAMajorVersion="17"
+          VSTAMinorVersion="0"
+          Language="CSharp"
+          ReadOnlyVariables="$Package::FilePattern,$Package::SourceFolder,$Project::ProjectRoot">
+          <BinaryItem
+            Name="ST_cc9b202ca86a45bfba035d496c391c5b.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAAhE12oAAAAAAAAAAOAAIiALATAAABQAAAAIAAAAAAAA9jMA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAKQzAABPAAAAAEAAAHgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAA/BMAAAAgAAAAFAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAHgEAAAAQAAAAAYAAAAWAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAHAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAADY
+MwAAAAAAAEgAAAACAAUAnCIAAFAQAAABAAAAAAAAAOwyAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAABswBwCiAQAAAQAAEQIoEAAACm8RAAAKcgEAAHBvEgAACm8T
+AAAKbxQAAAoCKBAAAApvEQAACnItAABwbxIAAApvEwAACm8UAAAKCgIoEAAACm8RAAAKclsAAHBv
+EgAACm8TAAAKbxQAAAoLBigVAAAKDAgoFgAACi0RcocAAHAIKBcAAApzGAAACnoIBygZAAAKDQmO
+LRdyxQAAcAhyBQEAcAcoGgAACnMYAAAKegkTBRYTBitSEQURBpoTBxEHKBsAAAoXKAEAACt+CAAA
+BCUtFyZ+BwAABP4GDAAABnMdAAAKJYAIAAAEKAIAACstEnIdAQBwEQcoFwAACnMYAAAKehEGF1gT
+BhEGEQWOaTKmFhMEAigQAAAKbx8AAAoWcmUBAHAcjR8AAAElFnKRAQBwoiUXCKIlGHIFAQBwoiUZ
+B6IlGnLPAQBwoiUbCY5pEwYSBiggAAAKoighAAAKfiIAAAoWEgRvIwAACgIoEAAAChZvJAAACt40
+EwgCKBAAAApvHwAAChZyZQEAcBEIbyUAAAp+IgAAChZvJgAACiYCKBAAAAoXbyQAAAreACoAAEEc
+AAAAAAAAAAAAAG0BAABtAQAANAAAAA8AAAEeAignAAAKKh4CKCgAAAoqrn4BAAAELR5y7wEAcNAD
+AAACKCkAAApvKgAACnMrAAAKgAEAAAR+AQAABCoafgIAAAQqHgKAAgAABCoafgMAAAQqHgIoLAAA
+CioucwgAAAaAAwAABCoucwsAAAaABwAABCoqAygtAAAKFv4BKgAAAEJTSkIBAAEAAAAAAAwAAAB2
+NC4wLjMwMzE5AAAAAAUAbAAAAOAEAAAjfgAATAUAAJAGAAAjU3RyaW5ncwAAAADcCwAAZAIAACNV
+UwBADgAAEAAAACNHVUlEAAAAUA4AAAACAAAjQmxvYgAAAAAAAAACAAABVx2iCQkLAAAA+gEzABYA
+AAEAAAAnAAAABgAAAAgAAAAMAAAAAgAAAC0AAAACAAAAEQAAAAEAAAACAAAAAwAAAAQAAAABAAAA
+AQAAAAUAAAABAAAAAgAAAAIAAAAAACAEAQAAAAAABgDLAjkFBgBaAzkFBgAXAiYFDwCtBQAABgBE
+Aq4EBgCuAq4EBgCPAq4EBgBBA64EBgDrAq4EBgAEA64EBgBbAq4EBgB2AogDCgAfA88DCgCWAc8D
+BgDABFEEBgBYBFEEBgDfATkFBgBMBlEEBgArAFEEBgD6ASYFBgDrBFkFBgDKBJkEDgDKAQoEDgAr
+AgoEDgCyAYQECgD4A88DEgDvBSgBEgDrACgBBgCrAz8ABgB/Bj8ABgCkA1EEBgAjAT8ABgAXAKEA
+FgD0ANsECgD7BM8DBgAlAFEEBgBVAVEEBgD/AFEEBgByBq4EAAAAADYAAAAAAAEAAQABABAAaQRw
+ADkAAQABAAAAEABgBbwFSQABAAMAAAEQAAwGvAVlAAMABwADAQAAJQYAAEEABAAKAAMhEACdAAAA
+SQAHAAoAEQBdBPMAEQCGAfcAEQDPAPsABgZoAP8AVoAVBgIBVoBmAQIBNgAyAAYBFgABAAoBUCAA
+AAAAhgBvBAYAAQAcIgAAAACGGBkFBgABACQiAAAAAIMYGQUGAAEALCIAAAAAkwjnBBIBAQBYIgAA
+AACTCG4BFwEBAF8iAAAAAJMIegEcAQEAZyIAAAAAlghTBiIBAgBuIgAAAACGGBkFBgACAHYiAAAA
+AJEYHwUnAQIAgiIAAAAAkRgfBScBAgAkIgAAAACGGBkFBgACAI4iAAAAAIMACgArAQIAAAABAIID
+AAABAFABCQAZBQEAEQAZBQYAGQAZBQoAKQAZBRAAMQAZBRAAOQAZBRAAQQAZBRAASQAZBRAAUQAZ
+BRAAWQAZBRAAYQAZBRAAaQAZBQYAiQAZBQYAoQAZBQYAwQAZBRUAcQAdBioA0QDrBS8A2QBIBDQA
+4QB4AzoAkQCiAz4A6QBIAUIA8QA+BkgA+QBFBkIAeQAZBRAA8QD5BU0A+QBFBlQAAQECBlwAEQHW
+BGYADAAZBYQAEQF7BooA0QAzBp0AIQGiAz4A+QBFBqMA+QCJBqkAGQF0BKwA0QBfBgEAeQDfAD4A
+GQEPBbcAcQAZBQYAkQAZBQYAKQERAcAAKQFuBskAqQAZBc8AyQAZBQYA+QC8AEgACAAUAOkACAAY
+AO4AKQB7AGcBLgALAD8BLgATAEgBLgAbAGcBLgAjAHABLgArAJkBLgAzAJkBLgA7AJkBLgBDAHAB
+LgBLAJ8BLgBTAJkBLgBbALYBQwBjAO4ASQB7AGcBYQBrAO4AYwBzAO4AwwBrAO4AGwADAAEABAAD
+AAAA6wQwAQAAjgE1AQAAVwY6AQIABAADAAIABQAFAAEABgAFAAIABwAHAH0ABIAAAAEAAAA9JpNY
+AAAAAAAAcAAAAAQAAAAAAAAAAAAAANcAlAAAAAAAEQAAAAAAAAAAAAAA4ACwAwAAAAAEAAAAAAAA
+AAAAAADXAFEEAAAAABEAAAAAAAAAAAAAAOAASQAAAAAABAAAAAAAAAAAAAAA1wBaAQAAAAAAAAAA
+AQAAAGoFAAAFAAIABgACADkAeQA9AHkAAAAAAAA8PjlfXzBfMAA8TWFpbj5iX18wXzAASUVudW1l
+cmFibGVgMQBJbnQzMgBGdW5jYDIAPD45ADxNb2R1bGU+AFN5c3RlbS5JTwBNaWNyb3NvZnQuU3Fs
+U2VydmVyLk1hbmFnZWREVFMAdmFsdWVfXwBTVF9jYzliMjAyY2E4NmE0NWJmYmEwMzVkNDk2YzM5
+MWM1YgBtc2NvcmxpYgA8PmMAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMASXNOdWxsT3JXaGl0
+ZVNwYWNlAGRlZmF1bHRJbnN0YW5jZQBnZXRfTWVzc2FnZQBWYXJpYWJsZQBFbnVtZXJhYmxlAFJ1
+bnRpbWVUeXBlSGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAEZpbGUATWljcm9zb2Z0LlNxbFNlcnZl
+ci5EdHMuUnVudGltZQBDb21iaW5lAGxpbmUAVHlwZQBTeXN0ZW0uQ29yZQBGYWlsdXJlAGdldF9D
+dWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3VsdHVyZQBWU1RBUlRTY3JpcHRPYmplY3RNb2Rl
+bEJhc2UAQXBwbGljYXRpb25TZXR0aW5nc0Jhc2UARWRpdG9yQnJvd3NhYmxlU3RhdGUAQ29tcGls
+ZXJHZW5lcmF0ZWRBdHRyaWJ1dGUARGVidWdnZXJOb25Vc2VyQ29kZUF0dHJpYnV0ZQBEZWJ1Z2dh
+YmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZUF0dHJpYnV0ZQBBc3NlbWJseVRpdGxlQXR0cmli
+dXRlAEFzc2VtYmx5VHJhZGVtYXJrQXR0cmlidXRlAFRhcmdldEZyYW1ld29ya0F0dHJpYnV0ZQBB
+c3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlEZXNjcmlwdGlvbkF0dHJpYnV0
+ZQBDb21waWxhdGlvblJlbGF4YXRpb25zQXR0cmlidXRlAEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0
+ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0ZQBTU0lTU2NyaXB0VGFza0VudHJ5UG9pbnRBdHRy
+aWJ1dGUAQXNzZW1ibHlDb21wYW55QXR0cmlidXRlAFJ1bnRpbWVDb21wYXRpYmlsaXR5QXR0cmli
+dXRlAGdldF9WYWx1ZQB2YWx1ZQBTeXN0ZW0uUnVudGltZS5WZXJzaW9uaW5nAFRvU3RyaW5nAFBh
+dGgATWljcm9zb2Z0LlNxbFNlcnZlci5TY3JpcHRUYXNrAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRz
+LlRhc2tzLlNjcmlwdFRhc2sAU2NyaXB0T2JqZWN0TW9kZWwAU3lzdGVtLkNvbXBvbmVudE1vZGVs
+AFNUX2NjOWIyMDJjYTg2YTQ1YmZiYTAzNWQ0OTZjMzkxYzViLmRsbABnZXRfSXRlbQBTeXN0ZW0A
+RW51bQByZXNvdXJjZU1hbgBTY3JpcHRNYWluAEZpcmVJbmZvcm1hdGlvbgBTeXN0ZW0uQ29uZmln
+dXJhdGlvbgBTeXN0ZW0uR2xvYmFsaXphdGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBFeGNlcHRpb24A
+Q3VsdHVyZUluZm8AU2tpcABTeXN0ZW0uTGlucQBnZXRfUmVzb3VyY2VNYW5hZ2VyAEV2ZW50c09i
+amVjdFdyYXBwZXIARmlyZUVycm9yAC5jdG9yAC5jY3RvcgBTeXN0ZW0uRGlhZ25vc3RpY3MAU3lz
+dGVtLlJ1bnRpbWUuQ29tcGlsZXJTZXJ2aWNlcwBTeXN0ZW0uUmVzb3VyY2VzAFNUX2NjOWIyMDJj
+YTg2YTQ1YmZiYTAzNWQ0OTZjMzkxYzViLlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBE
+ZWJ1Z2dpbmdNb2RlcwBTVF9jYzliMjAyY2E4NmE0NWJmYmEwMzVkNDk2YzM5MWM1Yi5Qcm9wZXJ0
+aWVzAGdldF9WYXJpYWJsZXMAR2V0RmlsZXMAUmVhZExpbmVzAFNldHRpbmdzAFN1Y2Nlc3MAZ2V0
+X0R0cwBTY3JpcHRSZXN1bHRzAGdldF9FdmVudHMARXhpc3RzAENvbmNhdABPYmplY3QAZ2V0X0Rl
+ZmF1bHQAc2V0X1Rhc2tSZXN1bHQAZ2V0X0Fzc2VtYmx5AEFueQBEaXJlY3RvcnkARW1wdHkAAAAr
+JABQAHIAbwBqAGUAYwB0ADoAOgBQAHIAbwBqAGUAYwB0AFIAbwBvAHQAAC0kAFAAYQBjAGsAYQBn
+AGUAOgA6AFMAbwB1AHIAYwBlAEYAbwBsAGQAZQByAAArJABQAGEAYwBrAGEAZwBlADoAOgBGAGkA
+bABlAFAAYQB0AHQAZQByAG4AAD1TAG8AdQByAGMAZQAgAGYAbwBsAGQAZQByACAAZABvAGUAcwAg
+AG4AbwB0ACAAZQB4AGkAcwB0ADoAIAAAP04AbwAgAHMAbwB1AHIAYwBlACAAZgBpAGwAZQBzACAA
+ZgBvAHUAbgBkAC4AIABGAG8AbABkAGUAcgA6ACAAABcsACAAUABhAHQAdABlAHIAbgA6ACAAAEdT
+AG8AdQByAGMAZQAgAGYAaQBsAGUAIABjAG8AbgB0AGEAaQBuAHMAIABuAG8AIABkAGEAdABhACAA
+cgBvAHcAcwA6ACAAACtWAGEAbABpAGQAYQB0AGUAIABTAG8AdQByAGMAZQAgAEYAaQBsAGUAcwAA
+PVYAYQBsAGkAZABhAHQAaQBvAG4AIABzAHUAYwBjAGUAZQBkAGUAZAAuACAARgBvAGwAZABlAHIA
+OgAgAAAfLAAgAEYAaQBsAGUAcwAgAGYAbwB1AG4AZAA6ACAAAHFTAFQAXwBjAGMAOQBiADIAMAAy
+AGMAYQA4ADYAYQA0ADUAYgBmAGIAYQAwADMANQBkADQAOQA2AGMAMwA5ADEAYwA1AGIALgBQAHIA
+bwBwAGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIAYwBlAHMAAAAAAOOX0D0p5uFNoMIpqG5pkcgA
+BCABAQgDIAABBSABARERBCABAQ4FIAEBEV0OBwkODg4dDgIdDggOEj0EIAASaQQgABJtBSABEnEc
+AyAAHAMgAA4FAAIODg4EAAECDgYAAh0ODg4HAAQODg4ODgkAARUSgIUBDg4SEAECFRKAhQEeABUS
+gIUBHgAIAwoBDgYVEk0CDgIFIAIBHBgSEAECAhUSgIUBHgAVEk0CHgACBSAAEoCNBQABDh0OAgYO
+CiAGAQgODg4IEAIIIAUCCA4ODggIAAESgJURgJkFIAASgJ0HIAIBDhKAnQi3elxWGTTgiQiJhF3N
+gIDMkQQAAAAABAEAAAADBhJVAwYSWQMGEhACBggDBhEUAwYSGAcGFRJNAg4CBAAAElUEAAASWQUA
+AQESWQQAABIQAwAAAQQgAQIOBAgAElUECAASWQQIABIQCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9u
+RXhjZXB0aW9uVGhyb3dzAQgBAAIAAAAAACgBACNTVF9jYzliMjAyY2E4NmE0NWJmYmEwMzVkNDk2
+YzM5MWM1YgAABQEAAAAAFgEAEUNvcHlyaWdodCBAICAyMDI2AABJAQAaLk5FVEZyYW1ld29yayxW
+ZXJzaW9uPXY0LjcBAFQOFEZyYW1ld29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQuN7QA
+AADOyu++AQAAAJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIs
+IFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1
+NjE5MzRlMDg5I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAA
+UEFEUEFEULQAAADMMwAAAAAAAAAAAADmMwAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2DMAAAAA
+AAAAAAAAAABfQ29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAA
+AAAAAQAQAAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAA
+SAAAAFhAAAAaBAAAAAAAAAAAAAAaBDQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAA
+AAAAvQTv/gAAAQAAAAEAk1g9JgAAAQCTWD0mPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQA
+AAABAFYAYQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBu
+AAAAAAAAALAEegMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAVgMAAAEAMAAwADAA
+MAAwADQAYgAwAAAAGgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBu
+AHkATgBhAG0AZQAAAAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAA
+AABTAFQAXwBjAGMAOQBiADIAMAAyAGMAYQA4ADYAYQA0ADUAYgBmAGIAYQAwADMANQBkADQAOQA2
+AGMAMwA5ADEAYwA1AGIAAAA+AA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4A
+OQA3ADgAOQAuADIAMgA2ADcANQAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABT
+AFQAXwBjAGMAOQBiADIAMAAyAGMAYQA4ADYAYQA0ADUAYgBmAGIAYQAwADMANQBkADQAOQA2AGMA
+MwA5ADEAYwA1AGIALgBkAGwAbAAAAEgAEgABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAA
+AEMAbwBwAHkAcgBpAGcAaAB0ACAAQAAgACAAMgAwADIANgAAACoAAQABAEwAZQBnAGEAbABUAHIA
+YQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBh
+AG0AZQAAAFMAVABfAGMAYwA5AGIAMgAwADIAYwBhADgANgBhADQANQBiAGYAYgBhADAAMwA1AGQA
+NAA5ADYAYwAzADkAMQBjADUAYgAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBl
+AAAAAABTAFQAXwBjAGMAOQBiADIAMAAyAGMAYQA4ADYAYQA0ADUAYgBmAGIAYQAwADMANQBkADQA
+OQA2AGMAMwA5ADEAYwA1AGIAAABCAA8AAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAx
+AC4AMAAuADkANwA4ADkALgAyADIANgA3ADUAAAAAAEYADwABAEEAcwBzAGUAbQBiAGwAeQAgAFYA
+ZQByAHMAaQBvAG4AAAAxAC4AMAAuADkANwA4ADkALgAyADIANgA3ADUAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAMAAAA+DMAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{044127B3-6F7A-403E-84F0-B2AEC3DF75CB}"
+      DTS:From="Package\Truncate Target"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Foreach Loop Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{9811AD6D-B638-4AD3-BD9B-4A8922C89351}"
+      DTS:From="Package\Validate Source Files"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate Target" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Foreach Loop Container\Load_SessionResults CSV"
+          TopLeft="5.5,5.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="209,103"
+          Size="209,146"
+          Id="Package\Foreach Loop Container"
+          TopLeft="465.5,313.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Truncate Target"
+          TopLeft="440.5,182.5" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Validate Source Files"
+          TopLeft="218,73.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="518,224.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="52,89"
+              Start="0,0"
+              End="52,81.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40.5"
+                    Point2="0,44.5"
+                    Point3="4,44.5" />
+                  <mssgle:LineSegment
+                    End="48,44.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="48,44.5"
+                    Point2="52,44.5"
+                    Point3="52,48.5" />
+                  <mssgle:LineSegment
+                    End="52,81.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="306,115.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="212,67"
+              Start="0,0"
+              End="212,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.5"
+                    Point2="0,33.5"
+                    Point3="4,33.5" />
+                  <mssgle:LineSegment
+                    End="208,33.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="208,33.5"
+                    Point2="212,33.5"
+                    Point3="212,37.5" />
+                  <mssgle:LineSegment
+                    End="212,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
