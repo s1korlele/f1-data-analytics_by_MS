@@ -1761,6 +1761,33 @@
               "    0",
               ")"
             ]
+          },
+          {
+            "name": "Official Session Leader Headshot URL",
+            "expression": [
+              "",
+              "VAR _HasOneSession =",
+              "    HASONEVALUE('dw DimSession'[SessionKey])",
+              "",
+              "VAR _WinnerDriverKey =",
+              "    CALCULATE(",
+              "        MAX('dw FactSessionResult'[DriverKey]),",
+              "        'dw FactSessionResult'[Position] = 1",
+              "    )",
+              "",
+              "RETURN",
+              "    IF(",
+              "        NOT _HasOneSession,",
+              "        BLANK(),",
+              "        CALCULATE(",
+              "            MAX('dw DimDriver'[HeadshotUrl]),",
+              "            FILTER(",
+              "                ALL('dw DimDriver'),",
+              "                'dw DimDriver'[DriverKey] = _WinnerDriverKey",
+              "            )",
+              "        )",
+              "    )"
+            ]
           }
         ]
       },
