@@ -1281,7 +1281,8 @@
               "    _HasResult && NOT ISBLANK(_Result),",
               "    REPT(UNICHAR(8203), _SortOrder) & _Result",
               ")"
-            ]
+            ],
+            "displayFolder": "Session\\Results"
           },
           {
             "name": "Official Session Performance Result",
@@ -1375,7 +1376,8 @@
               "        \"No time\"",
               "    )",
               ")"
-            ]
+            ],
+            "displayFolder": "Session\\Results"
           },
           {
             "name": "Official Session Leader",
@@ -1408,7 +1410,8 @@
               "        ),",
               "        BLANK()",
               "    )"
-            ]
+            ],
+            "displayFolder": "Session\\Results"
           },
           {
             "name": "Fastest Lap Label",
@@ -1422,7 +1425,8 @@
               "        & \":\"",
               "        & FORMAT(MOD(_Seconds, 60), \"00.000\")",
               ")"
-            ]
+            ],
+            "displayFolder": "Laps\\Timing"
           },
           {
             "name": "Fastest Lap Driver",
@@ -1455,14 +1459,16 @@
               "        _DriverKey",
               "    )",
               ")"
-            ]
+            ],
+            "displayFolder": "Laps\\Timing"
           },
           {
             "name": "Session Start",
             "expression": [
               "",
               "SELECTEDVALUE('dw DimSession'[DateStart])"
-            ]
+            ],
+            "displayFolder": "Session\\Conditions"
           },
           {
             "name": "Session Rainfall Status",
@@ -1484,7 +1490,8 @@
               "        _RainSamples > 0, \"Yes\",",
               "        \"No\"",
               "    )"
-            ]
+            ],
+            "displayFolder": "Session\\Conditions"
           },
           {
             "name": "Average Lap Time Excl Pit Out Label",
@@ -1498,7 +1505,8 @@
               "            & \":\"",
               "            & FORMAT(MOD(_Seconds, 60), \"00.000\")",
               "    )"
-            ]
+            ],
+            "displayFolder": "Laps\\Timing"
           },
           {
             "name": "Latest Weekend Attendance",
@@ -1541,7 +1549,8 @@
               "            'dw DimRaceWeekend'[DateEnd] = _LatestDate",
               "        )",
               "    )"
-            ]
+            ],
+            "displayFolder": "Attendance"
           },
           {
             "name": "Latest Weekend Attendance Label",
@@ -1556,7 +1565,8 @@
               "        FORMAT(_Attendance, \"#,##0\"),",
               "        \"No data\"",
               "    )"
-            ]
+            ],
+            "displayFolder": "Attendance"
           },
           {
             "name": "Pit Stop Count",
@@ -1566,7 +1576,8 @@
               "    COUNTROWS('dw FactPitStop'),",
               "    NOT ISBLANK('dw FactPitStop'[StopDurationSeconds])",
               ")"
-            ]
+            ],
+            "displayFolder": "Pit Stops"
           },
           {
             "name": "Fastest Pit Stop Time",
@@ -1576,7 +1587,8 @@
               "    MIN('dw FactPitStop'[StopDurationSeconds]),",
               "    NOT ISBLANK('dw FactPitStop'[StopDurationSeconds])",
               ")"
-            ]
+            ],
+            "displayFolder": "Pit Stops"
           },
           {
             "name": "Latest Race Winner",
@@ -1610,7 +1622,8 @@
               "        _WinnerRow,",
               "        RELATED('dw DimDriver'[FullName])",
               "    )"
-            ]
+            ],
+            "displayFolder": "Circuit"
           },
           {
             "name": "Circuit Latest Race Fastest Lap",
@@ -1656,7 +1669,8 @@
               "        _FastestLapRow,",
               "        'dw FactLap'[LapDurationSeconds]",
               "    )"
-            ]
+            ],
+            "displayFolder": "Circuit"
           },
           {
             "name": "Circuit Latest Race Fastest Lap Driver",
@@ -1712,7 +1726,8 @@
               "            _DriverKey",
               "        )",
               "    )"
-            ]
+            ],
+            "displayFolder": "Circuit"
           },
           {
             "name": "Circuit Latest Race Fastest Lap Label",
@@ -1733,7 +1748,8 @@
               "            ),",
               "        \"No data\"",
               "    )"
-            ]
+            ],
+            "displayFolder": "Circuit"
           },
           {
             "name": "Circuit Calendar Sort Order",
@@ -1749,7 +1765,8 @@
               "        MIN('dw DimRaceWeekend'[RoundNumber]),",
               "        'dw DimRaceWeekend'[SeasonKey] = _LatestSeason",
               "    )"
-            ]
+            ],
+            "displayFolder": "Circuit"
           },
           {
             "name": "Circuit Has Weekend",
@@ -1760,7 +1777,8 @@
               "    1,",
               "    0",
               ")"
-            ]
+            ],
+            "displayFolder": "Circuit"
           },
           {
             "name": "Official Session Leader Headshot URL",
@@ -1787,7 +1805,8 @@
               "            )",
               "        )",
               "    )"
-            ]
+            ],
+            "displayFolder": "Session\\Results"
           }
         ]
       },
