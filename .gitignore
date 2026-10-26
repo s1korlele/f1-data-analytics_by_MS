@@ -22,3 +22,10 @@ __pycache__/
 *.dtproj.user
 *.smproj.user
 *.bim_*.settings
+
+# Power BI public demo working files
+F1Analytics_PublicDemo_Kit/
+F1Analytics_ReportMeasures_Migration/
+powerbi/F1Analytics_PublicDemo/
+powerbi/F1Analytics_PublicDemo_Source/
+powerbi/F1Analytics_PublicDemo_backup_*/
