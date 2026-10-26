@@ -5,9 +5,23 @@
 🇵🇱 [Polska wersja](#polish-version)  
 🇬🇧 [English version below](#english-version)
 
-!\[F1 Circuits Overview](docs/images/f1-circuits-overview.png)
+![F1 Circuits Overview](docs/images/f1-circuits-overview.png)
 
-\---
+
+## 🌐 Interaktywny raport / Interactive report
+
+> **Power BI Public Demo**
+>
+> [▶ Otwórz interaktywny raport Power BI / Open the interactive Power BI report](https://app.powerbi.com/view?r=eyJrIjoiMDc2OGFlMzEtMzBjZS00ZmRhLTljMTItM2JjZTAwY2E3ZDdjIiwidCI6IjY0ZjBkNDRlLWExMmUtNGY0NS1iZDMxLThjMjE1YWUxMzg1YSJ9)
+
+Publiczna wersja raportu została przygotowana specjalnie do prezentacji portfolio i działa w trybie **Import**.  
+Główna wersja rozwiązania w repozytorium zachowuje architekturę **SSAS Tabular + Power BI Live Connection**.
+
+The public report was prepared specifically as a portfolio demo and uses an **Import** model.  
+The main solution in this repository retains the **SSAS Tabular + Power BI Live Connection** architecture.
+
+
+---
 
 <a id="polish-version"></a>
 
@@ -25,19 +39,19 @@ Aktualna wersja projektu obejmuje dane dla sezonu **Formula 1 2025**.
 
 Celem projektu jest zbudowanie kompletnego rozwiązania analitycznego dla danych Formuły 1, które umożliwia analizę m.in.:
 
-* weekendów wyścigowych,
-* torów,
-* wyników poszczególnych sesji,
-* wyników kierowców,
-* tempa wyścigowego,
-* czasów okrążeń,
-* sektorów,
-* maksymalnych prędkości,
-* strategii opon,
-* pit stopów,
-* warunków pogodowych,
-* komunikatów Race Control,
-* frekwencji na torach.
+- weekendów wyścigowych,
+- torów,
+- wyników poszczególnych sesji,
+- wyników kierowców,
+- tempa wyścigowego,
+- czasów okrążeń,
+- sektorów,
+- maksymalnych prędkości,
+- strategii opon,
+- pit stopów,
+- warunków pogodowych,
+- komunikatów Race Control,
+- frekwencji na torach.
 
 Projekt nie ogranicza się wyłącznie do raportu Power BI — obejmuje również pełny proces pozyskania, walidacji, transformacji i modelowania danych.
 
@@ -81,9 +95,9 @@ Proces ładowania danych jest dodatkowo automatyzowany przy użyciu:
 ```text
 SQL Server Agent
         ↓
-Master\_Load\_Staging.dtsx
+Master_Load_Staging.dtsx
         ↓
-etl.usp\_RunDwLoad
+etl.usp_RunDwLoad
         ↓
 SSAS Process Full
 ```
@@ -96,15 +110,15 @@ Głównym źródłem danych jest **OpenF1 API**.
 
 Wykorzystywane dane obejmują m.in.:
 
-* meetings,
-* sessions,
-* drivers,
-* session results,
-* laps,
-* stints,
-* pit stops,
-* race control,
-* weather.
+- meetings,
+- sessions,
+- drivers,
+- session results,
+- laps,
+- stints,
+- pit stops,
+- race control,
+- weather.
 
 ### Jolpica
 
@@ -120,17 +134,17 @@ Skrypty Python odpowiadają za pobieranie danych z API oraz zapis danych do plik
 
 ```text
 src/
-├── extract\_meetings.py
-├── extract\_sessions.py
-├── extract\_drivers.py
-├── extract\_session\_results.py
-├── extract\_laps.py
-├── extract\_stints.py
-├── extract\_pit\_stops.py
-├── extract\_race\_control.py
-├── extract\_weather.py
-├── extract\_starting\_grid.py
-└── openf1\_client.py
+├── extract_meetings.py
+├── extract_sessions.py
+├── extract_drivers.py
+├── extract_session_results.py
+├── extract_laps.py
+├── extract_stints.py
+├── extract_pit_stops.py
+├── extract_race_control.py
+├── extract_weather.py
+├── extract_starting_grid.py
+└── openf1_client.py
 ```
 
 Dane wynikowe zapisywane są w:
@@ -142,17 +156,17 @@ data/processed/
 Przykładowe pliki:
 
 ```text
-meetings\_2025.csv
-sessions\_2025.csv
-drivers\_2025.csv
-session\_results\_2025.csv
-laps\_2025.csv
-stints\_2025.csv
-pit\_stops\_2025.csv
-race\_control\_2025.csv
-weather\_2025.csv
-starting\_grid\_2025.csv
-attendance\_2025.csv
+meetings_2025.csv
+sessions_2025.csv
+drivers_2025.csv
+session_results_2025.csv
+laps_2025.csv
+stints_2025.csv
+pit_stops_2025.csv
+race_control_2025.csv
+weather_2025.csv
+starting_grid_2025.csv
+attendance_2025.csv
 ```
 
 `SessionResults` jest wspólnym źródłem oficjalnych wyników dla różnych typów sesji.
@@ -161,7 +175,7 @@ attendance\_2025.csv
 
 Warstwa SSIS odpowiada za ładowanie danych z plików CSV do tabel stagingowych SQL Server.
 
-Proces oparty jest na pakiecie nadrzędnym `Master\_Load\_Staging.dtsx` oraz zestawie pakietów odpowiedzialnych za poszczególne datasety.
+Proces oparty jest na pakiecie nadrzędnym `Master_Load_Staging.dtsx` oraz zestawie pakietów odpowiedzialnych za poszczególne datasety.
 
 Konfiguracja ładowania przechowywana jest w tabeli `etl.LoadConfig`, dzięki czemu master package jest sterowany konfiguracją.
 
@@ -211,12 +225,12 @@ Centralną tabelą wyników sesji jest `FactSessionResult`, która przechowuje o
 
 Procedury ładujące hurtownię zawierają kontrole jakości danych, obejmujące m.in.:
 
-* duplikaty rekordów,
-* brakujące mapowania do wymiarów,
-* nieprawidłowe wartości,
-* brakujące powiązania kierowca–sesja,
-* osierocone rekordy źródłowe,
-* zgodność liczby rekordów przed i po transformacji.
+- duplikaty rekordów,
+- brakujące mapowania do wymiarów,
+- nieprawidłowe wartości,
+- brakujące powiązania kierowca–sesja,
+- osierocone rekordy źródłowe,
+- zgodność liczby rekordów przed i po transformacji.
 
 Projekt zachowuje braki wynikające ze źródła zamiast generować sztuczne wartości.
 
@@ -230,7 +244,7 @@ etl.DwLoadStepRun
 etl.LoadConfig
 etl.PackageRun
 etl.TaskRun
-etl.vw\_DwLoadHistory
+etl.vw_DwLoadHistory
 ```
 
 Pozwala to analizować historię uruchomień, status poszczególnych kroków oraz ewentualne błędy.
@@ -271,7 +285,18 @@ Miary zostały uporządkowane w folderach tematycznych, m.in. `Circuit`, `Sessio
 
 Power BI korzysta z modelu przez **Live Connection**.
 
+> **Uwaga dotycząca wersji publicznej:** interaktywny raport udostępniony przez `Publish to web` korzysta z osobnej wersji demonstracyjnej w trybie **Import**. Została ona utworzona wyłącznie po to, aby raport mógł być publicznie testowany w przeglądarce bez dostępu do lokalnej instancji SSAS. Główna architektura projektu nadal wykorzystuje SSAS Tabular i Live Connection.
+
 # 📊 Power BI Report
+
+## Live demo
+
+Publiczna wersja raportu jest dostępna bez logowania w przeglądarce:
+
+[▶ Otwórz interaktywny raport Power BI](https://app.powerbi.com/view?r=eyJrIjoiMDc2OGFlMzEtMzBjZS00ZmRhLTljMTItM2JjZTAwY2E3ZDdjIiwidCI6IjY0ZjBkNDRlLWExMmUtNGY0NS1iZDMxLThjMjE1YWUxMzg1YSJ9)
+
+Demo umożliwia korzystanie z filtrów, nawigacji, widoków szczegółowych, analizy strategii oraz interaktywnych tooltipów.
+
 
 ## F1 Circuits Overview
 
@@ -279,47 +304,47 @@ Pierwsza strona raportu prezentuje przegląd torów oraz najważniejsze informac
 
 Użytkownik może filtrować dane m.in. według sezonu, kraju oraz typu toru.
 
-!\[F1 Circuits Overview](docs/images/f1-circuits-overview.png)
+![F1 Circuits Overview](docs/images/f1-circuits-overview.png)
 
 ## Circuit Details
 
 Widok szczegółowy toru prezentuje m.in.:
 
-* zwycięzcę sesji,
-* frekwencję,
-* najszybsze okrążenie,
-* maksymalną prędkość,
-* tempo kierowców,
-* średnie czasy sektorów,
-* klasyfikację sesji,
-* warunki pogodowe.
+- zwycięzcę sesji,
+- frekwencję,
+- najszybsze okrążenie,
+- maksymalną prędkość,
+- tempo kierowców,
+- średnie czasy sektorów,
+- klasyfikację sesji,
+- warunki pogodowe.
 
-!\[Circuit Details Overview](docs/images/circuit-details-overview.png)
+![Circuit Details Overview](docs/images/circuit-details-overview.png)
 
 ## Strategy
 
 Zakładka Strategy umożliwia analizę:
 
-* stintów,
-* wykorzystanych mieszanek,
-* długości stintów,
-* pit stopów,
-* średniego czasu pit stopu,
-* liczby pit stopów.
+- stintów,
+- wykorzystanych mieszanek,
+- długości stintów,
+- pit stopów,
+- średniego czasu pit stopu,
+- liczby pit stopów.
 
-!\[Circuit Details Strategy](docs/images/circuit-details-strategy.png)
+![Circuit Details Strategy](docs/images/circuit-details-strategy.png)
 
 ## Interaktywne filtrowanie
 
 Raport posiada panel filtrów umożliwiający analizę danych według sezonu, sesji i kierowcy.
 
-!\[Circuit Details Filters](docs/images/circuit-details-filters.png)
+![Circuit Details Filters](docs/images/circuit-details-filters.png)
 
 ## Interaktywny tooltip kierowcy
 
 Po najechaniu na zwycięzcę sesji wyświetlana jest karta kierowcy zawierająca zdjęcie, imię i nazwisko, zespół oraz pozycję w sesji.
 
-!\[Session Winner Tooltip](docs/images/session-winner-tooltip.png)
+![Session Winner Tooltip](docs/images/session-winner-tooltip.png)
 
 ## ⚙️ Automatyzacja
 
@@ -337,26 +362,27 @@ Job `F1Analytics - Full Load` wykonuje trzy główne kroki:
 
 ## 🧰 Technologie
 
-|Warstwa|Technologia|
-|-|-|
-|Data extraction|Python|
-|Data processing|pandas|
-|API|OpenF1, Jolpica|
-|Intermediate storage|CSV|
-|ETL|SSIS|
-|Database|Microsoft SQL Server|
-|Data Warehouse|T-SQL|
-|Semantic Layer|SSAS Tabular|
-|Measures|DAX|
-|Reporting|Power BI|
-|Orchestration|SQL Server Agent|
-|Deployment|SSISDB|
-|Version Control|Git / GitHub|
+| Warstwa | Technologia |
+|---|---|
+| Data extraction | Python |
+| Data processing | pandas |
+| API | OpenF1, Jolpica |
+| Intermediate storage | CSV |
+| ETL | SSIS |
+| Database | Microsoft SQL Server |
+| Data Warehouse | T-SQL |
+| Semantic Layer | SSAS Tabular |
+| Measures | DAX |
+| Reporting | Power BI |
+| Public demo | Power BI Service / Publish to web |
+| Orchestration | SQL Server Agent |
+| Deployment | SSISDB |
+| Version Control | Git / GitHub |
 
 ## 📁 Struktura repozytorium
 
 ```text
-f1-data-analytics\_by\_MS/
+f1-data-analytics_by_MS/
 │
 ├── data/
 │   └── processed/
@@ -365,11 +391,12 @@ f1-data-analytics\_by\_MS/
 ├── src/
 ├── sql/
 ├── ssis/
-│   └── F1Analytics\_SSIS/
+│   └── F1Analytics_SSIS/
 ├── ssas/
-│   └── F1Analytics\_Tabular/
+│   └── F1Analytics_Tabular/
 ├── powerbi/
-│   └── F1Analytics\_Report.pbix
+│   ├── F1Analytics_Report.pbix
+│   └── F1Analytics_PublicDemo.pbix
 └── README.md
 ```
 
@@ -403,12 +430,12 @@ Dodanie testów jednostkowych i integracyjnych dla procesów ekstrakcji i ETL.
 
 Testy powinny sprawdzać m.in.:
 
-* zmianę liczby pobieranych rekordów,
-* nieoczekiwany spadek wolumenu danych,
-* wartości NULL w kluczowych kolumnach,
-* unikalność danych na oczekiwanym poziomie granularności,
-* kompletność mapowań,
-* poprawność zakresów wartości.
+- zmianę liczby pobieranych rekordów,
+- nieoczekiwany spadek wolumenu danych,
+- wartości NULL w kluczowych kolumnach,
+- unikalność danych na oczekiwanym poziomie granularności,
+- kompletność mapowań,
+- poprawność zakresów wartości.
 
 ### Monitoring wolumenu danych
 
@@ -422,23 +449,24 @@ Rozszerzenie logowania oraz automatycznych kontroli procesu ładowania.
 
 Projekt prezentuje praktyczne wykorzystanie:
 
-* REST API,
-* Python,
-* pandas,
-* SQL Server,
-* T-SQL,
-* dimensional modelling,
-* SSIS,
-* SSISDB,
-* SQL Server Agent,
-* ETL logging,
-* data quality validation,
-* SSAS Tabular,
-* DAX,
-* Power BI,
-* Live Connection,
-* data visualization,
-* Git / GitHub.
+- REST API,
+- Python,
+- pandas,
+- SQL Server,
+- T-SQL,
+- dimensional modelling,
+- SSIS,
+- SSISDB,
+- SQL Server Agent,
+- ETL logging,
+- data quality validation,
+- SSAS Tabular,
+- DAX,
+- Power BI,
+- Live Connection,
+- Power BI Service / Publish to web,
+- data visualization,
+- Git / GitHub.
 
 ## 📌 Status projektu
 
@@ -464,6 +492,8 @@ OpenF1 / Jolpica
 
 jest działającym rozwiązaniem end-to-end dla sezonu **2025**.
 
+Dodatkowo projekt posiada publiczną wersję demonstracyjną Power BI działającą w przeglądarce. Wersja publiczna korzysta z modelu Import, aby uniezależnić demo od lokalnego SQL Server i SSAS.
+
 ## ℹ️ Informacja
 
 Formula 1 oraz powiązane znaki towarowe należą do ich właścicieli. Projekt jest niezależnym projektem portfolio i nie jest powiązany z Formula 1.
@@ -474,7 +504,7 @@ Formula 1 oraz powiązane znaki towarowe należą do ich właścicieli. Projekt 
 
 Projekt portfolio Data Analytics / Business Intelligence.
 
-\---
+---
 
 <a id="english-version"></a>
 
@@ -494,19 +524,19 @@ The current implementation focuses on the **2025 Formula 1 season**.
 
 The goal is to build a complete Formula 1 analytics platform supporting analysis of:
 
-* race weekends,
-* circuits,
-* session results,
-* driver performance,
-* race pace,
-* lap times,
-* sector performance,
-* maximum speeds,
-* tyre strategies,
-* pit stops,
-* weather conditions,
-* Race Control events,
-* circuit attendance.
+- race weekends,
+- circuits,
+- session results,
+- driver performance,
+- race pace,
+- lap times,
+- sector performance,
+- maximum speeds,
+- tyre strategies,
+- pit stops,
+- weather conditions,
+- Race Control events,
+- circuit attendance.
 
 The project goes beyond dashboard development and includes the complete data ingestion, validation, transformation and modelling process.
 
@@ -550,9 +580,9 @@ The loading process can also be automated using:
 ```text
 SQL Server Agent
         ↓
-Master\_Load\_Staging.dtsx
+Master_Load_Staging.dtsx
         ↓
-etl.usp\_RunDwLoad
+etl.usp_RunDwLoad
         ↓
 SSAS Process Full
 ```
@@ -565,15 +595,15 @@ The main data source is the **OpenF1 API**.
 
 The project uses data including:
 
-* meetings,
-* sessions,
-* drivers,
-* session results,
-* laps,
-* stints,
-* pit stops,
-* race control,
-* weather.
+- meetings,
+- sessions,
+- drivers,
+- session results,
+- laps,
+- stints,
+- pit stops,
+- race control,
+- weather.
 
 ### Jolpica
 
@@ -589,17 +619,17 @@ Python scripts retrieve data from the APIs and generate CSV files used by the ET
 
 ```text
 src/
-├── extract\_meetings.py
-├── extract\_sessions.py
-├── extract\_drivers.py
-├── extract\_session\_results.py
-├── extract\_laps.py
-├── extract\_stints.py
-├── extract\_pit\_stops.py
-├── extract\_race\_control.py
-├── extract\_weather.py
-├── extract\_starting\_grid.py
-└── openf1\_client.py
+├── extract_meetings.py
+├── extract_sessions.py
+├── extract_drivers.py
+├── extract_session_results.py
+├── extract_laps.py
+├── extract_stints.py
+├── extract_pit_stops.py
+├── extract_race_control.py
+├── extract_weather.py
+├── extract_starting_grid.py
+└── openf1_client.py
 ```
 
 Processed datasets are stored in `data/processed/`.
@@ -610,7 +640,7 @@ Processed datasets are stored in `data/processed/`.
 
 SSIS loads processed CSV files into the SQL Server staging layer.
 
-The process is controlled by `Master\_Load\_Staging.dtsx` and dataset-specific child packages.
+The process is controlled by `Master_Load_Staging.dtsx` and dataset-specific child packages.
 
 The loading configuration is stored in `etl.LoadConfig`, which keeps the master package configuration-driven.
 
@@ -660,12 +690,12 @@ DimRaceControlCategory
 
 Warehouse loading procedures validate:
 
-* duplicate records,
-* missing dimension mappings,
-* invalid values,
-* missing driver/session mappings,
-* orphan source records,
-* row-count consistency before and after transformations.
+- duplicate records,
+- missing dimension mappings,
+- invalid values,
+- missing driver/session mappings,
+- orphan source records,
+- row-count consistency before and after transformations.
 
 Missing values originating from the source are preserved rather than artificially generated.
 
@@ -679,7 +709,7 @@ etl.DwLoadStepRun
 etl.LoadConfig
 etl.PackageRun
 etl.TaskRun
-etl.vw\_DwLoadHistory
+etl.vw_DwLoadHistory
 ```
 
 This provides visibility into execution history, individual load steps and failures.
@@ -706,37 +736,48 @@ Measures are organized into logical display folders such as `Circuit`, `Session`
 
 Power BI connects to the semantic model using a **Live Connection**.
 
+> **Public demo note:** the interactive report shared through `Publish to web` uses a separate **Import** version created specifically for browser-based portfolio access without requiring connectivity to the local SSAS instance. The main project architecture still uses SSAS Tabular and Live Connection.
+
 # 📊 Power BI Report
+
+## Live demo
+
+A public interactive version of the report is available in the browser without sign-in:
+
+[▶ Open the interactive Power BI report](https://app.powerbi.com/view?r=eyJrIjoiMDc2OGFlMzEtMzBjZS00ZmRhLTljMTItM2JjZTAwY2E3ZDdjIiwidCI6IjY0ZjBkNDRlLWExMmUtNGY0NS1iZDMxLThjMjE1YWUxMzg1YSJ9)
+
+The demo supports filtering, navigation, detailed circuit views, strategy analysis and interactive driver tooltips.
+
 
 ## F1 Circuits Overview
 
 The landing page provides an overview of Formula 1 circuits and key information from the latest race weekend.
 
-!\[F1 Circuits Overview](docs/images/f1-circuits-overview.png)
+![F1 Circuits Overview](docs/images/f1-circuits-overview.png)
 
 ## Circuit Details
 
 The detailed circuit view includes session winner, attendance, fastest lap, maximum speed, race pace, sector performance, official classification and weather conditions.
 
-!\[Circuit Details Overview](docs/images/circuit-details-overview.png)
+![Circuit Details Overview](docs/images/circuit-details-overview.png)
 
 ## Strategy
 
 The Strategy page provides analysis of tyre stints, compounds, stint lengths and pit stop activity.
 
-!\[Circuit Details Strategy](docs/images/circuit-details-strategy.png)
+![Circuit Details Strategy](docs/images/circuit-details-strategy.png)
 
 ## Interactive filtering
 
 The report includes a dedicated filter panel supporting analysis by season, session and driver.
 
-!\[Circuit Details Filters](docs/images/circuit-details-filters.png)
+![Circuit Details Filters](docs/images/circuit-details-filters.png)
 
 ## Interactive driver tooltip
 
 Hovering over the session winner displays a contextual driver card containing the driver headshot, name, team and finishing position.
 
-!\[Session Winner Tooltip](docs/images/session-winner-tooltip.png)
+![Session Winner Tooltip](docs/images/session-winner-tooltip.png)
 
 ## ⚙️ Automation
 
@@ -754,26 +795,26 @@ The `F1Analytics - Full Load` job contains three main steps:
 
 ## 🧰 Technology stack
 
-|Layer|Technology|
-|-|-|
-|Data extraction|Python|
-|Data processing|pandas|
-|APIs|OpenF1, Jolpica|
-|Intermediate storage|CSV|
-|ETL|SSIS|
-|Database|Microsoft SQL Server|
-|Data Warehouse|T-SQL|
-|Semantic Layer|SSAS Tabular|
-|Measures|DAX|
-|Reporting|Power BI|
-|Orchestration|SQL Server Agent|
-|Deployment|SSISDB|
-|Version Control|Git / GitHub|
+| Layer | Technology |
+|---|---|
+| Data extraction | Python |
+| Data processing | pandas |
+| APIs | OpenF1, Jolpica |
+| Intermediate storage | CSV |
+| ETL | SSIS |
+| Database | Microsoft SQL Server |
+| Data Warehouse | T-SQL |
+| Semantic Layer | SSAS Tabular |
+| Measures | DAX |
+| Reporting | Power BI |
+| Orchestration | SQL Server Agent |
+| Deployment | SSISDB |
+| Version Control | Git / GitHub |
 
 ## 📁 Repository structure
 
 ```text
-f1-data-analytics\_by\_MS/
+f1-data-analytics_by_MS/
 │
 ├── data/
 │   └── processed/
@@ -782,11 +823,11 @@ f1-data-analytics\_by\_MS/
 ├── src/
 ├── sql/
 ├── ssis/
-│   └── F1Analytics\_SSIS/
+│   └── F1Analytics_SSIS/
 ├── ssas/
-│   └── F1Analytics\_Tabular/
+│   └── F1Analytics_Tabular/
 ├── powerbi/
-│   └── F1Analytics\_Report.pbix
+│   └── F1Analytics_Report.pbix
 └── README.md
 ```
 
@@ -812,12 +853,12 @@ Introduce unit and integration tests for extraction and ETL processes.
 
 Tests should validate:
 
-* changes in retrieved row counts,
-* unexpected decreases in source data volume,
-* unexpected NULL values,
-* uniqueness at the expected grain,
-* mapping completeness,
-* expected value ranges.
+- changes in retrieved row counts,
+- unexpected decreases in source data volume,
+- unexpected NULL values,
+- uniqueness at the expected grain,
+- mapping completeness,
+- expected value ranges.
 
 ### Data volume monitoring
 
@@ -831,23 +872,23 @@ Extend logging and automated validation of scheduled data loads.
 
 The project demonstrates practical experience with:
 
-* REST APIs,
-* Python,
-* pandas,
-* SQL Server,
-* T-SQL,
-* dimensional modelling,
-* SSIS,
-* SSISDB,
-* SQL Server Agent,
-* ETL logging,
-* data quality validation,
-* SSAS Tabular,
-* DAX,
-* Power BI,
-* Live Connection,
-* data visualization,
-* Git / GitHub.
+- REST APIs,
+- Python,
+- pandas,
+- SQL Server,
+- T-SQL,
+- dimensional modelling,
+- SSIS,
+- SSISDB,
+- SQL Server Agent,
+- ETL logging,
+- data quality validation,
+- SSAS Tabular,
+- DAX,
+- Power BI,
+- Live Connection,
+- data visualization,
+- Git / GitHub.
 
 ## 📌 Project status
 
@@ -873,6 +914,8 @@ OpenF1 / Jolpica
 
 is a working end-to-end analytics solution for the **2025 Formula 1 season**.
 
+The project also includes a public Power BI demo that can be explored directly in a web browser. The public version uses an Import model so the demo does not depend on the local SQL Server and SSAS environment.
+
 ## ℹ️ Disclaimer
 
 Formula 1 and related trademarks are the property of their respective owners. This is an independent portfolio project and is not affiliated with Formula 1.
@@ -882,4 +925,3 @@ Formula 1 and related trademarks are the property of their respective owners. Th
 **Marcin Sikora**
 
 Data Analytics / Business Intelligence portfolio project.
-
