@@ -1572,10 +1572,7 @@
             "name": "Pit Stop Count",
             "expression": [
               "",
-              "CALCULATE(",
-              "    COUNTROWS('dw FactPitStop'),",
-              "    NOT ISBLANK('dw FactPitStop'[StopDurationSeconds])",
-              ")"
+              "COUNTROWS('dw FactPitStop')"
             ],
             "displayFolder": "Pit Stops"
           },
@@ -1583,10 +1580,7 @@
             "name": "Fastest Pit Stop Time",
             "expression": [
               "",
-              "CALCULATE(",
-              "    MIN('dw FactPitStop'[StopDurationSeconds]),",
-              "    NOT ISBLANK('dw FactPitStop'[StopDurationSeconds])",
-              ")"
+              "MIN('dw FactPitStop'[StopDurationSeconds])"
             ],
             "displayFolder": "Pit Stops"
           },
@@ -1807,6 +1801,22 @@
               "    )"
             ],
             "displayFolder": "Session\\Results"
+          },
+          {
+            "name": "Fastest Pit Stop Time Label",
+            "expression": [
+              "",
+              "VAR _Seconds = [Fastest Pit Stop Time]",
+              "VAR _PitStops = [Pit Stop Count]",
+              "RETURN",
+              "    SWITCH(",
+              "        TRUE(),",
+              "        _PitStops = 0, \"No pit stops\",",
+              "        ISBLANK(_Seconds), \"No source data\",",
+              "        FORMAT(_Seconds, \"0.00\") & \" s\"",
+              "    )"
+            ],
+            "displayFolder": "Pit Stops"
           }
         ]
       },

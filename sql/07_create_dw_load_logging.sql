@@ -1,4 +1,4 @@
-USE F1Analytics;
+﻿USE F1Analytics;
 GO
 
 /* ============================================================
@@ -233,7 +233,18 @@ BEGIN
         WHERE DwLoadStepRunKey = @DwLoadStepRunKey;
     END TRY
     BEGIN CATCH
+        DECLARE
+            @CaughtErrorNumber  INT = ERROR_NUMBER(),
+            @CaughtErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+
         SET @FinishedAt = SYSDATETIME();
+
+        -- Jeżeli wywołana procedura pozostawiła aktywną lub
+        -- niezatwierdzalną transakcję, najpierw ją wycofujemy.
+        -- Inaczej próba zapisania statusu FAILED kończy się 3930
+        -- i maskuje pierwotny błąd ETL.
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
 
         UPDATE etl.DwLoadStepRun
         SET
@@ -241,8 +252,8 @@ BEGIN
             DurationSeconds = CONVERT(DECIMAL(18,3),
                                       DATEDIFF_BIG(MILLISECOND, StartedAt, @FinishedAt) / 1000.0),
             Status           = N'FAILED',
-            ErrorNumber      = ERROR_NUMBER(),
-            ErrorMessage     = ERROR_MESSAGE()
+            ErrorNumber      = @CaughtErrorNumber,
+            ErrorMessage     = @CaughtErrorMessage
         WHERE DwLoadStepRunKey = @DwLoadStepRunKey;
 
         THROW;
@@ -298,7 +309,15 @@ BEGIN
         SET @ErrorNumber  = ERROR_NUMBER();
         SET @ErrorMessage = ERROR_MESSAGE();
 
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
+
         IF @OwnRun = 1
+           AND EXISTS (
+                SELECT 1
+                FROM etl.DwLoadRun
+                WHERE DwLoadRunKey = @DwLoadRunKey
+           )
         BEGIN
             EXEC etl.usp_EndDwLoadRun
                 @DwLoadRunKey = @DwLoadRunKey,
@@ -337,14 +356,13 @@ BEGIN
     END;
 
     BEGIN TRY
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 310, N'Load FactRaceResult',       N'FACT', N'dw.usp_LoadFactRaceResult';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 320, N'Load FactQualifyingResult', N'FACT', N'dw.usp_LoadFactQualifyingResult';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 330, N'Load FactLap',              N'FACT', N'dw.usp_LoadFactLap';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 340, N'Load FactStint',            N'FACT', N'dw.usp_LoadFactStint';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 350, N'Load FactPitStop',          N'FACT', N'dw.usp_LoadFactPitStop';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 360, N'Load FactWeather',          N'FACT', N'dw.usp_LoadFactWeather';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 370, N'Load FactRaceControl',      N'FACT', N'dw.usp_LoadFactRaceControl';
-        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 380, N'Load FactAttendance',       N'FACT', N'dw.usp_LoadFactAttendance';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 310, N'Load FactSessionResult', N'FACT', N'dw.usp_LoadFactSessionResult';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 320, N'Load FactLap',           N'FACT', N'dw.usp_LoadFactLap';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 330, N'Load FactStint',         N'FACT', N'dw.usp_LoadFactStint';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 340, N'Load FactPitStop',       N'FACT', N'dw.usp_LoadFactPitStop';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 350, N'Load FactWeather',       N'FACT', N'dw.usp_LoadFactWeather';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 360, N'Load FactRaceControl',   N'FACT', N'dw.usp_LoadFactRaceControl';
+        EXEC etl.usp_ExecuteLoggedDwProcedure @DwLoadRunKey, 370, N'Load FactAttendance',    N'FACT', N'dw.usp_LoadFactAttendance';
 
         IF @OwnRun = 1
         BEGIN
@@ -357,7 +375,15 @@ BEGIN
         SET @ErrorNumber  = ERROR_NUMBER();
         SET @ErrorMessage = ERROR_MESSAGE();
 
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
+
         IF @OwnRun = 1
+           AND EXISTS (
+                SELECT 1
+                FROM etl.DwLoadRun
+                WHERE DwLoadRunKey = @DwLoadRunKey
+           )
         BEGIN
             EXEC etl.usp_EndDwLoadRun
                 @DwLoadRunKey = @DwLoadRunKey,
@@ -403,11 +429,25 @@ BEGIN
         SET @ErrorNumber  = ERROR_NUMBER();
         SET @ErrorMessage = ERROR_MESSAGE();
 
-        EXEC etl.usp_EndDwLoadRun
-            @DwLoadRunKey = @DwLoadRunKey,
-            @Status       = N'FAILED',
-            @ErrorNumber  = @ErrorNumber,
-            @ErrorMessage = @ErrorMessage;
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
+
+        -- Jeżeli rollback objął także rekord runa (np. przy
+        -- zewnętrznej/implicit transaction), nie generujemy
+        -- wtórnego 50002. Najważniejsze jest zachowanie
+        -- pierwotnego błędu ETL.
+        IF EXISTS (
+            SELECT 1
+            FROM etl.DwLoadRun
+            WHERE DwLoadRunKey = @DwLoadRunKey
+        )
+        BEGIN
+            EXEC etl.usp_EndDwLoadRun
+                @DwLoadRunKey = @DwLoadRunKey,
+                @Status       = N'FAILED',
+                @ErrorNumber  = @ErrorNumber,
+                @ErrorMessage = @ErrorMessage;
+        END;
 
         THROW;
     END CATCH;

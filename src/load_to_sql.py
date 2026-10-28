@@ -5,6 +5,7 @@ import math
 import pandas as pd
 import pyodbc
 
+from season_config import parse_years
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "processed"
@@ -12,22 +13,25 @@ DATA_PATH = PROJECT_ROOT / "data" / "processed"
 SERVER = r"localhost\F1DEV"
 DATABASE = "F1Analytics"
 DRIVER = "ODBC Driver 18 for SQL Server"
-
 BATCH_SIZE = 5000
 
-TABLES = {
-    "meetings_2025.csv": "stg.Meetings",
-    "sessions_2025.csv": "stg.Sessions",
-    "session_results_2025.csv": "stg.SessionResults",
-    "drivers_2025.csv": "stg.Drivers",
-    "race_control_2025.csv": "stg.RaceControl",    
-    "laps_2025.csv": "stg.Laps",
-    "stints_2025.csv": "stg.Stints",
-    "pit_stops_2025.csv": "stg.PitStops",
-    "weather_2025.csv": "stg.Weather",
-    "starting_grid_2025.csv": "stg.StartingGrid",
-    "attendance_2025.csv": "stg.Attendance",
-}
+# Pomocniczy loader Python. Głównym loaderem projektu pozostaje SSIS.
+# Każda tabela jest czyszczona tylko raz, a następnie ładowane są wszystkie
+# wybrane sezony, dzięki czemu uruchomienie wielosezonowe nie zostawia
+# w stagingu wyłącznie ostatniego pliku.
+DATASETS = [
+    ("meetings", "stg.Meetings"),
+    ("sessions", "stg.Sessions"),
+    ("session_results", "stg.SessionResults"),
+    ("drivers", "stg.Drivers"),
+    ("race_control", "stg.RaceControl"),
+    ("laps", "stg.Laps"),
+    ("stints", "stg.Stints"),
+    ("pit_stops", "stg.PitStops"),
+    ("weather", "stg.Weather"),
+    ("starting_grid", "stg.StartingGrid"),
+    ("attendance", "stg.Attendance"),
+]
 
 NULL_TOKENS = {
     "",
@@ -48,20 +52,15 @@ def get_connection():
         "Encrypt=yes;"
         "TrustServerCertificate=yes;"
     )
-
     return pyodbc.connect(connection_string)
 
 
 def get_sql_columns(connection, table_name):
     schema_name, object_name = table_name.split(".", 1)
-
     cursor = connection.cursor()
-
     cursor.execute(
         """
-        SELECT
-            COLUMN_NAME,
-            DATA_TYPE
+        SELECT COLUMN_NAME, DATA_TYPE
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_SCHEMA = ?
           AND TABLE_NAME = ?
@@ -70,14 +69,11 @@ def get_sql_columns(connection, table_name):
         schema_name,
         object_name,
     )
-
     columns = cursor.fetchall()
     cursor.close()
 
     if not columns:
-        raise ValueError(
-            f"Nie znaleziono tabeli {table_name} w SQL Server."
-        )
+        raise ValueError(f"Nie znaleziono tabeli {table_name} w SQL Server.")
 
     return [
         (row.COLUMN_NAME, row.DATA_TYPE.lower())
@@ -88,10 +84,8 @@ def get_sql_columns(connection, table_name):
 def is_null_value(value):
     if value is None:
         return True
-
     if isinstance(value, float):
         return math.isnan(value) or math.isinf(value)
-
     return str(value).strip().lower() in NULL_TOKENS
 
 
@@ -102,48 +96,25 @@ def convert_value(value, sql_type, column_name, csv_name, row_number):
     text = str(value).strip()
 
     try:
-        if sql_type in {
-            "tinyint",
-            "smallint",
-            "int",
-            "bigint",
-        }:
+        if sql_type in {"tinyint", "smallint", "int", "bigint"}:
             return int(Decimal(text))
 
-        if sql_type in {
-            "decimal",
-            "numeric",
-            "money",
-            "smallmoney",
-        }:
+        if sql_type in {"decimal", "numeric", "money", "smallmoney"}:
             return Decimal(text)
 
-        if sql_type in {
-            "float",
-            "real",
-        }:
+        if sql_type in {"float", "real"}:
             number = float(text)
-
-            if not math.isfinite(number):
-                return None
-
-            return number
+            return number if math.isfinite(number) else None
 
         if sql_type == "bit":
             normalized = text.lower()
-
             if normalized in {"true", "1"}:
                 return True
-
             if normalized in {"false", "0"}:
                 return False
-
-            raise ValueError(
-                f"Nieprawidłowa wartość BIT: {text}"
-            )
+            raise ValueError(f"Nieprawidłowa wartość BIT: {text}")
 
         # DATE / DATETIMEOFFSET oraz tekst przekazujemy jako string.
-        # SQL Server poprawnie konwertuje format ISO z naszych CSV.
         return text
 
     except (ValueError, InvalidOperation) as error:
@@ -162,20 +133,10 @@ def prepare_rows(connection, csv_path, table_name):
     )
 
     if df.empty:
-        raise ValueError(
-            f"Plik {csv_path.name} nie zawiera danych."
-        )
+        raise ValueError(f"Plik {csv_path.name} nie zawiera danych.")
 
-    sql_columns = get_sql_columns(
-        connection=connection,
-        table_name=table_name,
-    )
-
-    sql_column_names = [
-        column_name
-        for column_name, _ in sql_columns
-    ]
-
+    sql_columns = get_sql_columns(connection, table_name)
+    sql_column_names = [column_name for column_name, _ in sql_columns]
     csv_columns = list(df.columns)
 
     if csv_columns != sql_column_names:
@@ -186,51 +147,51 @@ def prepare_rows(connection, csv_path, table_name):
         )
 
     rows = []
-
     for index, row in df.iterrows():
         converted_row = []
-
         for column_name, sql_type in sql_columns:
-            converted_value = convert_value(
-                value=row[column_name],
-                sql_type=sql_type,
-                column_name=column_name,
-                csv_name=csv_path.name,
-                row_number=index + 2,
+            converted_row.append(
+                convert_value(
+                    value=row[column_name],
+                    sql_type=sql_type,
+                    column_name=column_name,
+                    csv_name=csv_path.name,
+                    row_number=index + 2,
+                )
             )
-
-            converted_row.append(converted_value)
-
         rows.append(tuple(converted_row))
 
     return df, rows
 
-def load_table(connection, csv_path, table_name):
-    print(
-        f"Ładowanie: {csv_path.name} -> {table_name}"
-    )
 
-    df, rows = prepare_rows(
-        connection=connection,
-        csv_path=csv_path,
-        table_name=table_name,
-    )
+def load_dataset(connection, dataset_name, table_name, years):
+    csv_paths = [
+        DATA_PATH / f"{dataset_name}_{year}.csv"
+        for year in years
+    ]
 
-    columns = list(df.columns)
+    missing_files = [path.name for path in csv_paths if not path.exists()]
+    if missing_files:
+        raise FileNotFoundError(
+            f"Brakuje plików dla {table_name}: "
+            + ", ".join(missing_files)
+        )
 
-    column_sql = ", ".join(
-        f"[{column}]"
-        for column in columns
-    )
+    prepared = []
+    expected_rows = 0
+    columns = None
 
-    placeholders = ", ".join(
-        "?"
-        for _ in columns
-    )
+    for csv_path in csv_paths:
+        df, rows = prepare_rows(connection, csv_path, table_name)
+        if columns is None:
+            columns = list(df.columns)
+        prepared.append((csv_path, rows))
+        expected_rows += len(df)
 
+    column_sql = ", ".join(f"[{column}]" for column in columns)
+    placeholders = ", ".join("?" for _ in columns)
     insert_sql = (
-        f"INSERT INTO {table_name} "
-        f"({column_sql}) "
+        f"INSERT INTO {table_name} ({column_sql}) "
         f"VALUES ({placeholders})"
     )
 
@@ -238,118 +199,84 @@ def load_table(connection, csv_path, table_name):
     cursor.fast_executemany = False
 
     try:
-        cursor.execute(
-            f"TRUNCATE TABLE {table_name}"
+        print(
+            f"Ładowanie {table_name}: "
+            + ", ".join(path.name for path in csv_paths)
         )
 
-        for start in range(0, len(rows), BATCH_SIZE):
-            batch = rows[
-                start:start + BATCH_SIZE
-            ]
+        cursor.execute(f"TRUNCATE TABLE {table_name}")
 
-            try:
-                cursor.executemany(
-                    insert_sql,
-                    batch,
-                )
+        fallback_completed = False
 
-            except pyodbc.Error as batch_error:
-                # Fallback wiersz po wierszu daje dokładny rekord,
-                # jeśli sterownik zwróci nieczytelny błąd dla batcha.
-                connection.rollback()
+        for csv_path, rows in prepared:
+            for start in range(0, len(rows), BATCH_SIZE):
+                batch = rows[start:start + BATCH_SIZE]
+                try:
+                    cursor.executemany(insert_sql, batch)
+                except pyodbc.Error as batch_error:
+                    connection.rollback()
+                    cursor.execute(f"TRUNCATE TABLE {table_name}")
 
-                cursor.execute(
-                    f"TRUNCATE TABLE {table_name}"
-                )
+                    # Fallback odtwarza cały dataset wiersz po wierszu,
+                    # aby wskazać dokładny rekord powodujący błąd.
+                    for fallback_path, fallback_rows in prepared:
+                        for row_index, row in enumerate(fallback_rows, start=2):
+                            try:
+                                cursor.execute(insert_sql, row)
+                            except pyodbc.Error as row_error:
+                                connection.rollback()
+                                row_values = dict(zip(columns, row))
+                                raise RuntimeError(
+                                    f"Błąd SQL w {fallback_path.name}, "
+                                    f"wiersz {row_index}.\n"
+                                    f"Dane: {row_values}"
+                                ) from row_error
 
-                for row_index, row in enumerate(
-                    rows,
-                    start=2,
-                ):
-                    try:
-                        cursor.execute(
-                            insert_sql,
-                            row,
-                        )
+                    fallback_completed = True
+                    break
 
-                    except pyodbc.Error as row_error:
-                        connection.rollback()
-
-                        row_values = dict(
-                            zip(columns, row)
-                        )
-
-                        raise RuntimeError(
-                            f"Błąd SQL w {csv_path.name}, "
-                            f"wiersz {row_index}.\n"
-                            f"Dane: {row_values}"
-                        ) from row_error
-
-                # Jeżeli fallback przeszedł poprawnie,
-                # kończymy ładowanie tej tabeli.
+            if fallback_completed:
                 break
 
-        cursor.execute(
-            f"SELECT COUNT(*) FROM {table_name}"
-        )
-
+        cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
         sql_row_count = cursor.fetchone()[0]
 
-        if sql_row_count != len(df):
+        if sql_row_count != expected_rows:
             raise ValueError(
                 f"Niezgodna liczba rekordów dla {table_name}. "
-                f"CSV: {len(df)}, SQL: {sql_row_count}."
+                f"CSV: {expected_rows}, SQL: {sql_row_count}."
             )
 
         connection.commit()
-
-        print(
-            f"OK: {csv_path.name} -> {table_name} "
-            f"({sql_row_count} rekordów)"
-        )
+        print(f"OK: {table_name} ({sql_row_count} rekordów)")
 
     except Exception:
         connection.rollback()
         raise
-
     finally:
         cursor.close()
 
 
 def main():
-    missing_files = [
-        filename
-        for filename in TABLES
-        if not (DATA_PATH / filename).exists()
-    ]
-
-    if missing_files:
-        raise FileNotFoundError(
-            "Brakuje plików CSV: "
-            + ", ".join(missing_files)
-        )
+    years = parse_years(
+        "Pomocniczo ładuje wybrane sezony CSV do stagingu SQL Server."
+    )
 
     connection = get_connection()
-
     try:
-        print(
-            f"Połączono z {SERVER} / {DATABASE}."
-        )
-
-        for filename, table_name in TABLES.items():
-            csv_path = DATA_PATH / filename
-
-            load_table(
+        print(f"Połączono z {SERVER} / {DATABASE}.")
+        for dataset_name, table_name in DATASETS:
+            load_dataset(
                 connection=connection,
-                csv_path=csv_path,
+                dataset_name=dataset_name,
                 table_name=table_name,
+                years=years,
             )
 
         print(
-            "Wszystkie dane zostały załadowane "
+            "Wszystkie wybrane sezony zostały załadowane "
             "do schematu stg."
         )
-
     finally:
         connection.close()
 

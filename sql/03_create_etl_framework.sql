@@ -1,4 +1,4 @@
-USE F1Analytics;
+﻿USE F1Analytics;
 GO
 
 /*
@@ -209,12 +209,13 @@ USING (
         (N'Sessions',          N'data\processed', N'sessions_*.csv',           N'stg', N'Sessions',          20, 1, 1, N',', 1),
         (N'Drivers',           N'data\processed', N'drivers_*.csv',            N'stg', N'Drivers',           30, 1, 1, N',', 1),
         (N'RaceControl',       N'data\processed', N'race_control_*.csv',       N'stg', N'RaceControl',       40, 1, 1, N',', 1),
-        (N'RaceResults',       N'data\processed', N'race_results_*.csv',       N'stg', N'RaceResults',       50, 1, 1, N',', 1),
+        (N'SessionResults',    N'data\processed', N'session_results_*.csv',    N'stg', N'SessionResults',    50, 1, 1, N',', 1),
+        (N'RaceResults',       N'data\processed', N'race_results_*.csv',       N'stg', N'RaceResults',       51, 1, 1, N',', 0),
         (N'Laps',              N'data\processed', N'laps_*.csv',               N'stg', N'Laps',              60, 1, 1, N',', 1),
         (N'Stints',            N'data\processed', N'stints_*.csv',             N'stg', N'Stints',            70, 1, 1, N',', 1),
         (N'PitStops',          N'data\processed', N'pit_stops_*.csv',          N'stg', N'PitStops',          80, 1, 1, N',', 1),
         (N'Weather',           N'data\processed', N'weather_*.csv',            N'stg', N'Weather',           90, 1, 1, N',', 1),
-        (N'QualifyingResults', N'data\processed', N'qualifying_results_*.csv', N'stg', N'QualifyingResults', 100, 1, 1, N',', 1),
+        (N'QualifyingResults', N'data\processed', N'qualifying_results_*.csv', N'stg', N'QualifyingResults', 100, 1, 1, N',', 0),
         (N'StartingGrid',      N'data\processed', N'starting_grid_*.csv',      N'stg', N'StartingGrid',     110, 1, 1, N',', 1),
         (N'Attendance',        N'data\processed', N'attendance_*.csv',         N'stg', N'Attendance',       120, 1, 1, N',', 1)
 ) AS source (

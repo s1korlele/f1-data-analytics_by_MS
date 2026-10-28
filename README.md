@@ -33,7 +33,7 @@ The main solution in this repository retains the **SSAS Tabular + Power BI Live 
 
 Projekt został przygotowany jako portfolio pokazujące praktyczne wykorzystanie technologii Microsoft BI oraz podejścia end-to-end do budowy rozwiązania analitycznego.
 
-Aktualna wersja projektu obejmuje dane dla sezonu **Formula 1 2025**.
+Aktualna wersja projektu obejmuje dane dla sezonów **Formula 1 2023–2025**.
 
 ## 🎯 Cel projektu
 
@@ -134,6 +134,8 @@ Skrypty Python odpowiadają za pobieranie danych z API oraz zapis danych do plik
 
 ```text
 src/
+├── extract_all.py
+├── season_config.py
 ├── extract_meetings.py
 ├── extract_sessions.py
 ├── extract_drivers.py
@@ -144,6 +146,8 @@ src/
 ├── extract_race_control.py
 ├── extract_weather.py
 ├── extract_starting_grid.py
+├── build_attendance_template.py
+├── build_attendance_history.py
 └── openf1_client.py
 ```
 
@@ -233,6 +237,12 @@ Procedury ładujące hurtownię zawierają kontrole jakości danych, obejmujące
 - zgodność liczby rekordów przed i po transformacji.
 
 Projekt zachowuje braki wynikające ze źródła zamiast generować sztuczne wartości.
+
+## 🔎 Transparentność i jakość danych
+
+Raport komunikuje zakres i ograniczenia danych zamiast zastępować braki wartościami sztucznymi. Źródła obejmują OpenF1, Jolpica oraz osobno kuratorowane dane frekwencji. Dla attendance przechowywane są URL źródła, data źródła i notatki jakościowe.
+
+Zakres projektu obejmuje sezony **2023–2025**. Warstwa raportowa zawiera stronę **Info**, która opisuje pochodzenie danych, proces przetwarzania, kontrole jakości oraz znane ograniczenia źródeł. Przykładowo `stop_duration` dla pit stopów nie jest dostępne dla wszystkich historycznych wydarzeń i typów sesji; w takich przypadkach raport pokazuje brak danych źródłowych zamiast estymować czas postoju.
 
 ## 📋 Logowanie ETL
 
@@ -518,7 +528,7 @@ Projekt portfolio Data Analytics / Business Intelligence.
 
 The project was created as a portfolio solution demonstrating practical experience with the Microsoft BI ecosystem and end-to-end analytics architecture.
 
-The current implementation focuses on the **2025 Formula 1 season**.
+The current implementation covers the **2023–2025 Formula 1 seasons**.
 
 ## 🎯 Project goal
 
@@ -619,6 +629,8 @@ Python scripts retrieve data from the APIs and generate CSV files used by the ET
 
 ```text
 src/
+├── extract_all.py
+├── season_config.py
 ├── extract_meetings.py
 ├── extract_sessions.py
 ├── extract_drivers.py
@@ -629,6 +641,8 @@ src/
 ├── extract_race_control.py
 ├── extract_weather.py
 ├── extract_starting_grid.py
+├── build_attendance_template.py
+├── build_attendance_history.py
 └── openf1_client.py
 ```
 
@@ -698,6 +712,13 @@ Warehouse loading procedures validate:
 - row-count consistency before and after transformations.
 
 Missing values originating from the source are preserved rather than artificially generated.
+
+
+## 🔎 Data transparency and quality
+
+The report communicates data coverage and limitations instead of replacing missing source values with fabricated estimates. Sources include OpenF1, Jolpica and separately curated attendance data. Attendance records retain source URL, source date and quality notes.
+
+The project covers the **2023–2025** seasons. The report includes an **Info** page describing data provenance, processing, quality controls and known source limitations. For example, pit-stop `stop_duration` is not available for every historical event or session type; in those cases the report shows that source data is unavailable rather than estimating a stationary stop time.
 
 ## 📋 ETL logging
 
@@ -912,7 +933,7 @@ OpenF1 / Jolpica
      Power BI
 ```
 
-is a working end-to-end analytics solution for the **2025 Formula 1 season**.
+is a working end-to-end analytics solution for the **2023–2025 Formula 1 seasons**.
 
 The project also includes a public Power BI demo that can be explored directly in a web browser. The public version uses an Import model so the demo does not depend on the local SQL Server and SSAS environment.
 

@@ -469,6 +469,8 @@ BEGIN
         BEGIN TRANSACTION;
 
         DECLARE @SourceRows INT;
+        DECLARE @RejectedRows INT;
+        DECLARE @EligibleRows INT;
         DECLARE @MappedRows INT;
 
         SELECT @SourceRows = COUNT(*)
@@ -508,11 +510,58 @@ BEGIN
         END;
 
 
-        -- Driver mapping dla rekordów występujących w Laps musi być 1:1.
+        -- Tylko pełne rekordy Drivers (full_name + team_name) są
+        -- kwalifikowane do telemetrycznych factów. Rekord bez takiego
+        -- mapowania może być zanieczyszczeniem endpointu OpenF1.
+        SELECT @RejectedRows = COUNT(*)
+        FROM stg.Laps AS l
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM stg.Drivers AS d
+            WHERE d.meeting_key = l.meeting_key
+              AND d.session_key = l.session_key
+              AND d.driver_number = l.driver_number
+              AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+              AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+        );
+
+        -- Jeżeli odrzucany rekord ma oficjalny SessionResult, nie wolno
+        -- go po cichu pomijać: oznacza to realny problem mapowania.
+        IF EXISTS (
+            SELECT 1
+            FROM stg.Laps AS l
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM stg.Drivers AS d
+                WHERE d.meeting_key = l.meeting_key
+                  AND d.session_key = l.session_key
+                  AND d.driver_number = l.driver_number
+                  AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+                  AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+            )
+              AND EXISTS (
+                SELECT 1
+                FROM stg.SessionResults AS sr
+                WHERE sr.meeting_key = l.meeting_key
+                  AND sr.session_key = l.session_key
+                  AND sr.driver_number = l.driver_number
+            )
+        )
+        BEGIN
+            THROW 51203,
+                'FactLap: rejected telemetry row has an official SessionResult; driver/team mapping requires investigation.',
+                1;
+        END;
+
+        SET @EligibleRows = @SourceRows - @RejectedRows;
+
+        -- Dla rekordów kwalifikowanych mapowanie Drivers musi być 1:1.
         IF EXISTS (
             SELECT 1
             FROM stg.Drivers AS d
-            WHERE EXISTS (
+            WHERE NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+              AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+              AND EXISTS (
                 SELECT 1
                 FROM stg.Laps AS l
                 WHERE l.meeting_key = d.meeting_key
@@ -526,8 +575,8 @@ BEGIN
             HAVING COUNT(*) > 1
         )
         BEGIN
-            THROW 51203,
-                'FactLap: duplicate driver mapping in stg.Drivers.',
+            THROW 51207,
+                'FactLap: duplicate valid driver mapping in stg.Drivers.',
                 1;
         END;
 
@@ -604,6 +653,8 @@ BEGIN
             ON d.meeting_key = l.meeting_key
            AND d.session_key = l.session_key
            AND d.driver_number = l.driver_number
+           AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+           AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
 
         JOIN dw.DimDriver AS dd
             ON dd.DriverBusinessKey = LEFT(LTRIM(RTRIM(d.full_name)), 100)
@@ -628,13 +679,17 @@ BEGIN
 
 
         -- Każdy rekord source musi zostać zmapowany.
-        IF @MappedRows <> @SourceRows
+        IF @MappedRows <> @EligibleRows
         BEGIN
             DECLARE @LapErrorMessage NVARCHAR(2048);
 
             SET @LapErrorMessage =
                 N'FactLap: mapping mismatch. Source rows = '
                 + CONVERT(NVARCHAR(20), @SourceRows)
+                + N', intentionally rejected rows = '
+                + CONVERT(NVARCHAR(20), @RejectedRows)
+                + N', eligible rows = '
+                + CONVERT(NVARCHAR(20), @EligibleRows)
                 + N', mapped rows = '
                 + CONVERT(NVARCHAR(20), @MappedRows)
                 + N'.';
@@ -716,13 +771,16 @@ GO
 -- Grain: 1 kierowca x 1 stint x 1 sesja
 --
 -- Uwaga:
--- staging zawiera obecnie 42 osierocone rekordy stintów bez
--- odpowiadających danych kierowcy, okrążeń ani kwalifikacji.
--- Takie rekordy nie spełniają grainu facta i są pomijane.
+-- staging może zawierać rekordy stintów, których nie należy
+-- ładować do facta:
+-- 1) brak dokładnego rekordu kierowcy w stg.Drivers,
+-- 2) rekord kierowcy istnieje, ale team_name jest pusty, przez co
+--    nie istnieje poprawne mapowanie do dw.DimTeam.
 --
--- Jeżeli w przyszłości rekord bez mapowania do Drivers będzie
--- miał odpowiadające dane Laps lub QualifyingResults, procedura
--- przerwie ładowanie zamiast go automatycznie odrzucić.
+-- Takie rekordy są świadomie odrzucane tylko wtedy, gdy nie mają
+-- oficjalnego SessionResult. Jeżeli taki rekord ma oficjalny
+-- wynik sesji, procedura przerywa ETL, aby nie ukrywać realnego
+-- problemu mapowania kierowcy lub zespołu.
 --
 -- StintLaps:
 -- liczba okrążeń przejechanych w stincie:
@@ -771,54 +829,63 @@ BEGIN
         END;
 
 
+        IF EXISTS (
+            SELECT 1
+            FROM stg.Stints
+            WHERE meeting_key IS NULL
+               OR session_key IS NULL
+               OR driver_number IS NULL
+               OR stint_number IS NULL
+        )
+        BEGIN
+            THROW 51305,
+                'FactStint: NULL in meeting_key, session_key, driver_number or stint_number.',
+                1;
+        END;
+
+
         -- =====================================================
-        -- Liczymy rekordy bez dokładnego mapowania do Drivers.
+        -- Telemetryczny rekord jest kwalifikowany tylko wtedy,
+        -- gdy istnieje pełny rekord Drivers (full_name + team_name).
+        -- Brak takiego mapowania może być zanieczyszczeniem źródła.
         -- =====================================================
-        SELECT
-            @RejectedRows = COUNT(*)
+        SELECT @RejectedRows = COUNT(*)
         FROM stg.Stints AS st
-        LEFT JOIN stg.Drivers AS d
-            ON d.meeting_key = st.meeting_key
-           AND d.session_key = st.session_key
-           AND d.driver_number = st.driver_number
-        WHERE d.driver_number IS NULL;
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM stg.Drivers AS d
+            WHERE d.meeting_key = st.meeting_key
+              AND d.session_key = st.session_key
+              AND d.driver_number = st.driver_number
+              AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+              AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+        );
 
-
-        -- =====================================================
-        -- Brak Drivers jest akceptowany tylko wtedy, gdy nie ma
-        -- żadnego dowodu faktycznej aktywności kierowcy w sesji.
-        --
-        -- Jeśli są Laps lub QualifyingResults, traktujemy to jako
-        -- problem jakości danych i przerywamy ETL.
-        -- =====================================================
+        -- Jeżeli odrzucany rekord ma oficjalny SessionResult,
+        -- nie wolno go automatycznie pomijać.
         IF EXISTS (
             SELECT 1
             FROM stg.Stints AS st
-            LEFT JOIN stg.Drivers AS d
-                ON d.meeting_key = st.meeting_key
-               AND d.session_key = st.session_key
-               AND d.driver_number = st.driver_number
-            WHERE d.driver_number IS NULL
-              AND (
-                    EXISTS (
-                        SELECT 1
-                        FROM stg.Laps AS l
-                        WHERE l.meeting_key = st.meeting_key
-                          AND l.session_key = st.session_key
-                          AND l.driver_number = st.driver_number
-                    )
-                    OR EXISTS (
-                        SELECT 1
-                        FROM stg.QualifyingResults AS q
-                        WHERE q.meeting_key = st.meeting_key
-                          AND q.session_key = st.session_key
-                          AND q.driver_number = st.driver_number
-                    )
-                  )
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM stg.Drivers AS d
+                WHERE d.meeting_key = st.meeting_key
+                  AND d.session_key = st.session_key
+                  AND d.driver_number = st.driver_number
+                  AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+                  AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+            )
+              AND EXISTS (
+                SELECT 1
+                FROM stg.SessionResults AS sr
+                WHERE sr.meeting_key = st.meeting_key
+                  AND sr.session_key = st.session_key
+                  AND sr.driver_number = st.driver_number
+            )
         )
         BEGIN
             THROW 51302,
-                'FactStint: unmapped stint has matching activity data. Driver mapping requires investigation.',
+                'FactStint: rejected telemetry row has an official SessionResult; driver/team mapping requires investigation.',
                 1;
         END;
 
@@ -906,6 +973,8 @@ BEGIN
             ON d.meeting_key = st.meeting_key
            AND d.session_key = st.session_key
            AND d.driver_number = st.driver_number
+           AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+           AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
 
         JOIN dw.DimDriver AS dd
             ON dd.DriverBusinessKey =
@@ -1051,6 +1120,8 @@ BEGIN
         BEGIN TRANSACTION;
 
         DECLARE @SourceRows INT;
+        DECLARE @RejectedRows INT;
+        DECLARE @EligibleRows INT;
         DECLARE @MappedRows INT;
 
         SELECT @SourceRows = COUNT(*)
@@ -1074,21 +1145,64 @@ BEGIN
         END;
 
 
-        -- Każdy pit stop musi mieć dokładne mapowanie do Drivers.
+        IF EXISTS (
+            SELECT 1
+            FROM stg.PitStops
+            WHERE meeting_key IS NULL
+               OR session_key IS NULL
+               OR driver_number IS NULL
+               OR lap_number IS NULL
+        )
+        BEGIN
+            THROW 51407,
+                'FactPitStop: NULL in meeting_key, session_key, driver_number or lap_number.',
+                1;
+        END;
+
+
+        -- Telemetryczny rekord jest kwalifikowany tylko wtedy,
+        -- gdy istnieje pełny Drivers (full_name + team_name).
+        SELECT @RejectedRows = COUNT(*)
+        FROM stg.PitStops AS p
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM stg.Drivers AS d
+            WHERE d.meeting_key = p.meeting_key
+              AND d.session_key = p.session_key
+              AND d.driver_number = p.driver_number
+              AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+              AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+        );
+
+        -- Odrzucenie jest dozwolone wyłącznie dla rekordów bez
+        -- oficjalnego SessionResult. Oficjalny wynik = realny problem.
         IF EXISTS (
             SELECT 1
             FROM stg.PitStops AS p
-            LEFT JOIN stg.Drivers AS d
-                ON d.meeting_key = p.meeting_key
-               AND d.session_key = p.session_key
-               AND d.driver_number = p.driver_number
-            WHERE d.driver_number IS NULL
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM stg.Drivers AS d
+                WHERE d.meeting_key = p.meeting_key
+                  AND d.session_key = p.session_key
+                  AND d.driver_number = p.driver_number
+                  AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+                  AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+            )
+              AND EXISTS (
+                SELECT 1
+                FROM stg.SessionResults AS sr
+                WHERE sr.meeting_key = p.meeting_key
+                  AND sr.session_key = p.session_key
+                  AND sr.driver_number = p.driver_number
+            )
         )
         BEGIN
             THROW 51402,
-                'FactPitStop: missing driver mapping in stg.Drivers.',
+                'FactPitStop: rejected telemetry row has an official SessionResult; driver/team mapping requires investigation.',
                 1;
         END;
+
+        SET @EligibleRows = @SourceRows - @RejectedRows;
 
 
         -- Niepuste timestampy muszą być konwertowalne.
@@ -1181,6 +1295,8 @@ BEGIN
             ON d.meeting_key = p.meeting_key
            AND d.session_key = p.session_key
            AND d.driver_number = p.driver_number
+           AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+           AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
 
         JOIN dw.DimDriver AS dd
             ON dd.DriverBusinessKey = LEFT(LTRIM(RTRIM(d.full_name)), 100)
@@ -1207,13 +1323,17 @@ BEGIN
         FROM #PitStopSource;
 
 
-        IF @MappedRows <> @SourceRows
+        IF @MappedRows <> @EligibleRows
         BEGIN
             DECLARE @PitStopErrorMessage NVARCHAR(2048);
 
             SET @PitStopErrorMessage =
                 N'FactPitStop: mapping mismatch. Source rows = '
                 + CONVERT(NVARCHAR(20), @SourceRows)
+                + N', intentionally rejected rows = '
+                + CONVERT(NVARCHAR(20), @RejectedRows)
+                + N', eligible rows = '
+                + CONVERT(NVARCHAR(20), @EligibleRows)
                 + N', mapped rows = '
                 + CONVERT(NVARCHAR(20), @MappedRows)
                 + N'.';
@@ -1563,6 +1683,8 @@ BEGIN
         BEGIN TRANSACTION;
 
         DECLARE @SourceRows INT;
+        DECLARE @RejectedRows INT;
+        DECLARE @EligibleRows INT;
         DECLARE @MappedRows INT;
 
         SELECT @SourceRows = COUNT(*)
@@ -1609,23 +1731,52 @@ BEGIN
         END;
 
 
-        -- driver_number > 0 oznacza konkretny samochód/kierowcę
-        -- i musi mieć dokładne mapowanie w stg.Drivers.
+        -- Dodatni driver_number oznacza komunikat przypisany do kierowcy.
+        -- Jeżeli brak pełnego Drivers (full_name + team_name), traktujemy
+        -- rekord jako kandydat do odrzucenia źródłowego.
+        SELECT @RejectedRows = COUNT(*)
+        FROM stg.RaceControl AS rc
+        WHERE rc.driver_number > 0
+          AND NOT EXISTS (
+                SELECT 1
+                FROM stg.Drivers AS d
+                WHERE d.meeting_key = rc.meeting_key
+                  AND d.session_key = rc.session_key
+                  AND d.driver_number = rc.driver_number
+                  AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+                  AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+          );
+
+        -- Oficjalny SessionResult dla odrzucanego kierowcy oznacza,
+        -- że to nie jest bezpieczny śmieć źródłowy i ETL ma się zatrzymać.
         IF EXISTS (
             SELECT 1
             FROM stg.RaceControl AS rc
-            LEFT JOIN stg.Drivers AS d
-                ON d.meeting_key = rc.meeting_key
-               AND d.session_key = rc.session_key
-               AND d.driver_number = rc.driver_number
             WHERE rc.driver_number > 0
-              AND d.driver_number IS NULL
+              AND NOT EXISTS (
+                    SELECT 1
+                    FROM stg.Drivers AS d
+                    WHERE d.meeting_key = rc.meeting_key
+                      AND d.session_key = rc.session_key
+                      AND d.driver_number = rc.driver_number
+                      AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+                      AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
+              )
+              AND EXISTS (
+                    SELECT 1
+                    FROM stg.SessionResults AS sr
+                    WHERE sr.meeting_key = rc.meeting_key
+                      AND sr.session_key = rc.session_key
+                      AND sr.driver_number = rc.driver_number
+              )
         )
         BEGIN
             THROW 51603,
-                'FactRaceControl: positive driver_number without mapping in stg.Drivers.',
+                'FactRaceControl: rejected driver-specific event has an official SessionResult; mapping requires investigation.',
                 1;
         END;
+
+        SET @EligibleRows = @SourceRows - @RejectedRows;
 
 
         -- Niepusta kategoria musi istnieć w wymiarze.
@@ -1727,6 +1878,8 @@ BEGIN
            AND d.meeting_key = rc.meeting_key
            AND d.session_key = rc.session_key
            AND d.driver_number = rc.driver_number
+           AND NULLIF(LTRIM(RTRIM(d.full_name)), N'') IS NOT NULL
+           AND NULLIF(LTRIM(RTRIM(d.team_name)), N'') IS NOT NULL
 
         LEFT JOIN dw.DimDriver AS dd
             ON rc.driver_number > 0
@@ -1755,20 +1908,28 @@ BEGIN
             ON cat.CategoryName = LTRIM(RTRIM(rc.category))
 
         LEFT JOIN dw.DimFlag AS flg
-            ON flg.FlagName = LTRIM(RTRIM(rc.flag));
+            ON flg.FlagName = LTRIM(RTRIM(rc.flag))
+
+        WHERE rc.driver_number IS NULL
+           OR rc.driver_number <= 0
+           OR d.driver_number IS NOT NULL;
 
 
         SELECT @MappedRows = COUNT(*)
         FROM #RaceControlSource;
 
 
-        IF @MappedRows <> @SourceRows
+        IF @MappedRows <> @EligibleRows
         BEGIN
             DECLARE @RaceControlErrorMessage NVARCHAR(2048);
 
             SET @RaceControlErrorMessage =
                 N'FactRaceControl: mapping mismatch. Source rows = '
                 + CONVERT(NVARCHAR(20), @SourceRows)
+                + N', intentionally rejected rows = '
+                + CONVERT(NVARCHAR(20), @RejectedRows)
+                + N', eligible rows = '
+                + CONVERT(NVARCHAR(20), @EligibleRows)
                 + N', mapped rows = '
                 + CONVERT(NVARCHAR(20), @MappedRows)
                 + N'.';
@@ -2311,8 +2472,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    EXEC dw.usp_LoadFactRaceResult;
-    EXEC dw.usp_LoadFactQualifyingResult;
+    EXEC dw.usp_LoadFactSessionResult;
     EXEC dw.usp_LoadFactLap;
     EXEC dw.usp_LoadFactStint;
     EXEC dw.usp_LoadFactPitStop;
@@ -2321,31 +2481,13 @@ BEGIN
     EXEC dw.usp_LoadFactAttendance;
 END;
 GO
-
-
 /*
-    TESTY
+    TESTY / kontrola liczności po pełnym loadzie
 
     EXEC dw.usp_LoadAllFacts;
 
-
-    -- Oczekiwane liczności:
-    -- FactRaceResult        = 479
-    -- FactQualifyingResult  = 599
-    -- FactLap               = 64953
-    -- FactStint             = 9543
-    -- FactPitStop           = 821
-    -- FactWeather           = 11898
-    -- FactRaceControl       = 2216
-    -- FactAttendance        = 24
-
-    SELECT 'FactRaceResult' AS TableName, COUNT(*) AS RecordCount
-    FROM dw.FactRaceResult
-
-    UNION ALL
-
-    SELECT 'FactQualifyingResult', COUNT(*)
-    FROM dw.FactQualifyingResult
+    SELECT 'FactSessionResult' AS TableName, COUNT(*) AS RecordCount
+    FROM dw.FactSessionResult
 
     UNION ALL
 
@@ -2377,19 +2519,9 @@ GO
     SELECT 'FactAttendance', COUNT(*)
     FROM dw.FactAttendance;
 
-
     -- Braki attendance są dozwolone i pozostają jako NULL.
     SELECT
         SUM(CASE WHEN WeekendAttendance IS NULL THEN 1 ELSE 0 END) AS MissingWeekendAttendance,
         SUM(CASE WHEN RaceDayAttendance IS NULL THEN 1 ELSE 0 END) AS MissingRaceDayAttendance
     FROM dw.FactAttendance;
-
-
-    -- Każdy weekend ma maksymalnie 1 rekord.
-    SELECT
-        RaceWeekendKey,
-        COUNT(*) AS DuplicateCount
-    FROM dw.FactAttendance
-    GROUP BY RaceWeekendKey
-    HAVING COUNT(*) > 1;
 */

@@ -4,40 +4,21 @@ import time
 import pandas as pd
 import requests
 
-
-YEAR = 2025
+from season_config import parse_years
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-MEETINGS_PATH = (
-    PROJECT_ROOT / "data" / "processed" / f"meetings_{YEAR}.csv"
-)
-SESSIONS_PATH = (
-    PROJECT_ROOT / "data" / "processed" / f"sessions_{YEAR}.csv"
-)
-PROCESSED_DATA_PATH = (
-    PROJECT_ROOT / "data" / "processed" / f"starting_grid_{YEAR}.csv"
-)
+PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 
-JOLPICA_BASE_URL = f"https://api.jolpi.ca/ergast/f1/{YEAR}"
 USER_AGENT = "f1-data-analytics-by-MS/1.0"
 PAGE_LIMIT = 100
 REQUEST_DELAY = 0.5
 MAX_ATTEMPTS = 3
 REQUEST_TIMEOUT = 30
 
-
-def fetch_jolpica_page(resource, offset):
-    """Pobiera jedną stronę danych Jolpica z retry i rate-limit handling."""
-    url = f"{JOLPICA_BASE_URL}/{resource}/"
-
-    params = {
-        "limit": PAGE_LIMIT,
-        "offset": offset,
-    }
-
-    headers = {
-        "User-Agent": USER_AGENT,
-    }
+def fetch_jolpica_page(base_url, resource, offset):
+    url = f"{base_url}/{resource}/"
+    params = {"limit": PAGE_LIMIT, "offset": offset}
+    headers = {"User-Agent": USER_AGENT}
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
@@ -59,13 +40,11 @@ def fetch_jolpica_page(resource, offset):
                     if retry_after
                     else 10 * attempt
                 )
-
                 print(
                     f"Limit API Jolpica dla {resource}, offset {offset}. "
                     f"Próba {attempt}/{MAX_ATTEMPTS}. "
                     f"Ponowienie za {wait_seconds:.0f} s."
                 )
-
                 time.sleep(wait_seconds)
                 continue
 
@@ -80,60 +59,107 @@ def fetch_jolpica_page(resource, offset):
                 f"Problem z połączeniem dla {resource}, offset {offset}. "
                 f"Próba {attempt}/{MAX_ATTEMPTS}: {error}"
             )
-
             if attempt < MAX_ATTEMPTS:
                 time.sleep(5 * attempt)
 
     return None
 
+def build_meeting_date_lookup(meetings_df):
+    lookup_df = meetings_df.copy()
+    lookup_df["date_start"] = pd.to_datetime(
+        lookup_df["date_start"], format="ISO8601", utc=True
+    )
+    lookup_df["date_end"] = pd.to_datetime(
+        lookup_df["date_end"], format="ISO8601", utc=True
+    )
+    lookup_df["start_date"] = lookup_df["date_start"].dt.date
+    lookup_df["end_date"] = lookup_df["date_end"].dt.date
+    return lookup_df
 
-def collect_results(resource, results_key, session_name, round_to_meeting_key, session_lookup):
-    """
-    Pobiera Race/Sprint results z Jolpica i wyciąga z nich grid.
+def resolve_meeting_key(race, meeting_date_lookup):
+    race_date_raw = race.get("date")
+    if not race_date_raw:
+        raise ValueError(
+            f"Jolpica nie zwróciła daty wyścigu dla {race.get('raceName')}."
+        )
 
-    resource:
-      - results -> Race
-      - sprint  -> Sprint
-    """
+    race_date = pd.Timestamp(race_date_raw).date()
+
+    candidates = meeting_date_lookup[
+        (meeting_date_lookup["start_date"] <= race_date)
+        & (meeting_date_lookup["end_date"] >= race_date)
+    ]
+
+    if len(candidates) == 1:
+        return int(candidates.iloc[0]["meeting_key"])
+
+    if len(candidates) > 1:
+        raise ValueError(
+            "Niejednoznaczne mapowanie Jolpica -> OpenF1 dla "
+            f"{race.get('raceName')} ({race_date})."
+        )
+
+    temp = meeting_date_lookup.copy()
+    temp["date_distance"] = temp["end_date"].apply(
+        lambda date_value: abs((date_value - race_date).days)
+    )
+    nearest = temp.sort_values(["date_distance", "meeting_key"]).iloc[0]
+
+    if int(nearest["date_distance"]) <= 1:
+        print(
+            "Ostrzeżenie: starting grid - użyto mapowania po najbliższej "
+            f"dacie dla {race.get('raceName')} ({race_date}) -> "
+            f"meeting_key={int(nearest['meeting_key'])}."
+        )
+        return int(nearest["meeting_key"])
+
+    raise ValueError(
+        f"Nie znaleziono meeting_key dla {race.get('raceName')} "
+        f"z datą {race_date}."
+    )
+
+def collect_results(
+    base_url,
+    resource,
+    results_key,
+    session_name,
+    meeting_date_lookup,
+    session_lookup,
+):
     records = []
     offset = 0
     total_results = None
 
     while total_results is None or offset < total_results:
-        data = fetch_jolpica_page(resource, offset)
+        data = fetch_jolpica_page(
+            base_url=base_url,
+            resource=resource,
+            offset=offset,
+        )
 
         if data is None:
             raise RuntimeError(
-                f"Nie udało się pobrać danych Jolpica: {resource}, "
-                f"offset={offset}."
+                f"Nie udało się pobrać danych Jolpica: "
+                f"{resource}, offset={offset}."
             )
 
         mr_data = data["MRData"]
         race_table = mr_data["RaceTable"]
         races = race_table.get("Races", [])
-
         total_results = int(mr_data.get("total", 0))
 
         for race in races:
             round_number = int(race["round"])
-
-            meeting_key = round_to_meeting_key.get(round_number)
-
-            if meeting_key is None:
-                raise ValueError(
-                    f"Nie znaleziono meeting_key dla rundy "
-                    f"{round_number}: {race.get('raceName')}."
-                )
-
-            session_key = session_lookup.get(
-                (meeting_key, session_name)
+            meeting_key = resolve_meeting_key(
+                race=race,
+                meeting_date_lookup=meeting_date_lookup,
             )
 
+            session_key = session_lookup.get((meeting_key, session_name))
+
             if session_key is None:
-                # Dla resource='sprint' jest to normalne na weekendach bez Sprintu.
                 if session_name == "Sprint":
                     continue
-
                 raise ValueError(
                     f"Nie znaleziono sesji '{session_name}' dla "
                     f"meeting_key={meeting_key}, round={round_number}."
@@ -143,205 +169,155 @@ def collect_results(resource, results_key, session_name, round_to_meeting_key, s
                 driver = result.get("Driver", {})
                 constructor = result.get("Constructor", {})
 
-                grid_position = result.get("grid")
-
-                records.append(
-                    {
-                        "meeting_key": meeting_key,
-                        "session_key": session_key,
-                        "round": round_number,
-                        "race_name": race.get("raceName"),
-                        "driver_number": result.get("number"),
-                        "driver_code": driver.get("code"),
-                        "driver_name": (
-                            f"{driver.get('givenName', '')} "
-                            f"{driver.get('familyName', '')}"
-                        ).strip(),
-                        "team_name": constructor.get("name"),
-                        "grid_position": grid_position,
-                    }
-                )
+                records.append({
+                    "meeting_key": meeting_key,
+                    "session_key": session_key,
+                    "round": round_number,
+                    "race_name": race.get("raceName"),
+                    "driver_number": result.get("number"),
+                    "driver_code": driver.get("code"),
+                    "driver_name": (
+                        f"{driver.get('givenName', '')} "
+                        f"{driver.get('familyName', '')}"
+                    ).strip(),
+                    "team_name": constructor.get("name"),
+                    "grid_position": result.get("grid"),
+                })
 
         offset += PAGE_LIMIT
 
     return records
 
+def extract_year(year):
+    meetings_path = PROCESSED_DIR / f"meetings_{year}.csv"
+    sessions_path = PROCESSED_DIR / f"sessions_{year}.csv"
+    processed_data_path = PROCESSED_DIR / f"starting_grid_{year}.csv"
+    jolpica_base_url = f"https://api.jolpi.ca/ergast/f1/{year}"
 
-# =====================================================
-# Źródła pomocnicze
-# =====================================================
+    meetings_df = pd.read_csv(meetings_path)
+    sessions_df = pd.read_csv(sessions_path)
+    meeting_date_lookup = build_meeting_date_lookup(meetings_df)
 
-meetings_df = pd.read_csv(MEETINGS_PATH)
-sessions_df = pd.read_csv(SESSIONS_PATH)
+    race_sessions_df = sessions_df[
+        sessions_df["session_name"].isin(["Race", "Sprint"])
+    ].copy()
 
-meetings_df["date_start"] = pd.to_datetime(
-    meetings_df["date_start"],
-    format="ISO8601",
-    utc=True,
-)
+    session_lookup = {
+        (int(row.meeting_key), str(row.session_name)): int(row.session_key)
+        for row in race_sessions_df.itertuples(index=False)
+    }
 
-# Zachowujemy dotychczasowe mapowanie rundy na meeting_key:
-# kolejność weekendów według date_start.
-meetings_ordered_df = meetings_df.sort_values(
-    ["date_start", "meeting_key"]
-).reset_index(drop=True)
-
-meetings_ordered_df["round"] = (
-    meetings_ordered_df.index + 1
-)
-
-round_to_meeting_key = dict(
-    zip(
-        meetings_ordered_df["round"],
-        meetings_ordered_df["meeting_key"],
+    print(f"{year}: pobieranie starting grid dla Race z Jolpica...")
+    race_grid_records = collect_results(
+        base_url=jolpica_base_url,
+        resource="results",
+        results_key="Results",
+        session_name="Race",
+        meeting_date_lookup=meeting_date_lookup,
+        session_lookup=session_lookup,
     )
-)
+    print(f"{year}: Race grid - {len(race_grid_records)} rekordów.")
 
-# Mapujemy konkretne sesje Race i Sprint do ich OpenF1 session_key.
-race_sessions_df = sessions_df[
-    sessions_df["session_name"].isin(["Race", "Sprint"])
-].copy()
-
-session_lookup = {
-    (int(row.meeting_key), str(row.session_name)): int(row.session_key)
-    for row in race_sessions_df.itertuples(index=False)
-}
-
-
-# =====================================================
-# Race starting grid
-# =====================================================
-
-print("Pobieranie starting grid dla Race z Jolpica...")
-
-race_grid_records = collect_results(
-    resource="results",
-    results_key="Results",
-    session_name="Race",
-    round_to_meeting_key=round_to_meeting_key,
-    session_lookup=session_lookup,
-)
-
-print(
-    f"Race grid: pobrano {len(race_grid_records)} rekordów."
-)
-
-
-# =====================================================
-# Sprint starting grid
-# =====================================================
-
-print("Pobieranie starting grid dla Sprint z Jolpica...")
-
-sprint_grid_records = collect_results(
-    resource="sprint",
-    results_key="SprintResults",
-    session_name="Sprint",
-    round_to_meeting_key=round_to_meeting_key,
-    session_lookup=session_lookup,
-)
-
-print(
-    f"Sprint grid: pobrano {len(sprint_grid_records)} rekordów."
-)
-
-
-# =====================================================
-# Połączenie i walidacja
-# =====================================================
-
-starting_grid_df = pd.DataFrame(
-    race_grid_records + sprint_grid_records
-)
-
-if starting_grid_df.empty:
-    raise RuntimeError(
-        "Nie pobrano żadnych danych pól startowych z Jolpica."
+    print(f"{year}: pobieranie starting grid dla Sprint z Jolpica...")
+    sprint_grid_records = collect_results(
+        base_url=jolpica_base_url,
+        resource="sprint",
+        results_key="SprintResults",
+        session_name="Sprint",
+        meeting_date_lookup=meeting_date_lookup,
+        session_lookup=session_lookup,
     )
+    print(f"{year}: Sprint grid - {len(sprint_grid_records)} rekordów.")
 
-for column in [
-    "meeting_key",
-    "session_key",
-    "round",
-    "driver_number",
-    "grid_position",
-]:
-    starting_grid_df[column] = pd.to_numeric(
-        starting_grid_df[column],
-        errors="coerce",
-    ).astype("Int64")
-
-# Grain: 1 kierowca x 1 sesja startowa.
-duplicate_count = starting_grid_df.duplicated(
-    subset=["session_key", "driver_number"]
-).sum()
-
-if duplicate_count > 0:
-    duplicate_sample = starting_grid_df[
-        starting_grid_df.duplicated(
-            subset=["session_key", "driver_number"],
-            keep=False,
+    starting_grid_df = pd.DataFrame(race_grid_records + sprint_grid_records)
+    if starting_grid_df.empty:
+        raise RuntimeError(
+            f"Nie pobrano żadnych danych pól startowych z Jolpica dla {year}."
         )
-    ][
-        [
-            "meeting_key",
-            "session_key",
-            "round",
-            "driver_number",
-            "grid_position",
-        ]
-    ].head(20)
 
-    raise ValueError(
-        f"Wykryto {duplicate_count} duplikatów "
-        "session_key + driver_number w starting_grid.\n"
-        f"Przykłady:\n{duplicate_sample.to_string(index=False)}"
-    )
+    for column in [
+        "meeting_key",
+        "session_key",
+        "round",
+        "driver_number",
+        "grid_position",
+    ]:
+        starting_grid_df[column] = pd.to_numeric(
+            starting_grid_df[column], errors="coerce"
+        ).astype("Int64")
 
-missing_grid_count = starting_grid_df[
-    "grid_position"
-].isna().sum()
+    duplicate_count = starting_grid_df.duplicated(
+        subset=["session_key", "driver_number"]
+    ).sum()
+    if duplicate_count > 0:
+        duplicate_sample = starting_grid_df[
+            starting_grid_df.duplicated(
+                subset=["session_key", "driver_number"],
+                keep=False,
+            )
+        ][
+            [
+                "meeting_key",
+                "session_key",
+                "round",
+                "driver_number",
+                "grid_position",
+            ]
+        ].head(20)
 
-if missing_grid_count > 0:
-    print(
-        f"Ostrzeżenie: {missing_grid_count} rekordów "
-        "nie ma grid_position."
-    )
+        raise ValueError(
+            f"{year}: wykryto {duplicate_count} duplikatów "
+            "session_key + driver_number w starting_grid.\n"
+            f"Przykłady:\n{duplicate_sample.to_string(index=False)}"
+        )
 
-starting_grid_df = starting_grid_df.sort_values(
-    by=["round", "session_key", "grid_position"],
-    na_position="last",
-).reset_index(drop=True)
+    missing_grid_count = starting_grid_df["grid_position"].isna().sum()
+    if missing_grid_count > 0:
+        print(
+            f"{year}: ostrzeżenie - {missing_grid_count} rekordów "
+            "nie ma grid_position."
+        )
 
-starting_grid_df.to_csv(
-    PROCESSED_DATA_PATH,
-    index=False,
-)
+    starting_grid_df = starting_grid_df.sort_values(
+        by=["round", "session_key", "grid_position"],
+        na_position="last",
+    ).reset_index(drop=True)
 
-race_session_count = starting_grid_df[
-    starting_grid_df["session_key"].isin(
+    starting_grid_df.to_csv(processed_data_path, index=False)
+
+    race_keys = set(
         race_sessions_df.loc[
             race_sessions_df["session_name"] == "Race",
             "session_key",
         ]
     )
-]["session_key"].nunique()
-
-sprint_session_count = starting_grid_df[
-    starting_grid_df["session_key"].isin(
+    sprint_keys = set(
         race_sessions_df.loc[
             race_sessions_df["session_name"] == "Sprint",
             "session_key",
         ]
     )
-]["session_key"].nunique()
 
-print(
-    f"Zapisano {len(starting_grid_df)} rekordów do "
-    f"{PROCESSED_DATA_PATH.name}."
-)
+    race_session_count = starting_grid_df[
+        starting_grid_df["session_key"].isin(race_keys)
+    ]["session_key"].nunique()
+    sprint_session_count = starting_grid_df[
+        starting_grid_df["session_key"].isin(sprint_keys)
+    ]["session_key"].nunique()
 
-print(
-    f"Sesje z gridem: Race={race_session_count}, "
-    f"Sprint={sprint_session_count}."
-)
+    print(
+        f"{year}: zapisano {len(starting_grid_df)} rekordów do "
+        f"{processed_data_path.name}."
+    )
+    print(
+        f"{year}: sesje z gridem: Race={race_session_count}, "
+        f"Sprint={sprint_session_count}."
+    )
+
+def main():
+    for year in parse_years("Pobiera starting grid Race i Sprint z Jolpica."):
+        print(f"\n=== Starting Grid {year} ===")
+        extract_year(year)
+
+if __name__ == "__main__":
+    main()
