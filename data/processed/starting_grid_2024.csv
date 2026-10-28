@@ -1,0 +1,600 @@
+meeting_key,session_key,round,race_name,driver_number,driver_code,driver_name,team_name,grid_position
+1229,9472,1,Bahrain Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1229,9472,1,Bahrain Grand Prix,16,LEC,Charles Leclerc,Ferrari,2
+1229,9472,1,Bahrain Grand Prix,63,RUS,George Russell,Mercedes,3
+1229,9472,1,Bahrain Grand Prix,55,SAI,Carlos Sainz,Ferrari,4
+1229,9472,1,Bahrain Grand Prix,11,PER,Sergio Pérez,Red Bull,5
+1229,9472,1,Bahrain Grand Prix,14,ALO,Fernando Alonso,Aston Martin,6
+1229,9472,1,Bahrain Grand Prix,4,NOR,Lando Norris,McLaren,7
+1229,9472,1,Bahrain Grand Prix,81,PIA,Oscar Piastri,McLaren,8
+1229,9472,1,Bahrain Grand Prix,44,HAM,Lewis Hamilton,Mercedes,9
+1229,9472,1,Bahrain Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,10
+1229,9472,1,Bahrain Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,11
+1229,9472,1,Bahrain Grand Prix,18,STR,Lance Stroll,Aston Martin,12
+1229,9472,1,Bahrain Grand Prix,23,ALB,Alexander Albon,Williams,13
+1229,9472,1,Bahrain Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,14
+1229,9472,1,Bahrain Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,15
+1229,9472,1,Bahrain Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1229,9472,1,Bahrain Grand Prix,24,ZHO,Guanyu Zhou,Sauber,17
+1229,9472,1,Bahrain Grand Prix,2,SAR,Logan Sargeant,Williams,18
+1229,9472,1,Bahrain Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,19
+1229,9472,1,Bahrain Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,20
+1230,9480,2,Saudi Arabian Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1230,9480,2,Saudi Arabian Grand Prix,16,LEC,Charles Leclerc,Ferrari,2
+1230,9480,2,Saudi Arabian Grand Prix,11,PER,Sergio Pérez,Red Bull,3
+1230,9480,2,Saudi Arabian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,4
+1230,9480,2,Saudi Arabian Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1230,9480,2,Saudi Arabian Grand Prix,4,NOR,Lando Norris,McLaren,6
+1230,9480,2,Saudi Arabian Grand Prix,63,RUS,George Russell,Mercedes,7
+1230,9480,2,Saudi Arabian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,8
+1230,9480,2,Saudi Arabian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,9
+1230,9480,2,Saudi Arabian Grand Prix,18,STR,Lance Stroll,Aston Martin,10
+1230,9480,2,Saudi Arabian Grand Prix,38,BEA,Oliver Bearman,Ferrari,11
+1230,9480,2,Saudi Arabian Grand Prix,23,ALB,Alexander Albon,Williams,12
+1230,9480,2,Saudi Arabian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,13
+1230,9480,2,Saudi Arabian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,14
+1230,9480,2,Saudi Arabian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,15
+1230,9480,2,Saudi Arabian Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1230,9480,2,Saudi Arabian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,17
+1230,9480,2,Saudi Arabian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,18
+1230,9480,2,Saudi Arabian Grand Prix,2,SAR,Logan Sargeant,Williams,19
+1230,9480,2,Saudi Arabian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1231,9488,3,Australian Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1231,9488,3,Australian Grand Prix,55,SAI,Carlos Sainz,Ferrari,2
+1231,9488,3,Australian Grand Prix,4,NOR,Lando Norris,McLaren,3
+1231,9488,3,Australian Grand Prix,16,LEC,Charles Leclerc,Ferrari,4
+1231,9488,3,Australian Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1231,9488,3,Australian Grand Prix,11,PER,Sergio Pérez,Red Bull,6
+1231,9488,3,Australian Grand Prix,63,RUS,George Russell,Mercedes,7
+1231,9488,3,Australian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,8
+1231,9488,3,Australian Grand Prix,18,STR,Lance Stroll,Aston Martin,9
+1231,9488,3,Australian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,10
+1231,9488,3,Australian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,11
+1231,9488,3,Australian Grand Prix,23,ALB,Alexander Albon,Williams,12
+1231,9488,3,Australian Grand Prix,77,BOT,Valtteri Bottas,Sauber,13
+1231,9488,3,Australian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,14
+1231,9488,3,Australian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,15
+1231,9488,3,Australian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,16
+1231,9488,3,Australian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,17
+1231,9488,3,Australian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,18
+1231,9488,3,Australian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1232,9496,4,Japanese Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1232,9496,4,Japanese Grand Prix,11,PER,Sergio Pérez,Red Bull,2
+1232,9496,4,Japanese Grand Prix,4,NOR,Lando Norris,McLaren,3
+1232,9496,4,Japanese Grand Prix,55,SAI,Carlos Sainz,Ferrari,4
+1232,9496,4,Japanese Grand Prix,14,ALO,Fernando Alonso,Aston Martin,5
+1232,9496,4,Japanese Grand Prix,81,PIA,Oscar Piastri,McLaren,6
+1232,9496,4,Japanese Grand Prix,44,HAM,Lewis Hamilton,Mercedes,7
+1232,9496,4,Japanese Grand Prix,16,LEC,Charles Leclerc,Ferrari,8
+1232,9496,4,Japanese Grand Prix,63,RUS,George Russell,Mercedes,9
+1232,9496,4,Japanese Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,10
+1232,9496,4,Japanese Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,11
+1232,9496,4,Japanese Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,12
+1232,9496,4,Japanese Grand Prix,77,BOT,Valtteri Bottas,Sauber,13
+1232,9496,4,Japanese Grand Prix,23,ALB,Alexander Albon,Williams,14
+1232,9496,4,Japanese Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,15
+1232,9496,4,Japanese Grand Prix,18,STR,Lance Stroll,Aston Martin,16
+1232,9496,4,Japanese Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,17
+1232,9496,4,Japanese Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,18
+1232,9496,4,Japanese Grand Prix,2,SAR,Logan Sargeant,Williams,19
+1232,9496,4,Japanese Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1233,9672,5,Chinese Grand Prix,4,NOR,Lando Norris,McLaren,1
+1233,9672,5,Chinese Grand Prix,44,HAM,Lewis Hamilton,Mercedes,2
+1233,9672,5,Chinese Grand Prix,14,ALO,Fernando Alonso,Aston Martin,3
+1233,9672,5,Chinese Grand Prix,1,VER,Max Verstappen,Red Bull,4
+1233,9672,5,Chinese Grand Prix,55,SAI,Carlos Sainz,Ferrari,5
+1233,9672,5,Chinese Grand Prix,11,PER,Sergio Pérez,Red Bull,6
+1233,9672,5,Chinese Grand Prix,16,LEC,Charles Leclerc,Ferrari,7
+1233,9672,5,Chinese Grand Prix,81,PIA,Oscar Piastri,McLaren,8
+1233,9672,5,Chinese Grand Prix,77,BOT,Valtteri Bottas,Sauber,9
+1233,9672,5,Chinese Grand Prix,24,ZHO,Guanyu Zhou,Sauber,10
+1233,9672,5,Chinese Grand Prix,63,RUS,George Russell,Mercedes,11
+1233,9672,5,Chinese Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,12
+1233,9672,5,Chinese Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,13
+1233,9672,5,Chinese Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,14
+1233,9672,5,Chinese Grand Prix,18,STR,Lance Stroll,Aston Martin,15
+1233,9672,5,Chinese Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,16
+1233,9672,5,Chinese Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,17
+1233,9672,5,Chinese Grand Prix,23,ALB,Alexander Albon,Williams,18
+1233,9672,5,Chinese Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,19
+1233,9672,5,Chinese Grand Prix,2,SAR,Logan Sargeant,Williams,20
+1233,9673,5,Chinese Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1233,9673,5,Chinese Grand Prix,11,PER,Sergio Pérez,Red Bull,2
+1233,9673,5,Chinese Grand Prix,14,ALO,Fernando Alonso,Aston Martin,3
+1233,9673,5,Chinese Grand Prix,4,NOR,Lando Norris,McLaren,4
+1233,9673,5,Chinese Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1233,9673,5,Chinese Grand Prix,16,LEC,Charles Leclerc,Ferrari,6
+1233,9673,5,Chinese Grand Prix,55,SAI,Carlos Sainz,Ferrari,7
+1233,9673,5,Chinese Grand Prix,63,RUS,George Russell,Mercedes,8
+1233,9673,5,Chinese Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,9
+1233,9673,5,Chinese Grand Prix,77,BOT,Valtteri Bottas,Sauber,10
+1233,9673,5,Chinese Grand Prix,18,STR,Lance Stroll,Aston Martin,11
+1233,9673,5,Chinese Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,12
+1233,9673,5,Chinese Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,13
+1233,9673,5,Chinese Grand Prix,23,ALB,Alexander Albon,Williams,14
+1233,9673,5,Chinese Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,15
+1233,9673,5,Chinese Grand Prix,24,ZHO,Guanyu Zhou,Sauber,16
+1233,9673,5,Chinese Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,17
+1233,9673,5,Chinese Grand Prix,44,HAM,Lewis Hamilton,Mercedes,18
+1233,9673,5,Chinese Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,19
+1233,9673,5,Chinese Grand Prix,2,SAR,Logan Sargeant,Williams,20
+1234,9506,6,Miami Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1234,9506,6,Miami Grand Prix,16,LEC,Charles Leclerc,Ferrari,2
+1234,9506,6,Miami Grand Prix,11,PER,Sergio Pérez,Red Bull,3
+1234,9506,6,Miami Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,4
+1234,9506,6,Miami Grand Prix,55,SAI,Carlos Sainz,Ferrari,5
+1234,9506,6,Miami Grand Prix,81,PIA,Oscar Piastri,McLaren,6
+1234,9506,6,Miami Grand Prix,18,STR,Lance Stroll,Aston Martin,7
+1234,9506,6,Miami Grand Prix,14,ALO,Fernando Alonso,Aston Martin,8
+1234,9506,6,Miami Grand Prix,4,NOR,Lando Norris,McLaren,9
+1234,9506,6,Miami Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,10
+1234,9506,6,Miami Grand Prix,63,RUS,George Russell,Mercedes,11
+1234,9506,6,Miami Grand Prix,44,HAM,Lewis Hamilton,Mercedes,12
+1234,9506,6,Miami Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,13
+1234,9506,6,Miami Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,14
+1234,9506,6,Miami Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,15
+1234,9506,6,Miami Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,16
+1234,9506,6,Miami Grand Prix,24,ZHO,Guanyu Zhou,Sauber,17
+1234,9506,6,Miami Grand Prix,2,SAR,Logan Sargeant,Williams,18
+1234,9506,6,Miami Grand Prix,77,BOT,Valtteri Bottas,Sauber,19
+1234,9506,6,Miami Grand Prix,23,ALB,Alexander Albon,Williams,20
+1234,9507,6,Miami Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1234,9507,6,Miami Grand Prix,16,LEC,Charles Leclerc,Ferrari,2
+1234,9507,6,Miami Grand Prix,55,SAI,Carlos Sainz,Ferrari,3
+1234,9507,6,Miami Grand Prix,11,PER,Sergio Pérez,Red Bull,4
+1234,9507,6,Miami Grand Prix,4,NOR,Lando Norris,McLaren,5
+1234,9507,6,Miami Grand Prix,81,PIA,Oscar Piastri,McLaren,6
+1234,9507,6,Miami Grand Prix,63,RUS,George Russell,Mercedes,7
+1234,9507,6,Miami Grand Prix,44,HAM,Lewis Hamilton,Mercedes,8
+1234,9507,6,Miami Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,9
+1234,9507,6,Miami Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,10
+1234,9507,6,Miami Grand Prix,18,STR,Lance Stroll,Aston Martin,11
+1234,9507,6,Miami Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,12
+1234,9507,6,Miami Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,13
+1234,9507,6,Miami Grand Prix,23,ALB,Alexander Albon,Williams,14
+1234,9507,6,Miami Grand Prix,14,ALO,Fernando Alonso,Aston Martin,15
+1234,9507,6,Miami Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1234,9507,6,Miami Grand Prix,2,SAR,Logan Sargeant,Williams,17
+1234,9507,6,Miami Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,18
+1234,9507,6,Miami Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1234,9507,6,Miami Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,20
+1235,9515,7,Emilia Romagna Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1235,9515,7,Emilia Romagna Grand Prix,4,NOR,Lando Norris,McLaren,2
+1235,9515,7,Emilia Romagna Grand Prix,16,LEC,Charles Leclerc,Ferrari,3
+1235,9515,7,Emilia Romagna Grand Prix,55,SAI,Carlos Sainz,Ferrari,4
+1235,9515,7,Emilia Romagna Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1235,9515,7,Emilia Romagna Grand Prix,63,RUS,George Russell,Mercedes,6
+1235,9515,7,Emilia Romagna Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,7
+1235,9515,7,Emilia Romagna Grand Prix,44,HAM,Lewis Hamilton,Mercedes,8
+1235,9515,7,Emilia Romagna Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,9
+1235,9515,7,Emilia Romagna Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,10
+1235,9515,7,Emilia Romagna Grand Prix,11,PER,Sergio Pérez,Red Bull,11
+1235,9515,7,Emilia Romagna Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,12
+1235,9515,7,Emilia Romagna Grand Prix,18,STR,Lance Stroll,Aston Martin,13
+1235,9515,7,Emilia Romagna Grand Prix,23,ALB,Alexander Albon,Williams,14
+1235,9515,7,Emilia Romagna Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,15
+1235,9515,7,Emilia Romagna Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1235,9515,7,Emilia Romagna Grand Prix,24,ZHO,Guanyu Zhou,Sauber,17
+1235,9515,7,Emilia Romagna Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,18
+1235,9515,7,Emilia Romagna Grand Prix,2,SAR,Logan Sargeant,Williams,19
+1235,9515,7,Emilia Romagna Grand Prix,14,ALO,Fernando Alonso,Aston Martin,20
+1236,9523,8,Monaco Grand Prix,16,LEC,Charles Leclerc,Ferrari,1
+1236,9523,8,Monaco Grand Prix,81,PIA,Oscar Piastri,McLaren,2
+1236,9523,8,Monaco Grand Prix,55,SAI,Carlos Sainz,Ferrari,3
+1236,9523,8,Monaco Grand Prix,4,NOR,Lando Norris,McLaren,4
+1236,9523,8,Monaco Grand Prix,63,RUS,George Russell,Mercedes,5
+1236,9523,8,Monaco Grand Prix,1,VER,Max Verstappen,Red Bull,6
+1236,9523,8,Monaco Grand Prix,44,HAM,Lewis Hamilton,Mercedes,7
+1236,9523,8,Monaco Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,8
+1236,9523,8,Monaco Grand Prix,23,ALB,Alexander Albon,Williams,9
+1236,9523,8,Monaco Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,10
+1236,9523,8,Monaco Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,11
+1236,9523,8,Monaco Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,12
+1236,9523,8,Monaco Grand Prix,18,STR,Lance Stroll,Aston Martin,13
+1236,9523,8,Monaco Grand Prix,14,ALO,Fernando Alonso,Aston Martin,14
+1236,9523,8,Monaco Grand Prix,2,SAR,Logan Sargeant,Williams,15
+1236,9523,8,Monaco Grand Prix,11,PER,Sergio Pérez,Red Bull,16
+1236,9523,8,Monaco Grand Prix,77,BOT,Valtteri Bottas,Sauber,17
+1236,9523,8,Monaco Grand Prix,24,ZHO,Guanyu Zhou,Sauber,18
+1236,9523,8,Monaco Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,19
+1236,9523,8,Monaco Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,20
+1237,9531,9,Canadian Grand Prix,63,RUS,George Russell,Mercedes,1
+1237,9531,9,Canadian Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1237,9531,9,Canadian Grand Prix,4,NOR,Lando Norris,McLaren,3
+1237,9531,9,Canadian Grand Prix,81,PIA,Oscar Piastri,McLaren,4
+1237,9531,9,Canadian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,5
+1237,9531,9,Canadian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,6
+1237,9531,9,Canadian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,7
+1237,9531,9,Canadian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,8
+1237,9531,9,Canadian Grand Prix,18,STR,Lance Stroll,Aston Martin,9
+1237,9531,9,Canadian Grand Prix,23,ALB,Alexander Albon,Williams,10
+1237,9531,9,Canadian Grand Prix,16,LEC,Charles Leclerc,Ferrari,11
+1237,9531,9,Canadian Grand Prix,55,SAI,Carlos Sainz,Ferrari,12
+1237,9531,9,Canadian Grand Prix,2,SAR,Logan Sargeant,Williams,13
+1237,9531,9,Canadian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,14
+1237,9531,9,Canadian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,15
+1237,9531,9,Canadian Grand Prix,11,PER,Sergio Pérez,Red Bull,16
+1237,9531,9,Canadian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,17
+1237,9531,9,Canadian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,18
+1237,9531,9,Canadian Grand Prix,77,BOT,Valtteri Bottas,Sauber,19
+1237,9531,9,Canadian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1238,9539,10,Spanish Grand Prix,4,NOR,Lando Norris,McLaren,1
+1238,9539,10,Spanish Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1238,9539,10,Spanish Grand Prix,44,HAM,Lewis Hamilton,Mercedes,3
+1238,9539,10,Spanish Grand Prix,63,RUS,George Russell,Mercedes,4
+1238,9539,10,Spanish Grand Prix,16,LEC,Charles Leclerc,Ferrari,5
+1238,9539,10,Spanish Grand Prix,55,SAI,Carlos Sainz,Ferrari,6
+1238,9539,10,Spanish Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,7
+1238,9539,10,Spanish Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,8
+1238,9539,10,Spanish Grand Prix,81,PIA,Oscar Piastri,McLaren,9
+1238,9539,10,Spanish Grand Prix,14,ALO,Fernando Alonso,Aston Martin,10
+1238,9539,10,Spanish Grand Prix,11,PER,Sergio Pérez,Red Bull,11
+1238,9539,10,Spanish Grand Prix,77,BOT,Valtteri Bottas,Sauber,12
+1238,9539,10,Spanish Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,13
+1238,9539,10,Spanish Grand Prix,18,STR,Lance Stroll,Aston Martin,14
+1238,9539,10,Spanish Grand Prix,24,ZHO,Guanyu Zhou,Sauber,15
+1238,9539,10,Spanish Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,16
+1238,9539,10,Spanish Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,17
+1238,9539,10,Spanish Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,18
+1238,9539,10,Spanish Grand Prix,2,SAR,Logan Sargeant,Williams,19
+1238,9539,10,Spanish Grand Prix,23,ALB,Alexander Albon,Williams,20
+1239,9549,11,Austrian Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1239,9549,11,Austrian Grand Prix,4,NOR,Lando Norris,McLaren,2
+1239,9549,11,Austrian Grand Prix,81,PIA,Oscar Piastri,McLaren,3
+1239,9549,11,Austrian Grand Prix,63,RUS,George Russell,Mercedes,4
+1239,9549,11,Austrian Grand Prix,55,SAI,Carlos Sainz,Ferrari,5
+1239,9549,11,Austrian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,6
+1239,9549,11,Austrian Grand Prix,11,PER,Sergio Pérez,Red Bull,7
+1239,9549,11,Austrian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,8
+1239,9549,11,Austrian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,9
+1239,9549,11,Austrian Grand Prix,16,LEC,Charles Leclerc,Ferrari,10
+1239,9549,11,Austrian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,11
+1239,9549,11,Austrian Grand Prix,18,STR,Lance Stroll,Aston Martin,12
+1239,9549,11,Austrian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,13
+1239,9549,11,Austrian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,14
+1239,9549,11,Austrian Grand Prix,2,SAR,Logan Sargeant,Williams,15
+1239,9549,11,Austrian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,16
+1239,9549,11,Austrian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,17
+1239,9549,11,Austrian Grand Prix,77,BOT,Valtteri Bottas,Sauber,18
+1239,9549,11,Austrian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1239,9549,11,Austrian Grand Prix,23,ALB,Alexander Albon,Williams,20
+1239,9550,11,Austrian Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1239,9550,11,Austrian Grand Prix,4,NOR,Lando Norris,McLaren,2
+1239,9550,11,Austrian Grand Prix,63,RUS,George Russell,Mercedes,3
+1239,9550,11,Austrian Grand Prix,55,SAI,Carlos Sainz,Ferrari,4
+1239,9550,11,Austrian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,5
+1239,9550,11,Austrian Grand Prix,16,LEC,Charles Leclerc,Ferrari,6
+1239,9550,11,Austrian Grand Prix,81,PIA,Oscar Piastri,McLaren,7
+1239,9550,11,Austrian Grand Prix,11,PER,Sergio Pérez,Red Bull,8
+1239,9550,11,Austrian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,9
+1239,9550,11,Austrian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,10
+1239,9550,11,Austrian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,11
+1239,9550,11,Austrian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,12
+1239,9550,11,Austrian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,13
+1239,9550,11,Austrian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,14
+1239,9550,11,Austrian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,15
+1239,9550,11,Austrian Grand Prix,23,ALB,Alexander Albon,Williams,16
+1239,9550,11,Austrian Grand Prix,18,STR,Lance Stroll,Aston Martin,17
+1239,9550,11,Austrian Grand Prix,77,BOT,Valtteri Bottas,Sauber,18
+1239,9550,11,Austrian Grand Prix,2,SAR,Logan Sargeant,Williams,19
+1239,9550,11,Austrian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1240,9558,12,British Grand Prix,63,RUS,George Russell,Mercedes,1
+1240,9558,12,British Grand Prix,44,HAM,Lewis Hamilton,Mercedes,2
+1240,9558,12,British Grand Prix,4,NOR,Lando Norris,McLaren,3
+1240,9558,12,British Grand Prix,1,VER,Max Verstappen,Red Bull,4
+1240,9558,12,British Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1240,9558,12,British Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,6
+1240,9558,12,British Grand Prix,55,SAI,Carlos Sainz,Ferrari,7
+1240,9558,12,British Grand Prix,18,STR,Lance Stroll,Aston Martin,8
+1240,9558,12,British Grand Prix,23,ALB,Alexander Albon,Williams,9
+1240,9558,12,British Grand Prix,14,ALO,Fernando Alonso,Aston Martin,10
+1240,9558,12,British Grand Prix,16,LEC,Charles Leclerc,Ferrari,11
+1240,9558,12,British Grand Prix,2,SAR,Logan Sargeant,Williams,12
+1240,9558,12,British Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,13
+1240,9558,12,British Grand Prix,24,ZHO,Guanyu Zhou,Sauber,14
+1240,9558,12,British Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,15
+1240,9558,12,British Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1240,9558,12,British Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,17
+1240,9558,12,British Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,18
+1240,9558,12,British Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,19
+1240,9558,12,British Grand Prix,11,PER,Sergio Pérez,Red Bull,20
+1241,9566,13,Hungarian Grand Prix,4,NOR,Lando Norris,McLaren,1
+1241,9566,13,Hungarian Grand Prix,81,PIA,Oscar Piastri,McLaren,2
+1241,9566,13,Hungarian Grand Prix,1,VER,Max Verstappen,Red Bull,3
+1241,9566,13,Hungarian Grand Prix,55,SAI,Carlos Sainz,Ferrari,4
+1241,9566,13,Hungarian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,5
+1241,9566,13,Hungarian Grand Prix,16,LEC,Charles Leclerc,Ferrari,6
+1241,9566,13,Hungarian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,7
+1241,9566,13,Hungarian Grand Prix,18,STR,Lance Stroll,Aston Martin,8
+1241,9566,13,Hungarian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,9
+1241,9566,13,Hungarian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,10
+1241,9566,13,Hungarian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,11
+1241,9566,13,Hungarian Grand Prix,77,BOT,Valtteri Bottas,Sauber,12
+1241,9566,13,Hungarian Grand Prix,23,ALB,Alexander Albon,Williams,13
+1241,9566,13,Hungarian Grand Prix,2,SAR,Logan Sargeant,Williams,14
+1241,9566,13,Hungarian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,15
+1241,9566,13,Hungarian Grand Prix,11,PER,Sergio Pérez,Red Bull,16
+1241,9566,13,Hungarian Grand Prix,63,RUS,George Russell,Mercedes,17
+1241,9566,13,Hungarian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,18
+1241,9566,13,Hungarian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,19
+1241,9566,13,Hungarian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,20
+1242,9574,14,Belgian Grand Prix,16,LEC,Charles Leclerc,Ferrari,1
+1242,9574,14,Belgian Grand Prix,11,PER,Sergio Pérez,Red Bull,2
+1242,9574,14,Belgian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,3
+1242,9574,14,Belgian Grand Prix,4,NOR,Lando Norris,McLaren,4
+1242,9574,14,Belgian Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1242,9574,14,Belgian Grand Prix,63,RUS,George Russell,Mercedes,6
+1242,9574,14,Belgian Grand Prix,55,SAI,Carlos Sainz,Ferrari,7
+1242,9574,14,Belgian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,8
+1242,9574,14,Belgian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,9
+1242,9574,14,Belgian Grand Prix,23,ALB,Alexander Albon,Williams,10
+1242,9574,14,Belgian Grand Prix,1,VER,Max Verstappen,Red Bull,11
+1242,9574,14,Belgian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,12
+1242,9574,14,Belgian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,13
+1242,9574,14,Belgian Grand Prix,77,BOT,Valtteri Bottas,Sauber,14
+1242,9574,14,Belgian Grand Prix,18,STR,Lance Stroll,Aston Martin,15
+1242,9574,14,Belgian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,16
+1242,9574,14,Belgian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,17
+1242,9574,14,Belgian Grand Prix,2,SAR,Logan Sargeant,Williams,18
+1242,9574,14,Belgian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1242,9574,14,Belgian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,20
+1243,9582,15,Dutch Grand Prix,4,NOR,Lando Norris,McLaren,1
+1243,9582,15,Dutch Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1243,9582,15,Dutch Grand Prix,81,PIA,Oscar Piastri,McLaren,3
+1243,9582,15,Dutch Grand Prix,63,RUS,George Russell,Mercedes,4
+1243,9582,15,Dutch Grand Prix,11,PER,Sergio Pérez,Red Bull,5
+1243,9582,15,Dutch Grand Prix,16,LEC,Charles Leclerc,Ferrari,6
+1243,9582,15,Dutch Grand Prix,14,ALO,Fernando Alonso,Aston Martin,7
+1243,9582,15,Dutch Grand Prix,18,STR,Lance Stroll,Aston Martin,8
+1243,9582,15,Dutch Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,9
+1243,9582,15,Dutch Grand Prix,55,SAI,Carlos Sainz,Ferrari,10
+1243,9582,15,Dutch Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,11
+1243,9582,15,Dutch Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,12
+1243,9582,15,Dutch Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,13
+1243,9582,15,Dutch Grand Prix,44,HAM,Lewis Hamilton,Mercedes,14
+1243,9582,15,Dutch Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,15
+1243,9582,15,Dutch Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1243,9582,15,Dutch Grand Prix,24,ZHO,Guanyu Zhou,Sauber,17
+1243,9582,15,Dutch Grand Prix,2,SAR,Logan Sargeant,Williams,18
+1243,9582,15,Dutch Grand Prix,23,ALB,Alexander Albon,Williams,19
+1243,9582,15,Dutch Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,20
+1244,9590,16,Italian Grand Prix,4,NOR,Lando Norris,McLaren,1
+1244,9590,16,Italian Grand Prix,81,PIA,Oscar Piastri,McLaren,2
+1244,9590,16,Italian Grand Prix,63,RUS,George Russell,Mercedes,3
+1244,9590,16,Italian Grand Prix,16,LEC,Charles Leclerc,Ferrari,4
+1244,9590,16,Italian Grand Prix,55,SAI,Carlos Sainz,Ferrari,5
+1244,9590,16,Italian Grand Prix,44,HAM,Lewis Hamilton,Mercedes,6
+1244,9590,16,Italian Grand Prix,1,VER,Max Verstappen,Red Bull,7
+1244,9590,16,Italian Grand Prix,11,PER,Sergio Pérez,Red Bull,8
+1244,9590,16,Italian Grand Prix,23,ALB,Alexander Albon,Williams,9
+1244,9590,16,Italian Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,10
+1244,9590,16,Italian Grand Prix,14,ALO,Fernando Alonso,Aston Martin,11
+1244,9590,16,Italian Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,12
+1244,9590,16,Italian Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,13
+1244,9590,16,Italian Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,14
+1244,9590,16,Italian Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,15
+1244,9590,16,Italian Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,16
+1244,9590,16,Italian Grand Prix,18,STR,Lance Stroll,Aston Martin,17
+1244,9590,16,Italian Grand Prix,43,COL,Franco Colapinto,Williams,18
+1244,9590,16,Italian Grand Prix,77,BOT,Valtteri Bottas,Sauber,19
+1244,9590,16,Italian Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1245,9598,17,Azerbaijan Grand Prix,16,LEC,Charles Leclerc,Ferrari,1
+1245,9598,17,Azerbaijan Grand Prix,81,PIA,Oscar Piastri,McLaren,2
+1245,9598,17,Azerbaijan Grand Prix,55,SAI,Carlos Sainz,Ferrari,3
+1245,9598,17,Azerbaijan Grand Prix,11,PER,Sergio Pérez,Red Bull,4
+1245,9598,17,Azerbaijan Grand Prix,63,RUS,George Russell,Mercedes,5
+1245,9598,17,Azerbaijan Grand Prix,1,VER,Max Verstappen,Red Bull,6
+1245,9598,17,Azerbaijan Grand Prix,14,ALO,Fernando Alonso,Aston Martin,7
+1245,9598,17,Azerbaijan Grand Prix,43,COL,Franco Colapinto,Williams,8
+1245,9598,17,Azerbaijan Grand Prix,23,ALB,Alexander Albon,Williams,9
+1245,9598,17,Azerbaijan Grand Prix,50,BEA,Oliver Bearman,Haas F1 Team,10
+1245,9598,17,Azerbaijan Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,11
+1245,9598,17,Azerbaijan Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,12
+1245,9598,17,Azerbaijan Grand Prix,18,STR,Lance Stroll,Aston Martin,13
+1245,9598,17,Azerbaijan Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,14
+1245,9598,17,Azerbaijan Grand Prix,4,NOR,Lando Norris,McLaren,15
+1245,9598,17,Azerbaijan Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1245,9598,17,Azerbaijan Grand Prix,24,ZHO,Guanyu Zhou,Sauber,17
+1245,9598,17,Azerbaijan Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,18
+1245,9598,17,Azerbaijan Grand Prix,44,HAM,Lewis Hamilton,Mercedes,19
+1245,9598,17,Azerbaijan Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,20
+1246,9606,18,Singapore Grand Prix,4,NOR,Lando Norris,McLaren,1
+1246,9606,18,Singapore Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1246,9606,18,Singapore Grand Prix,44,HAM,Lewis Hamilton,Mercedes,3
+1246,9606,18,Singapore Grand Prix,63,RUS,George Russell,Mercedes,4
+1246,9606,18,Singapore Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1246,9606,18,Singapore Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,6
+1246,9606,18,Singapore Grand Prix,14,ALO,Fernando Alonso,Aston Martin,7
+1246,9606,18,Singapore Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,8
+1246,9606,18,Singapore Grand Prix,16,LEC,Charles Leclerc,Ferrari,9
+1246,9606,18,Singapore Grand Prix,55,SAI,Carlos Sainz,Ferrari,10
+1246,9606,18,Singapore Grand Prix,23,ALB,Alexander Albon,Williams,11
+1246,9606,18,Singapore Grand Prix,43,COL,Franco Colapinto,Williams,12
+1246,9606,18,Singapore Grand Prix,11,PER,Sergio Pérez,Red Bull,13
+1246,9606,18,Singapore Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,14
+1246,9606,18,Singapore Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,15
+1246,9606,18,Singapore Grand Prix,3,RIC,Daniel Ricciardo,RB F1 Team,16
+1246,9606,18,Singapore Grand Prix,18,STR,Lance Stroll,Aston Martin,17
+1246,9606,18,Singapore Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,18
+1246,9606,18,Singapore Grand Prix,77,BOT,Valtteri Bottas,Sauber,19
+1246,9606,18,Singapore Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1247,9616,19,United States Grand Prix,1,VER,Max Verstappen,Red Bull,1
+1247,9616,19,United States Grand Prix,63,RUS,George Russell,Mercedes,2
+1247,9616,19,United States Grand Prix,16,LEC,Charles Leclerc,Ferrari,3
+1247,9616,19,United States Grand Prix,4,NOR,Lando Norris,McLaren,4
+1247,9616,19,United States Grand Prix,55,SAI,Carlos Sainz,Ferrari,5
+1247,9616,19,United States Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,6
+1247,9616,19,United States Grand Prix,44,HAM,Lewis Hamilton,Mercedes,7
+1247,9616,19,United States Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,8
+1247,9616,19,United States Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,9
+1247,9616,19,United States Grand Prix,43,COL,Franco Colapinto,Williams,10
+1247,9616,19,United States Grand Prix,11,PER,Sergio Pérez,Red Bull,11
+1247,9616,19,United States Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,12
+1247,9616,19,United States Grand Prix,18,STR,Lance Stroll,Aston Martin,13
+1247,9616,19,United States Grand Prix,14,ALO,Fernando Alonso,Aston Martin,14
+1247,9616,19,United States Grand Prix,30,LAW,Liam Lawson,RB F1 Team,15
+1247,9616,19,United States Grand Prix,81,PIA,Oscar Piastri,McLaren,16
+1247,9616,19,United States Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,17
+1247,9616,19,United States Grand Prix,77,BOT,Valtteri Bottas,Sauber,18
+1247,9616,19,United States Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1247,9616,19,United States Grand Prix,23,ALB,Alexander Albon,Williams,20
+1247,9617,19,United States Grand Prix,4,NOR,Lando Norris,McLaren,1
+1247,9617,19,United States Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1247,9617,19,United States Grand Prix,55,SAI,Carlos Sainz,Ferrari,3
+1247,9617,19,United States Grand Prix,16,LEC,Charles Leclerc,Ferrari,4
+1247,9617,19,United States Grand Prix,81,PIA,Oscar Piastri,McLaren,5
+1247,9617,19,United States Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,6
+1247,9617,19,United States Grand Prix,14,ALO,Fernando Alonso,Aston Martin,7
+1247,9617,19,United States Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,8
+1247,9617,19,United States Grand Prix,11,PER,Sergio Pérez,Red Bull,9
+1247,9617,19,United States Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,10
+1247,9617,19,United States Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,11
+1247,9617,19,United States Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,12
+1247,9617,19,United States Grand Prix,18,STR,Lance Stroll,Aston Martin,13
+1247,9617,19,United States Grand Prix,23,ALB,Alexander Albon,Williams,14
+1247,9617,19,United States Grand Prix,43,COL,Franco Colapinto,Williams,15
+1247,9617,19,United States Grand Prix,77,BOT,Valtteri Bottas,Sauber,16
+1247,9617,19,United States Grand Prix,44,HAM,Lewis Hamilton,Mercedes,17
+1247,9617,19,United States Grand Prix,24,ZHO,Guanyu Zhou,Sauber,18
+1247,9617,19,United States Grand Prix,30,LAW,Liam Lawson,RB F1 Team,19
+1247,9617,19,United States Grand Prix,63,RUS,George Russell,Mercedes,20
+1248,9625,20,Mexico City Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,0
+1248,9625,20,Mexico City Grand Prix,55,SAI,Carlos Sainz,Ferrari,1
+1248,9625,20,Mexico City Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1248,9625,20,Mexico City Grand Prix,4,NOR,Lando Norris,McLaren,3
+1248,9625,20,Mexico City Grand Prix,16,LEC,Charles Leclerc,Ferrari,4
+1248,9625,20,Mexico City Grand Prix,63,RUS,George Russell,Mercedes,5
+1248,9625,20,Mexico City Grand Prix,44,HAM,Lewis Hamilton,Mercedes,6
+1248,9625,20,Mexico City Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,7
+1248,9625,20,Mexico City Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,8
+1248,9625,20,Mexico City Grand Prix,23,ALB,Alexander Albon,Williams,9
+1248,9625,20,Mexico City Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,10
+1248,9625,20,Mexico City Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,11
+1248,9625,20,Mexico City Grand Prix,30,LAW,Liam Lawson,RB F1 Team,12
+1248,9625,20,Mexico City Grand Prix,14,ALO,Fernando Alonso,Aston Martin,13
+1248,9625,20,Mexico City Grand Prix,18,STR,Lance Stroll,Aston Martin,14
+1248,9625,20,Mexico City Grand Prix,77,BOT,Valtteri Bottas,Sauber,15
+1248,9625,20,Mexico City Grand Prix,43,COL,Franco Colapinto,Williams,16
+1248,9625,20,Mexico City Grand Prix,81,PIA,Oscar Piastri,McLaren,17
+1248,9625,20,Mexico City Grand Prix,11,PER,Sergio Pérez,Red Bull,18
+1248,9625,20,Mexico City Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1249,9635,21,São Paulo Grand Prix,81,PIA,Oscar Piastri,McLaren,1
+1249,9635,21,São Paulo Grand Prix,4,NOR,Lando Norris,McLaren,2
+1249,9635,21,São Paulo Grand Prix,16,LEC,Charles Leclerc,Ferrari,3
+1249,9635,21,São Paulo Grand Prix,1,VER,Max Verstappen,Red Bull,4
+1249,9635,21,São Paulo Grand Prix,55,SAI,Carlos Sainz,Ferrari,5
+1249,9635,21,São Paulo Grand Prix,63,RUS,George Russell,Mercedes,6
+1249,9635,21,São Paulo Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,7
+1249,9635,21,São Paulo Grand Prix,30,LAW,Liam Lawson,RB F1 Team,8
+1249,9635,21,São Paulo Grand Prix,23,ALB,Alexander Albon,Williams,9
+1249,9635,21,São Paulo Grand Prix,50,BEA,Oliver Bearman,Haas F1 Team,10
+1249,9635,21,São Paulo Grand Prix,44,HAM,Lewis Hamilton,Mercedes,11
+1249,9635,21,São Paulo Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,12
+1249,9635,21,São Paulo Grand Prix,11,PER,Sergio Pérez,Red Bull,13
+1249,9635,21,São Paulo Grand Prix,43,COL,Franco Colapinto,Williams,14
+1249,9635,21,São Paulo Grand Prix,77,BOT,Valtteri Bottas,Sauber,15
+1249,9635,21,São Paulo Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,16
+1249,9635,21,São Paulo Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,17
+1249,9635,21,São Paulo Grand Prix,14,ALO,Fernando Alonso,Aston Martin,18
+1249,9635,21,São Paulo Grand Prix,18,STR,Lance Stroll,Aston Martin,19
+1249,9635,21,São Paulo Grand Prix,24,ZHO,Guanyu Zhou,Sauber,20
+1249,9636,21,São Paulo Grand Prix,4,NOR,Lando Norris,McLaren,1
+1249,9636,21,São Paulo Grand Prix,63,RUS,George Russell,Mercedes,2
+1249,9636,21,São Paulo Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,3
+1249,9636,21,São Paulo Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,4
+1249,9636,21,São Paulo Grand Prix,30,LAW,Liam Lawson,RB F1 Team,5
+1249,9636,21,São Paulo Grand Prix,16,LEC,Charles Leclerc,Ferrari,6
+1249,9636,21,São Paulo Grand Prix,23,ALB,Alexander Albon,Williams,7
+1249,9636,21,São Paulo Grand Prix,81,PIA,Oscar Piastri,McLaren,8
+1249,9636,21,São Paulo Grand Prix,14,ALO,Fernando Alonso,Aston Martin,9
+1249,9636,21,São Paulo Grand Prix,18,STR,Lance Stroll,Aston Martin,10
+1249,9636,21,São Paulo Grand Prix,77,BOT,Valtteri Bottas,Sauber,11
+1249,9636,21,São Paulo Grand Prix,11,PER,Sergio Pérez,Red Bull,12
+1249,9636,21,São Paulo Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,13
+1249,9636,21,São Paulo Grand Prix,44,HAM,Lewis Hamilton,Mercedes,14
+1249,9636,21,São Paulo Grand Prix,50,BEA,Oliver Bearman,Haas F1 Team,15
+1249,9636,21,São Paulo Grand Prix,43,COL,Franco Colapinto,Williams,16
+1249,9636,21,São Paulo Grand Prix,1,VER,Max Verstappen,Red Bull,17
+1249,9636,21,São Paulo Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,18
+1249,9636,21,São Paulo Grand Prix,24,ZHO,Guanyu Zhou,Sauber,19
+1249,9636,21,São Paulo Grand Prix,55,SAI,Carlos Sainz,Ferrari,20
+1250,9644,22,Las Vegas Grand Prix,63,RUS,George Russell,Mercedes,1
+1250,9644,22,Las Vegas Grand Prix,55,SAI,Carlos Sainz,Ferrari,2
+1250,9644,22,Las Vegas Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,3
+1250,9644,22,Las Vegas Grand Prix,16,LEC,Charles Leclerc,Ferrari,4
+1250,9644,22,Las Vegas Grand Prix,1,VER,Max Verstappen,Red Bull,5
+1250,9644,22,Las Vegas Grand Prix,4,NOR,Lando Norris,McLaren,6
+1250,9644,22,Las Vegas Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,7
+1250,9644,22,Las Vegas Grand Prix,81,PIA,Oscar Piastri,McLaren,8
+1250,9644,22,Las Vegas Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,9
+1250,9644,22,Las Vegas Grand Prix,44,HAM,Lewis Hamilton,Mercedes,10
+1250,9644,22,Las Vegas Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,11
+1250,9644,22,Las Vegas Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,12
+1250,9644,22,Las Vegas Grand Prix,24,ZHO,Guanyu Zhou,Sauber,13
+1250,9644,22,Las Vegas Grand Prix,30,LAW,Liam Lawson,RB F1 Team,14
+1250,9644,22,Las Vegas Grand Prix,11,PER,Sergio Pérez,Red Bull,15
+1250,9644,22,Las Vegas Grand Prix,14,ALO,Fernando Alonso,Aston Martin,16
+1250,9644,22,Las Vegas Grand Prix,23,ALB,Alexander Albon,Williams,17
+1250,9644,22,Las Vegas Grand Prix,18,STR,Lance Stroll,Aston Martin,18
+1250,9644,22,Las Vegas Grand Prix,77,BOT,Valtteri Bottas,Sauber,19
+1250,9644,22,Las Vegas Grand Prix,43,COL,Franco Colapinto,Williams,20
+1251,9654,23,Qatar Grand Prix,4,NOR,Lando Norris,McLaren,1
+1251,9654,23,Qatar Grand Prix,63,RUS,George Russell,Mercedes,2
+1251,9654,23,Qatar Grand Prix,81,PIA,Oscar Piastri,McLaren,3
+1251,9654,23,Qatar Grand Prix,55,SAI,Carlos Sainz,Ferrari,4
+1251,9654,23,Qatar Grand Prix,16,LEC,Charles Leclerc,Ferrari,5
+1251,9654,23,Qatar Grand Prix,1,VER,Max Verstappen,Red Bull,6
+1251,9654,23,Qatar Grand Prix,44,HAM,Lewis Hamilton,Mercedes,7
+1251,9654,23,Qatar Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,8
+1251,9654,23,Qatar Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,9
+1251,9654,23,Qatar Grand Prix,30,LAW,Liam Lawson,RB F1 Team,10
+1251,9654,23,Qatar Grand Prix,14,ALO,Fernando Alonso,Aston Martin,11
+1251,9654,23,Qatar Grand Prix,23,ALB,Alexander Albon,Williams,12
+1251,9654,23,Qatar Grand Prix,77,BOT,Valtteri Bottas,Sauber,13
+1251,9654,23,Qatar Grand Prix,18,STR,Lance Stroll,Aston Martin,14
+1251,9654,23,Qatar Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,15
+1251,9654,23,Qatar Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,16
+1251,9654,23,Qatar Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,17
+1251,9654,23,Qatar Grand Prix,24,ZHO,Guanyu Zhou,Sauber,18
+1251,9654,23,Qatar Grand Prix,11,PER,Sergio Pérez,Red Bull,19
+1251,9654,23,Qatar Grand Prix,43,COL,Franco Colapinto,Williams,20
+1251,9655,23,Qatar Grand Prix,63,RUS,George Russell,Mercedes,1
+1251,9655,23,Qatar Grand Prix,1,VER,Max Verstappen,Red Bull,2
+1251,9655,23,Qatar Grand Prix,4,NOR,Lando Norris,McLaren,3
+1251,9655,23,Qatar Grand Prix,81,PIA,Oscar Piastri,McLaren,4
+1251,9655,23,Qatar Grand Prix,16,LEC,Charles Leclerc,Ferrari,5
+1251,9655,23,Qatar Grand Prix,44,HAM,Lewis Hamilton,Mercedes,6
+1251,9655,23,Qatar Grand Prix,55,SAI,Carlos Sainz,Ferrari,7
+1251,9655,23,Qatar Grand Prix,14,ALO,Fernando Alonso,Aston Martin,8
+1251,9655,23,Qatar Grand Prix,11,PER,Sergio Pérez,Red Bull,9
+1251,9655,23,Qatar Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,10
+1251,9655,23,Qatar Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,11
+1251,9655,23,Qatar Grand Prix,24,ZHO,Guanyu Zhou,Sauber,12
+1251,9655,23,Qatar Grand Prix,77,BOT,Valtteri Bottas,Sauber,13
+1251,9655,23,Qatar Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,14
+1251,9655,23,Qatar Grand Prix,18,STR,Lance Stroll,Aston Martin,15
+1251,9655,23,Qatar Grand Prix,23,ALB,Alexander Albon,Williams,16
+1251,9655,23,Qatar Grand Prix,30,LAW,Liam Lawson,RB F1 Team,17
+1251,9655,23,Qatar Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,18
+1251,9655,23,Qatar Grand Prix,43,COL,Franco Colapinto,Williams,19
+1251,9655,23,Qatar Grand Prix,31,OCO,Esteban Ocon,Alpine F1 Team,20
+1252,9662,24,Abu Dhabi Grand Prix,4,NOR,Lando Norris,McLaren,1
+1252,9662,24,Abu Dhabi Grand Prix,81,PIA,Oscar Piastri,McLaren,2
+1252,9662,24,Abu Dhabi Grand Prix,55,SAI,Carlos Sainz,Ferrari,3
+1252,9662,24,Abu Dhabi Grand Prix,1,VER,Max Verstappen,Red Bull,4
+1252,9662,24,Abu Dhabi Grand Prix,10,GAS,Pierre Gasly,Alpine F1 Team,5
+1252,9662,24,Abu Dhabi Grand Prix,63,RUS,George Russell,Mercedes,6
+1252,9662,24,Abu Dhabi Grand Prix,27,HUL,Nico Hülkenberg,Haas F1 Team,7
+1252,9662,24,Abu Dhabi Grand Prix,14,ALO,Fernando Alonso,Aston Martin,8
+1252,9662,24,Abu Dhabi Grand Prix,77,BOT,Valtteri Bottas,Sauber,9
+1252,9662,24,Abu Dhabi Grand Prix,11,PER,Sergio Pérez,Red Bull,10
+1252,9662,24,Abu Dhabi Grand Prix,22,TSU,Yuki Tsunoda,RB F1 Team,11
+1252,9662,24,Abu Dhabi Grand Prix,30,LAW,Liam Lawson,RB F1 Team,12
+1252,9662,24,Abu Dhabi Grand Prix,18,STR,Lance Stroll,Aston Martin,13
+1252,9662,24,Abu Dhabi Grand Prix,20,MAG,Kevin Magnussen,Haas F1 Team,14
+1252,9662,24,Abu Dhabi Grand Prix,24,ZHO,Guanyu Zhou,Sauber,15
+1252,9662,24,Abu Dhabi Grand Prix,44,HAM,Lewis Hamilton,Mercedes,16
+1252,9662,24,Abu Dhabi Grand Prix,61,DOO,Jack Doohan,Alpine F1 Team,17
+1252,9662,24,Abu Dhabi Grand Prix,23,ALB,Alexander Albon,Williams,18
+1252,9662,24,Abu Dhabi Grand Prix,16,LEC,Charles Leclerc,Ferrari,19
+1252,9662,24,Abu Dhabi Grand Prix,43,COL,Franco Colapinto,Williams,20

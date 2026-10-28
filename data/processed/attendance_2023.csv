@@ -1,0 +1,23 @@
+meeting_key,meeting_name,country_name,circuit_short_name,weekend_attendance,race_day_attendance,source_url,source_date,notes
+1141,Bahrain Grand Prix,Bahrain,Sakhir,99500,36000,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend and race-day attendance reported.
+1142,Saudi Arabian Grand Prix,Saudi Arabia,Jeddah,150000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,"Approximate value. Source reports weekend attendance in excess of 150,000; stored as 150,000 baseline."
+1143,Australian Grand Prix,Australia,Melbourne,444631,131124,https://gpdestinations.com/record-breaking-444000-weekend-attendance-at-2023-australian-grand-prix/,2023-04-03,Official/event-reported 4-day total and Sunday attendance.
+1207,Azerbaijan Grand Prix,Azerbaijan,Baku,95000,,https://www.cityam.com/f1-attendances-miami-behind-las-vegas-and-austin-in-us/,,Estimated/unofficial. No official 2023 weekend figure was announced; published estimate used for completeness.
+1208,Miami Grand Prix,United States,Miami,270491,90766,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance and race-day attendance reported.
+1210,Monaco Grand Prix,Monaco,Monte Carlo,200000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Estimated/unofficial. Monaco did not publish a 2023 attendance figure; value reflects the traditional recent weekend level cited by the source.
+1211,Spanish Grand Prix,Spain,Catalunya,284066,125565,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend and race-day attendance reported.
+1212,Canadian Grand Prix,Canada,Montreal,345000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1213,Austrian Grand Prix,Austria,Spielberg,304000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1214,British Grand Prix,United Kingdom,Silverstone,480000,160000,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,4-day weekend attendance and race-day attendance reported.
+1215,Hungarian Grand Prix,Hungary,Hungaroring,303000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1216,Belgian Grand Prix,Belgium,Spa-Francorchamps,380000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1217,Dutch Grand Prix,Netherlands,Zandvoort,305000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1218,Italian Grand Prix,Italy,Monza,304135,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,"Weekend attendance reported. Some contemporary reports show 304,134; source table uses 304,135."
+1219,Singapore Grand Prix,Singapore,Singapore,264108,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1220,Japanese Grand Prix,Japan,Suzuka,222000,101000,https://gpdestinations.com/2023-japanese-grand-prix-suzuka-attendance/,2023-09-24,Weekend total and Sunday attendance reported by Formula 1/Suzuka.
+1221,Qatar Grand Prix,Qatar,Lusail,120000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1222,United States Grand Prix,United States,Austin,432000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,4-day weekend attendance reported.
+1223,Mexico City Grand Prix,Mexico,Mexico City,400639,149721,https://www.mexicogp.mx/mediacenter/el-mexico-gp-2023-dejo-una-derrama-economica-superior-a-los-15-mil-millones-de-pesos-en-el-pais/?IDM=LANG_EN,,Official promoter figures for 3-day total and Sunday.
+1224,São Paulo Grand Prix,Brazil,Interlagos,267000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,Weekend attendance reported.
+1225,Las Vegas Grand Prix,United States,Las Vegas,315000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2023/,2023-12-01,4-day weekend attendance reported.
+1226,Abu Dhabi Grand Prix,United Arab Emirates,Yas Marina Circuit,170000,,https://gpdestinations.com/ranked-the-top-attended-formula-1-races-in-2024/,2024-12-16,2023 figure reported retrospectively in the 2024 attendance review.
